@@ -1,0 +1,58 @@
+<link rel="stylesheet" th:href="@{/css/in_portal.css}"/>
+<link rel="stylesheet" th:href="@{/css/in_game_kkutu.css}"/>
+
+<div style="float: left; width: 100%; margin: 5px 0;"></div>
+<div style="float: left; width: 100%;">
+    <div style="float: left; padding-left: 70px;">
+        <h3 id="holder" th:text="#{portal.logo.text}"></h3>
+        <img id="logo" th:src="@{/img/kkutu/short_logo.png}" th:alt="#{portal.logo.alt}" src="" alt="">
+    </div>
+    <div id="menu-bar" style="float: right; margin-top: 25px;">
+        <a target="_blank" href="//discord.gg/WzYxPj4" style="background-color: #7289DA;">공식 디스코드</a>
+    </div>
+    <div class="jjoriping" style="margin-top: 40px;">
+        <img class="jjoObj jjoEyeL" th:src="@{/img/jjoeyeL.png}" style="left: -270px;"><img class="jjoObj jjoNose"
+                                                                                            th:src="@{/img/jjonose.png}"
+                                                                                            style="left: -170px;"><img
+            class="jjoObj jjoEyeR" th:src="@{/img/jjoeyeR.png}" style="left: -70px;">
+        <div class="jjoDisplayBar" style="width: 325px; height: 85px;">
+            <button class="jjo-display" id="game-start" th:text="#{portal.game-start}"></button>
+        </div>
+    </div>
+</div>
+
+<div style="float: right; margin-top: -125px; width: 50%;">
+    <div class="server-list-box">
+        <h3 class="server-list-title">
+            <a id="server-refresh">
+                <i class="fa fa-refresh"></i>
+                <div class="expl" style="width: initial;">
+                    <h5 th:text="#{portal.server-list.refresh-tooltip}"></h5>
+                </div>
+            </a>
+            <label th:text="#{portal.server-list.title}"></label>
+            <label id="server-total" style="color: #AAA; font-size: 13px;"></label>
+        </h3>
+        <div id="server-list"></div>
+    </div>
+</div>
+
+<div style="float: left; width: calc(100% - 4px); border: 2px solid #CCC; margin-top: 10px; background-color: #EEE;">
+    <iframe id="kkutu-bulletin" width="100%" height="400px" th:src="@{/kkutu_bulletin.html}"></iframe>
+</div>
+<div style="float: left; width: 100%; margin: 5px 0;"></div>
+
+<div class="TLXFQZBox Product" style="display: block;">
+    <h5 class="product-title" th:text="#{portal.ad.title}"></h5>
+    <div class="product-body">
+        <!-- TODO Your ADs -->
+    </div>
+</div>
+<div style="float: left; width: 100%; margin: 10px 0;"></div>
+
+<script type="text/javascript" th:src="@{/js/in_portal.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(document).on('ready', function() {
+        new KKuTu.in_portal.default();
+    })
+</script>

@@ -1,0 +1,30 @@
+{
+  "name": "kkutu-web",
+  "version": "1.0.0",
+  "scripts": {
+    "dev-js": "webpack -w --mode=development",
+    "build": "webpack"
+  },
+  "license": "AGPL-3.0-only",
+  "author": {
+    "name": "horyu1234",
+    "email": "admin@horyu.me",
+    "url": "https://activity.horyu.me"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.0.0",
+    "webpack-bundle-analyzer": "^3.9.0",
+    "webpack-cli": "^4.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "js-cookie": "^2.2.1"
+  }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title th:text="#{title}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script type="text/javascript">
+        function getObject(v, i) {
+            Object.defineProperty(v, i, {value: v[i], writable: false});
+        }
+
+        getObject(window.WebSocket, "send");
+        getObject(window.WebSocket, "onmessage");
+        getObject(window, "WebSocket");
+    </script>
+    <link rel="canonical" th:href="@{/}">
+    <meta name="description" th:content="#{meta.description}">
+    <meta name="keywords" th:content="#{meta.keywords}">
+
+    <meta property="og:image" th:content="#{og.image}">
+    <meta property="og:url" th:content="@{/}">
+    <meta property="og:title" th:content="#{og.title}">
+    <meta property="og:description" th:content="#{og.description}">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/expl.css}"/>
+    <link rel="stylesheet" th:href="@{/css/in_game_kkutu.css}">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://kkutu.io/language/portal/ko_KR"></script>
+    <script type="text/javascript" th:src="@{/js/global.js}"></script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+</head>
+<body style="min-width: 640px;">
+
+<div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
+    <div class="Menu">
+        <button class="menu-btn" id="menu-item-HOME" onclick="location.href = '/'"><i class='fa fa-home'></i>
+        </button>
+        <div id="account">
+            <span id="profile">{}</span>
+            <div id="account-info"></div>
+        </div>
+    </div>
+    <div id="global-notice">
+        <div id="gn-content">끄투 웹서버 재개발 프로젝트가 진행 중입니다.</div>
+        <div class="expl" style="width: initial;"><h5>클릭하여 닫기</h5></div>
+    </div>
+</div>
+
+<div id="Jungle">
+    <span id="mobile"></span>
+    <span id="summonerID"></span>
+    <img id="Background" src="https://cdn.jsdelivr.net/npm/kkutuio@latest/img/bg/def.png">
+</div>
+
+<div id="Middle" th:include="${viewName}"></div>
+
+<div id="Bottom" th:unless="${#strings.startsWith(viewName, 'view/login')}">
+    <div class="bottom-legal" th:utext="#{legal.license}"></div>
+    <div class="bottom-legal" th:utext="#{legal.dictionary}"></div>
+    <div class="bottom-legal" th:utext="#{legal.copyright}"></div>
+    <div style="float: left; width: 100%; margin: 10px 0;"></div>
+</div>
+</body>
+</html>

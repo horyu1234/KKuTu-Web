@@ -1,0 +1,52 @@
+server:
+  port: <Port>
+
+spring:
+  thymeleaf:
+    cache: true
+  messages:
+    basename: locale/message
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://<Host>:<Port>/<Database>
+    username: <Username>
+    password: <Password>
+  redis:
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+    host: <Host>
+    port: <Port>
+
+oauth:
+  facebook:
+    client-id: <Client ID>
+    client-secret: <Client Secret>
+    callback-url: <Callback URL>
+  google:
+    client-id: <Client ID>
+    client-secret: <Client Secret>
+    callback-url: <Callback URL>
+  naver:
+    client-id: <Client ID>
+    client-secret: <Client Secret>
+    callback-url: <Callback URL>
+
+kkutu:
+  max-players: 400
+  game-server:
+    isSecure: true
+    host: test.kkutu.io
+    ports: 21000
+  crypto:
+    secret-key: <Secret Key>
+  moremi:
+    parts: back,eye,mouth,shoes,clothes,head,lhand,rhand,front
+    equips: NIK,BDG1,BDG2,BDG3,BDG4,Mhead,Meye,Mmouth,Mhand,Mclothes,Mshoes,Mback
+  word:
+    ko:
+      injeong-themes: IMS,VOC,KRR,KTV,NSK,KOT,DOT,THP,DRR,DGM,RAG,LVL,LOL,MRN,MMM,MAP,MKK,MNG,MOB,HYK,CYP,HRH,STA,OIJ,KGR,ESB,ELW,OIM,OVW,NEX,YRY,KPO,JLN,JAN,ZEL,POK,HAI,HSS,KMV,HDC,HOS,HON

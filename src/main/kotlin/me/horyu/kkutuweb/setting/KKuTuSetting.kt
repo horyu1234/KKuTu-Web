@@ -43,4 +43,8 @@ class KKuTuSetting(
     fun getMoremiParts() = settingNode["moremi"]["parts"].toList().map(JsonNode::textValue)
 
     fun getMoremiEquips() = settingNode["moremi"]["equips"].toList().map(JsonNode::textValue)
+
+    fun getGameRules() = objectMapper.writeValueAsString(settingNode["game-rules"])!!
+
+    fun getGameOptions() = objectMapper.writeValueAsString(settingNode["game-options"])!!
 }

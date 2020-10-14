@@ -49,8 +49,10 @@ class MainController(
             }
 
             model.addAttribute("websocketUrl", "wss://test.kkutu.io:21000/" + aeS256.encrypt(randomSid))
-            model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts())
-            model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips())
+            model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts().joinToString(","))
+            model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips().joinToString(","))
+            model.addAttribute("gameRules", kKuTuSetting.getGameRules())
+            model.addAttribute("gameOptions", kKuTuSetting.getGameOptions())
 
             model.addAttribute("viewName", "view/kkutu")
         }

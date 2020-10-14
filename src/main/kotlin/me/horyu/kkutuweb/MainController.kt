@@ -4,6 +4,7 @@ import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.session.SessionProfile
+import me.horyu.kkutuweb.setting.KKuTuSetting
 import me.horyu.kkutuweb.user.UserDao
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -16,6 +17,7 @@ import kotlin.streams.asSequence
 
 @Controller
 class MainController(
+        @Autowired private val kKuTuSetting: KKuTuSetting,
         @Autowired private val sessionDao: SessionDao,
         @Autowired private val userDao: UserDao,
         @Autowired private val aeS256: AES256
@@ -47,6 +49,9 @@ class MainController(
             }
 
             model.addAttribute("websocketUrl", "wss://test.kkutu.io:21000/" + aeS256.encrypt(randomSid))
+            model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts())
+            model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips())
+
             model.addAttribute("viewName", "view/kkutu")
         }
 

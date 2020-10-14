@@ -1,0 +1,425 @@
+{
+  "max-player": 400,
+  "game-servers": [
+    {
+      "is-secure": true,
+      "host": "127.0.0.2",
+      "port": 8080
+    }
+  ],
+  "crypto-key": "<32 Length Secret Key>",
+  "moremi": {
+    "parts": [
+      "back",
+      "eye",
+      "mouth",
+      "shoes",
+      "clothes",
+      "head",
+      "lhand",
+      "rhand",
+      "front"
+    ],
+    "categories": [
+      "all",
+      "spec",
+      "skin",
+      "badge",
+      "head",
+      "eye",
+      "mouth",
+      "clothes",
+      "hs",
+      "back"
+    ],
+    "equips": [
+      "NIK",
+      "BDG1",
+      "BDG2",
+      "BDG3",
+      "BDG4",
+      "Mhead",
+      "Meye",
+      "Mmouth",
+      "Mhand",
+      "Mclothes",
+      "Mshoes",
+      "Mback"
+    ],
+    "groups": {
+      "spec": [
+        "PIX",
+        "PIY",
+        "PIZ",
+        "CNS"
+      ],
+      "skin": [
+        "NIK"
+      ],
+      "badge": [
+        "BDG1",
+        "BDG2",
+        "BDG3",
+        "BDG4"
+      ],
+      "head": [
+        "Mhead"
+      ],
+      "eye": [
+        "Meye"
+      ],
+      "mouth": [
+        "Mmouth"
+      ],
+      "clothes": [
+        "Mclothes"
+      ],
+      "hs": [
+        "Mhand",
+        "Mshoes"
+      ],
+      "back": [
+        "Mback",
+        "Mfront"
+      ]
+    }
+  },
+  "word": {
+    "themes": {
+      "normal": {
+        "ko": [
+          "30",
+          "40",
+          "60",
+          "80",
+          "90",
+          "140",
+          "150",
+          "160",
+          "170",
+          "190",
+          "220",
+          "230",
+          "240",
+          "270",
+          "310",
+          "320",
+          "350",
+          "360",
+          "420",
+          "430",
+          "450",
+          "490",
+          "530",
+          "1001"
+        ],
+        "en": [
+          "e05",
+          "e08",
+          "e12",
+          "e13",
+          "e15",
+          "e18",
+          "e20",
+          "e43"
+        ]
+      },
+      "injeong": {
+        "ko": [
+          "IMS",
+          "VOC",
+          "KRR",
+          "KTV",
+          "NSK",
+          "KOT",
+          "DOT",
+          "THP",
+          "DRR",
+          "DGM",
+          "RAG",
+          "LVL",
+          "LOL",
+          "MRN",
+          "MMM",
+          "MAP",
+          "MKK",
+          "MNG",
+          "MOB",
+          "HYK",
+          "CYP",
+          "HRH",
+          "STA",
+          "OIJ",
+          "KGR",
+          "ESB",
+          "ELW",
+          "OIM",
+          "OVW",
+          "NEX",
+          "YRY",
+          "KPO",
+          "JLN",
+          "JAN",
+          "ZEL",
+          "POK",
+          "HAI",
+          "HSS",
+          "KMV",
+          "HDC",
+          "HOS",
+          "HON"
+        ],
+        "en": [
+          "LOL"
+        ]
+      },
+      "ijp-except": [
+        "OIJ"
+      ]
+    }
+  },
+  "game-rules": {
+    "EKT": {
+      "lang": "en",
+      "rule": "Classic",
+      "opts": [
+        "man",
+        "saf",
+        "ext",
+        "mis",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "ESH": {
+      "lang": "en",
+      "rule": "Classic",
+      "opts": [
+        "ext",
+        "mis",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "KKT": {
+      "lang": "ko",
+      "rule": "Classic",
+      "opts": [
+        "man",
+        "saf",
+        "ext",
+        "mis",
+        "loa",
+        "str",
+        "k32",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "KSH": {
+      "lang": "ko",
+      "rule": "Classic",
+      "opts": [
+        "man",
+        "saf",
+        "ext",
+        "mis",
+        "loa",
+        "str",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "CSQ": {
+      "lang": "ko",
+      "rule": "Jaqwi",
+      "opts": [
+        "ijp",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": false
+    },
+    "KCW": {
+      "lang": "ko",
+      "rule": "Crossword",
+      "opts": [
+        "beg",
+        "nog"
+      ],
+      "time": 2,
+      "ai": false,
+      "big": true,
+      "ewq": false
+    },
+    "KTY": {
+      "lang": "ko",
+      "rule": "Typing",
+      "opts": [
+        "prv",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": false,
+      "big": false,
+      "ewq": false
+    },
+    "ETY": {
+      "lang": "en",
+      "rule": "Typing",
+      "opts": [
+        "prv",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": false,
+      "big": false,
+      "ewq": false
+    },
+    "KAP": {
+      "lang": "ko",
+      "rule": "Classic",
+      "opts": [
+        "man",
+        "saf",
+        "ext",
+        "mis",
+        "loa",
+        "str",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "_back": true,
+      "ewq": true
+    },
+    "HUN": {
+      "lang": "ko",
+      "rule": "Hunmin",
+      "opts": [
+        "ext",
+        "mis",
+        "loa",
+        "str",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "KDA": {
+      "lang": "ko",
+      "rule": "Daneo",
+      "opts": [
+        "ijp",
+        "mis",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "EDA": {
+      "lang": "en",
+      "rule": "Daneo",
+      "opts": [
+        "ijp",
+        "mis",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": true,
+      "big": false,
+      "ewq": true
+    },
+    "KSS": {
+      "lang": "ko",
+      "rule": "Sock",
+      "opts": [
+        "no2",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": false,
+      "big": true,
+      "ewq": false
+    },
+    "ESS": {
+      "lang": "en",
+      "rule": "Sock",
+      "opts": [
+        "no2",
+        "beg",
+        "nog"
+      ],
+      "time": 1,
+      "ai": false,
+      "big": true,
+      "ewq": false
+    }
+  },
+  "game-options": {
+    "man": {
+      "name": "Manner"
+    },
+    "saf": {
+      "name": "Safe"
+    },
+    "ext": {
+      "name": "Injeong"
+    },
+    "mis": {
+      "name": "Mission"
+    },
+    "loa": {
+      "name": "Loanword"
+    },
+    "prv": {
+      "name": "Proverb"
+    },
+    "str": {
+      "name": "Strict"
+    },
+    "k32": {
+      "name": "Sami"
+    },
+    "no2": {
+      "name": "No2"
+    },
+    "beg": {
+      "name": "OnlyBeginner"
+    },
+    "nog": {
+      "name": "NoGuest"
+    }
+  }
+}

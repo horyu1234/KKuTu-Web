@@ -1,7 +1,8 @@
 package me.horyu.kkutuweb
 
 import me.horyu.kkutuweb.extension.toHexString
-import org.springframework.beans.factory.annotation.Value
+import me.horyu.kkutuweb.setting.KKuTuSetting
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -12,13 +13,13 @@ private const val IV_LENGTH = 16
 
 @Component
 class AES256(
-        @Value("\${kkutu.crypto.secret-key}") private val secretKey: String
+        @Autowired private val kKuTuSetting: KKuTuSetting
 ) {
     private val secretKeySpec: SecretKeySpec?
 
     init {
         secretKeySpec = try {
-            SecretKeySpec(secretKey.toByteArray(), "AES")
+            SecretKeySpec(kKuTuSetting.getCryptoKey().toByteArray(), "AES")
         } catch (e: Exception) {
             println("Error while generating key: $e")
             null

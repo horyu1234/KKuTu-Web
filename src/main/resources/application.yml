@@ -35,18 +35,3 @@ oauth:
     client-id: <Client ID>
     client-secret: <Client Secret>
     callback-url: <Callback URL>
-
-kkutu:
-  max-players: 400
-  game-server:
-    isSecure: true
-    host: test.kkutu.io
-    ports: 21000
-  crypto:
-    secret-key: <Secret Key>
-  moremi:
-    parts: back,eye,mouth,shoes,clothes,head,lhand,rhand,front
-    equips: NIK,BDG1,BDG2,BDG3,BDG4,Mhead,Meye,Mmouth,Mhand,Mclothes,Mshoes,Mback
-  word:
-    ko:
-      injeong-themes: IMS,VOC,KRR,KTV,NSK,KOT,DOT,THP,DRR,DGM,RAG,LVL,LOL,MRN,MMM,MAP,MKK,MNG,MOB,HYK,CYP,HRH,STA,OIJ,KGR,ESB,ELW,OIM,OVW,NEX,YRY,KPO,JLN,JAN,ZEL,POK,HAI,HSS,KMV,HDC,HOS,HON

@@ -1,24 +1,23 @@
 package me.horyu.kkutuweb.game
 
+import me.horyu.kkutuweb.setting.KKuTuSetting
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 @Component
 class GameClientManager(
-        @Value("\${kkutu.game-server.isSecure}") private val isSecure: Boolean,
-        @Value("\${kkutu.game-server.host}") private val host: String,
-        @Value("#{'\${kkutu.game-server.ports}'.split(',')}") private val ports: List<Int>
+        @Autowired private val kKuTuSetting: KKuTuSetting
 ) {
     private val logger = LoggerFactory.getLogger(GameClientManager::class.java)
     private val gameClientList = ArrayList<GameClient>()
 
     @PostConstruct
     fun init() {
-        for ((index, port) in ports.withIndex()) {
-            gameClientList.add(GameClient(isSecure, host, port, (index + 10).toShort()))
+        for ((index, gameServer) in kKuTuSetting.getGameServers().withIndex()) {
+            gameClientList.add(GameClient(gameServer.isSecure, gameServer.host, gameServer.port, (index + 10).toShort()))
         }
     }
 

@@ -22,7 +22,7 @@
 - [horyu1234](https://github.com/horyu1234)
 
 ### 어플리케이션 환경
-- Java 8+
+- Java 8
 - Kotlin
 - Spring boot Framework
 - Thymeleaf View Engine

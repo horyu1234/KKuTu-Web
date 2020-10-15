@@ -54,7 +54,7 @@ class MainController(
             model.addAttribute("gameRules", kKuTuSetting.getGameRules())
             model.addAttribute("gameOptions", kKuTuSetting.getGameOptions())
 
-            model.addAttribute("viewName", "view/kkutu")
+            model.addAttribute("viewName", "view/kkutu/kkutu")
         }
 
         return "layout"

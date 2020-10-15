@@ -37,6 +37,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.google.code.gson:gson:2.8.6")

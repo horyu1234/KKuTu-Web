@@ -1,0 +1,7 @@
+<div layout:fragment="dialog(id, width, height, title, nocls)"
+     class="dialog" th:id="${id}" th:style="'width:' + ${width} + 'px;height:' + ${height} + 'px'">
+    <div class="dialog-head" th:classappend="${nocls} ? no-close">
+        <div class="dialog-title" th:text="${title}" th:style="'width:' + ${width - 20} + 'px'"></div>
+    </div>
+    <div class="dialog-body" style="font-size: 13px;" layout:fragment="content"></div>
+</div>

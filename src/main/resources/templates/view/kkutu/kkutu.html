@@ -84,11 +84,9 @@
             </div>
         </th:block>
     </th:block>
-    <div class="dialog" id="LeaderboardDiag" style="width: 300px; height: 450px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;"><i class='fa fa-trophy'></i>&nbsp;랭킹</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='LeaderboardDiag',width=300,height=450,title='<i class=\'fa fa-trophy\'></i>&nbsp;랭킹')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar" style="height: 350px;">
                 <table id="ranking" style="text-align: center;">
                     <thead style="font-weight: bold; background-color: #DDDDDD;">
@@ -108,29 +106,28 @@
                 <button id="lb-me">내 순위</button>
                 <button id="lb-prev">이전</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="QuickDiag" style="width: 300px; height: 230px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;">빠른 입장</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
-            <div class="dialog-bar"><h4>게임 유형</h4><select id="quick-mode">
-                <option value="0">영어 끄투</option>
-                <option value="1">영어 끝말잇기</option>
-                <option value="2">한국어 쿵쿵따</option>
-                <option value="3">한국어 끝말잇기</option>
-                <option value="4">자음퀴즈</option>
-                <option value="5">한국어 십자말풀이</option>
-                <option value="6">한국어 타자 대결</option>
-                <option value="7">영어 타자 대결</option>
-                <option value="8">한국어 앞말잇기</option>
-                <option value="9">훈민정음</option>
-                <option value="10">한국어 단어 대결</option>
-                <option value="11">영어 단어 대결</option>
-                <option value="12">한국어 솎솎</option>
-                <option value="13">영어 솎솎</option>
-            </select></div>
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=230,title='빠른 입장')}">
+        <th:block layout:fragment="content">
+            <div class="dialog-bar">
+                <h4>게임 유형</h4>
+                <select id="quick-mode">
+                    <option value="0">영어 끄투</option>
+                    <option value="1">영어 끝말잇기</option>
+                    <option value="2">한국어 쿵쿵따</option>
+                    <option value="3">한국어 끝말잇기</option>
+                    <option value="4">자음퀴즈</option>
+                    <option value="5">한국어 십자말풀이</option>
+                    <option value="6">한국어 타자 대결</option>
+                    <option value="7">영어 타자 대결</option>
+                    <option value="8">한국어 앞말잇기</option>
+                    <option value="9">훈민정음</option>
+                    <option value="10">한국어 단어 대결</option>
+                    <option value="11">영어 단어 대결</option>
+                    <option value="12">한국어 솎솎</option>
+                    <option value="13">영어 솎솎</option>
+                </select></div>
             <div class="dialog-bar" style="height: 59px;"><h4 style="height: 45px;">특수 규칙</h4>
                 <div class="dialog-opt" id="quick-manner-panel"><input class="game-option" id="quick-manner"
                                                                        type="checkbox"
@@ -230,13 +227,10 @@
             <div class="dialog-bar tail-button">
                 <button id="quick-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="RoomDiag" style="width: 300px; height: 425px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;"></div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomDiag',width=300,height=425)}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar"><h4>방 제목</h4><input id="room-title" placeholder="회원님의 방" maxlength="20"></div>
             <div class="dialog-bar"><h4>비밀번호</h4><input id="room-pw" type="password" placeholder="비밀번호" maxlength="20">
             </div>
@@ -376,13 +370,11 @@
             <div class="dialog-bar tail-button">
                 <button id="room-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="InjPickDiag" style="width: 200px; height: 400px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 180px;">주제 선택</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;"><h4>게임에서 사용할 주제를 선택하세요.</h4>
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='InjPickDiag',width=200,height=400,title='주제 선택')}">
+        <th:block layout:fragment="content">
+            <h4>게임에서 사용할 주제를 선택하세요.</h4>
             <div class="dialog-bar">
                 <button id="injpick-all">모두 설정</button>
                 <button id="injpick-no">모두 해제</button>
@@ -618,37 +610,38 @@
             <div class="dialog-bar tail-button">
                 <button id="injpick-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="PracticeDiag" style="width: 300px; height: 135px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;"></div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
-            <div class="dialog-bar"><h4>난이도</h4><select id="practice-level">
-                <option value="0">왕초보</option>
-                <option value="1">초보</option>
-                <option value="2" selected>적절</option>
-                <option value="3">고수</option>
-                <option value="4">사기</option>
-            </select></div>
-            <div class="dialog-bar"><h4>팀</h4><select id="ai-team">
-                <option value="0" selected>개인</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
-                <option value="3">C</option>
-                <option value="4">D</option>
-            </select></div>
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='PracticeDiag',width=300,height=135)}">
+        <th:block layout:fragment="content">
+            <div class="dialog-bar">
+                <h4>난이도</h4>
+                <select id="practice-level">
+                    <option value="0">왕초보</option>
+                    <option value="1">초보</option>
+                    <option value="2" selected>적절</option>
+                    <option value="3">고수</option>
+                    <option value="4">사기</option>
+                </select>
+            </div>
+            <div class="dialog-bar">
+                <h4>팀</h4>
+                <select id="ai-team">
+                    <option value="0" selected>개인</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
             <div class="dialog-bar tail-button">
                 <button id="practice-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="ResultDiag" style="width: 400px; height: 420px;">
-        <div class="no-close dialog-head">
-            <div class="dialog-title" style="width: 380px;">게임 결과</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='ResultDiag',width=400,height=420,title='게임 결과',nocls=true)}">
+        <th:block layout:fragment="content">
             <div class="result-board"></div>
             <div class="result-me">
                 <div class="result-me-score"></div>
@@ -667,13 +660,10 @@
                 <button id="result-ok">확인</button>
                 <button id="result-save">경기 저장</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="DictionaryDiag" style="width: 400px; height: 300px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 380px;">사전</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='DictionaryDiag',width=400,height=300,title='사전')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar"><h4>검색어</h4><input id="dict-input" style="width: 283px;" placeholder="여기에 입력"
                                                        maxlength="200"></div>
             <div class="dialog-bar" id="dict-output"
@@ -681,27 +671,26 @@
             <div class="dialog-bar tail-button">
                 <button id="dict-search">검색</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="InviteDiag" style="width: 300px; height: 420px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;">초대</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='InviteDiag',width=300,height=420,title='초대')}">
+        <th:block layout:fragment="content">
             <div class="invite-board" style="height: 355px; overflow-y: scroll;"></div>
             <div class="dialog-bar tail-button">
                 <button id="invite-robot">AI 초대</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="RoomInfoDiag" style="width: 300px; height: 365px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;"></div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
-            <div class="dialog-bar room-info-head"><h4>방 제목</h4><h4 class="dialog-bar-value ellipse" id="ri-title"></h4>
-                <h4>게임 유형</h4><h4 class="dialog-bar-value" id="ri-mode"></h4><h4>라운드</h4><h4 class="dialog-bar-value"
-                                                                                             id="ri-round"></h4></div>
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomInfoDiag',width=300,height=365)}">
+        <th:block layout:fragment="content">
+            <div class="dialog-bar room-info-head">
+                <h4>방 제목</h4>
+                <h4 class="dialog-bar-value ellipse" id="ri-title"></h4>
+                <h4>게임 유형</h4>
+                <h4 class="dialog-bar-value" id="ri-mode"></h4>
+                <h4>라운드</h4>
+                <h4 class="dialog-bar-value" id="ri-round"></h4>
+            </div>
             <div class="dialog-bar" style="padding: 2px 0px; border-top: 1px dashed #CCC; margin: 2px 0px;"><h4>참여자</h4>
                 <h4 class="dialog-bar-value" id="ri-limit"></h4></div>
             <div class="dialog-bar" style="height: 190px; overflow-y: scroll;">
@@ -710,13 +699,10 @@
             <div class="dialog-bar tail-button">
                 <button id="room-info-join">입장</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="ProfileDiag" style="width: 300px; height: 395px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;"></div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ProfileDiag',width=300,height=395)}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar profile-head"></div>
             <div class="dialog-bar"><h4 style="width: 83px;">위치</h4><h4 class="dialog-bar-value"
                                                                         id="profile-place"></h4></div>
@@ -739,35 +725,33 @@
                 <button id="profile-handover">방장 인계</button>
                 <button id="profile-copy">ID 복사</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="ReportDialog" style="width: 350px; height: 265px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 330px;">끄투리오 유저 신고하기</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;"><b>1. 가장 적합한 신고 사유를 선택하여 주십시오.</b><select id="rsl"
-                                                                                                    style="width:100%;margin-top:5px;margin-bottom:5px;">
-            <option disabled>가장 적합한 신고 사유를 선택하여 주십시오.</option>
-            <option selected>[#100] 불건전한 채팅 (도배, 비방, 욕설, 정치적 발언 등)</option>
-            <option>[#101] 비 정상적인 플레이 (승부 조작, 핵 사용 등)</option>
-            <option>[#102] 부적절한 별명 또는 프로필 설명</option>
-            <option>[#102] 홍보성 채팅</option>
-            <option>[#103] 운영진 사칭</option>
-            <option>[#104] 기타 운영정책 위반 행위</option>
-        </select><b>2. 신고 사유를 구체적으로 입력해 주십시오.</b><textarea id="rst"
-                                                           style="width:calc(100% - 12px);height:115px;margin-top:5px;"
-                                                           placeholder="신고 사유를 250자 이내로 자세히 입력해주세요. 자세하게 입력하실수록 빠른 처리가 가능해집니다."
-                                                           maxlength="250"></textarea>
+        </th:block>
+    </th:block>
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='ReportDialog',width=350,height=265,title='끄투리오 유저 신고하기')}">
+        <th:block layout:fragment="content">
+            <b>1. 가장 적합한 신고 사유를 선택하여 주십시오.</b>
+            <select id="rsl" style="width:100%;margin-top:5px;margin-bottom:5px;">
+                <option disabled>가장 적합한 신고 사유를 선택하여 주십시오.</option>
+                <option selected>[#100] 불건전한 채팅 (도배, 비방, 욕설, 정치적 발언 등)</option>
+                <option>[#101] 비 정상적인 플레이 (승부 조작, 핵 사용 등)</option>
+                <option>[#102] 부적절한 별명 또는 프로필 설명</option>
+                <option>[#102] 홍보성 채팅</option>
+                <option>[#103] 운영진 사칭</option>
+                <option>[#104] 기타 운영정책 위반 행위</option>
+            </select>
+            <b>2. 신고 사유를 구체적으로 입력해 주십시오.</b>
+            <textarea id="rst"
+                      style="width:calc(100% - 12px);height:115px;margin-top:5px;"
+                      placeholder="신고 사유를 250자 이내로 자세히 입력해주세요. 자세하게 입력하실수록 빠른 처리가 가능해집니다."
+                      maxlength="250"></textarea>
             <div class="dialog-bar tail-button">
                 <button id="report-ok">신고 접수</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="KickVoteDiag" style="width: 300px; height: 160px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;">강제퇴장 투표</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='KickVoteDiag',width=300,height=160,title='강제퇴장 투표')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar" id="kick-vote-text" style="text-align: center;"></div>
             <div class="dialog-bar" style="text-align: center;">시간 안에 응답하지 않을 경우 찬성으로 간주합니다.</div>
             <div class="dialog-bar">
@@ -779,13 +763,10 @@
                 <button id="kick-vote-no">반대</button>
                 <button id="kick-vote-yes">찬성</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="PurchaseDiag" style="width: 300px; height: 310px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;">구매</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='PurchaseDiag',width=300,height=310,title='구매')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar"><h4>현재 핑</h4><h4 class="dialog-bar-value purchase-ping"
                                                      id="purchase-ping-before"></h4></div>
             <div class="dialog-bar"><h4>가격</h4><h4 class="dialog-bar-value purchase-ping" id="purchase-ping-cost"></h4>
@@ -801,27 +782,21 @@
                 <button id="purchase-no">취소</button>
                 <button id="purchase-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="ReplayDiag" style="width: 300px; height: 300px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 280px;">리플레이</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;"><input id="replay-file" type="file" style="width: 288px;"
-                                                                 accept=".kkt">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ReplayDiag',width=300,height=300,title='리플레이')}">
+        <th:block layout:fragment="content">
+            <input id="replay-file" type="file" style="width: 288px;" accept=".kkt">
             <div class="dialog-bar"><h4>기록 날짜</h4><h4 class="dialog-bar-value" id="replay-date">-</h4><h4>4.5.7</h4><h4
                     class="dialog-bar-value" id="replay-version">-</h4></div>
             <div class="dialog-bar"><h4>참가자</h4><h4 class="dialog-bar-value" id="replay-players">-</h4></div>
             <div class="dialog-bar tail-button">
                 <button id="replay-view">보기</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="DressDiag" style="width: 600px; height: 305px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 580px;">프로필 관리</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='DressDiag',width=600,height=305,title='프로필 관리')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar"><h4 style="width: 150px;">별명</h4><input id="dress-nickname" type="textfield"
                                                                             placeholder="18자 이내, 한글/영문/숫자/-/_/띄어쓰기 사용 가능"
                                                                             style="width: 435px;" maxlength="18"></div>
@@ -852,13 +827,10 @@
                 <button id="dress-cf">글자 조합소</button>
                 <button onclick="alert(&quot;Ctrl 키를 누른 상태에서 되팔 항목을 선택해 주세요.&quot;);">되팔기</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="CharFactoryDiag" style="width: 500px; height: 410px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 480px;">글자 조합소</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='CharFactoryDiag',width=500,height=410,title='글자 조합소')}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar" style="width: 300px;">
                 <div id="cf-tray"></div>
                 <div id="cf-dict"></div>
@@ -876,37 +848,29 @@
             <div class="dialog-bar tail-button">
                 <button id="cf-compose">조합</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="ChatLogDiag" style="width: 350px; height: 500px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 330px;">대화 기록</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ChatLogDiag',width=350,height=500,title='대화 기록')}">
+        <th:block layout:fragment="content">
             <div id="chat-log-board" style="height: 475px; font-size: 11px; overflow-y: scroll;"></div>
-        </div>
-    </div>
-    <div class="dialog" id="ObtainDiag" style="width: 300px; height: 200px;">
-        <div class="no-close dialog-head">
-            <div class="dialog-title" style="width: 280px;">알림</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ObtainDiag',width=300,height=200,title='알림',nocls=true)}">
+        <th:block layout:fragment="content">
             <div class="dialog-bar"><h4 style="width: 100%;">아이템을 획득했습니다!</h4></div>
             <div class="jt-image" id="obtain-image" style="margin-left: 110px; width: 80px; height: 80px;"></div>
             <div class="dialog-bar" id="obtain-name" style="text-align: center;"></div>
             <div class="dialog-bar tail-button">
                 <button id="obtain-ok">확인</button>
             </div>
-        </div>
-    </div>
-    <div class="dialog" id="HelpDiag" style="width: 550px; height: 400px;">
-        <div class="dialog-head">
-            <div class="dialog-title" style="width: 530px;">도움말</div>
-        </div>
-        <div class="dialog-body" style="font-size: 13px;">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='HelpDiag',width=550,height=400,title='도움말')}">
+        <th:block layout:fragment="content">
             <iframe id="help-board" width="550" height="375"></iframe>
-        </div>
-    </div>
+        </th:block>
+    </th:block>
+
     <div class="UserListBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-users'></i>채널 접속자
     </h5>
         <div class="product-body">

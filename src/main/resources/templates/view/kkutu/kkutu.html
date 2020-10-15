@@ -871,21 +871,19 @@
         </th:block>
     </th:block>
 
-    <div class="UserListBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-users'></i>채널 접속자
-    </h5>
-        <div class="product-body">
+    <th:block
+            layout:replace="~{view/kkutu/product::product(id='UserList',title='<i class=\'fa fa-users\'></i>채널 접속자')}">
+        <th:block layout:fragment="content">
             <div>불러오는 중</div>
-        </div>
-    </div>
-    <div class="RoomListBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-bars'></i>방 목록
-    </h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='RoomList',title='<i class=\'fa fa-bars\'></i>방 목록')}">
+        <th:block layout:fragment="content">
             <div>불러오는 중</div>
-        </div>
-    </div>
-    <div class="ShopBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-shopping-bag'></i>상점
-    </h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='Shop',title='<i class=\'fa fa-shopping-bag\'></i>상점')}">
+        <th:block layout:fragment="content">
             <div class="shop-categories">
                 <div class="category-filter shop-type" id="shop-type-all" value="">전체</div>
                 <div class="category-filter shop-type" id="shop-type-spec" value="PIX,PIY,PIZ,CNS">특수</div>
@@ -899,10 +897,10 @@
                 <div class="category-filter shop-type" id="shop-type-back" value="Mback,Mfront">배경</div>
             </div>
             <div id="shop-shelf" style="width: 100%; height: 305px; overflow-y: scroll;"></div>
-        </div>
-    </div>
-    <div class="RoomBox Product" style="display: none;"><h5 class="product-title">방</h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='Room',title='방')}">
+        <th:block layout:fragment="content">
             <div class="team-selector">
                 <div class="team-button team-0" id="team-0">개인</div>
                 <div class="team-button team-1" id="team-1">A</div>
@@ -911,10 +909,10 @@
                 <div class="team-button team-4" id="team-4">D</div>
             </div>
             <div class="room-users"></div>
-        </div>
-    </div>
-    <div class="GameBox Product" style="display: none;"><h5 class="product-title">게임</h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='Game',title='게임')}">
+        <th:block layout:fragment="content">
             <div class="game-head">
                 <div class="items"></div>
                 <div class="hints" style="display: none;"></div>
@@ -947,10 +945,10 @@
             </div>
             <div class="game-body"></div>
             <div class="game-input"><input id="game-input" placeholder="당신의 차례! 아래의 채팅 창에서 입력하세요." readonly></div>
-        </div>
-    </div>
-    <div class="MeBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-user'></i>내 정보</h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='Me',title='<i class=\'fa fa-user\'></i>내 정보</h5>')}">
+        <th:block layout:fragment="content">
             <div class="moremi my-image"></div>
             <div class="my-stat">
                 <div class="jt-image my-stat-level"></div>
@@ -975,17 +973,17 @@
                 <div class="graph-bar" style="width: NaN%;"></div>
             </div>
             <div class="bar-text my-gauge-text"></div>
-        </div>
-    </div>
-    <div class="ChatBox Product" style="display: none;"><h5 class="product-title"><i class='fa fa-comment'></i>채팅</h5>
-        <div class="product-body">
+        </th:block>
+    </th:block>
+    <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title='<i class=\'fa fa-comment\'></i>채팅</h5>')}">
+        <th:block layout:fragment="content">
             <div id="Chat"></div>
             <input id="Talk" maxlength="180" style="display:none;visibility:hidden;"><input id="MessageInput"
                                                                                             maxlength="180"
                                                                                             autocomplete="off">
             <button id="ChatBtn">전송</button>
-        </div>
-    </div>
+        </th:block>
+    </th:block>
 
     <script type="text/javascript" th:src="@{/js/in_game_kkutu.js}"></script>
 </div>

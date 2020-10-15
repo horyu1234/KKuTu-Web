@@ -1,0 +1,7 @@
+<div layout:fragment="product(id, title)" th:classappend="${id + 'Box Product'}" style="display: none;"
+     xmlns:th="http://www.w3.org/1999/html">
+    <h5 class="product-title" th:utext="${title}"></h5>
+    <div class="product-body">
+        <th:block layout:fragment="content"/>
+    </div>
+</div>

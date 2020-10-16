@@ -1,5 +1,5 @@
-<div layout:fragment="product(id, title)" th:classappend="${id + 'Box Product'}" style="display: none;"
-     xmlns:th="http://www.w3.org/1999/html">
+<div layout:fragment="product(id, title, createWithShown)" th:classappend="${id + 'Box Product'}"
+     th:style="${createWithShown} ? 'display:block' : 'display:none'">
     <h5 class="product-title" th:utext="${title}"></h5>
     <div class="product-body">
         <th:block layout:fragment="content"/>

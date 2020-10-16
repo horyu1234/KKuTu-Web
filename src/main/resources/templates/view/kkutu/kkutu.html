@@ -9,7 +9,7 @@
     <span id="RULE" th:text="${gameRules}"></span>
     <span id="OPTIONS" th:text="${gameOptions}"></span>
     <div id="Yell"></div>
-    <div id="Loading">불러오는 중</div>
+    <div id="Loading" th:text="#{kkutu.loading}"></div>
     <div id="Balloons" style="position: absolute;"></div>
 
 
@@ -17,44 +17,49 @@
         <img id="intro" src="https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/intro.png">
         <!-- img#intro-start(src='https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/intro_start.gif')-->
         <div id="version" th:text="${version}"></div>
-        <div id="intro-text">불러오는 중</div>
+        <div id="intro-text" th:text="#{kkutu.loading}"></div>
     </div>
     <th:block th:replace="view/kkutu/menu"/>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='SettingDiag',width=300,height=290,title='환경 설정')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='SettingDiag',width=300,height=290,title=#{kkutu.dialog.setting.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
-                <h4>배경 음악</h4>
+                <h4 th:text="#{kkutu.dialog.setting.bgm-volume}"></h4>
                 <th:block layout:replace="~{view/kkutu/option::settingOptionVolume(id='volume-bgm')}"/>
             </div>
             <div class="dialog-bar">
-                <h4>효과음</h4>
+                <h4 th:text="#{kkutu.dialog.setting.effect-volume}"></h4>
                 <th:block layout:replace="~{view/kkutu/option::settingOptionVolume(id='volume-effect')}"/>
             </div>
             <div class="dialog-bar">
-                <h4>요청 거부</h4>
-                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-invite',text='초대')}"/>
-                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-whisper',text='귓속말')}"/>
+                <h4 th:text="#{kkutu.dialog.setting.deny-request.title}"></h4>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='deny-invite',text=#{kkutu.dialog.setting.deny-request.invite})}"/>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='deny-whisper',text=#{kkutu.dialog.setting.deny-request.whisper})}"/>
                 <h4></h4>
-                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-friend',text='친구 추가')}"/>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='deny-friend',text=#{kkutu.dialog.setting.deny-request.friend})}"/>
             </div>
             <div class="dialog-bar">
-                <h4>게임 관련</h4>
-                <th:block layout:replace="~{view/kkutu/option::settingOption(id='auto-ready',text='자동 준비')}"/>
+                <h4 th:text="#{kkutu.dialog.setting.game.title}"></h4>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='auto-ready',text=#{kkutu.dialog.setting.game.auto-ready})}"/>
             </div>
             <div class="dialog-bar">
-                <h4>기타</h4>
+                <h4 th:text="#{kkutu.dialog.setting.etc.title}"></h4>
                 <th:block
-                        layout:replace="~{view/kkutu/option::settingOption(id='sort-user',text='접속자 목록 레벨 순 정렬',style='width: 200px')}"/>
+                        layout:replace="~{view/kkutu/option::settingOption(id='sort-user',text=#{kkutu.dialog.setting.etc.sort-user},style='width: 200px')}"/>
                 <h4></h4>
                 <th:block
-                        layout:replace="~{view/kkutu/option::settingOption(id='only-waiting',text='대기 중인 방만 보기',style='width: 200px')}"/>
+                        layout:replace="~{view/kkutu/option::settingOption(id='only-waiting',text=#{kkutu.dialog.setting.etc.only-waiting},style='width: 200px')}"/>
                 <h4></h4>
                 <th:block
-                        layout:replace="~{view/kkutu/option::settingOption(id='only-unlock',text='열려 있는 방만 보기',style='width: 200px')}"/>
+                        layout:replace="~{view/kkutu/option::settingOption(id='only-unlock',text=#{kkutu.dialog.setting.etc.only-unlock},style='width: 200px')}"/>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="setting-ok">저장</button>
-                <button id="setting-server">채널 이동</button>
+                <button id="setting-ok" th:text="#{kkutu.dialog.setting.save}"></button>
+                <button id="setting-server" th:text="#{kkutu.dialog.setting.change-server}"></button>
             </div>
         </th:block>
     </th:block>
@@ -64,21 +69,21 @@
                 <div id="comm-friends"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="comm-friend-add">친구 추가</button>
+                <button id="comm-friend-add" th:text="#{kkutu.dialog.community.friend-add}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block
-            layout:replace="~{view/kkutu/dialog::dialog(id='LeaderboardDiag',width=300,height=450,title='<i class=\'fa fa-trophy\'></i>&nbsp;랭킹')}">
+            layout:replace="~{view/kkutu/dialog::dialog(id='LeaderboardDiag',width=300,height=450,title=#{kkutu.dialog.leaderboard.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar" style="height: 350px;">
                 <table id="ranking" style="text-align: center;">
                     <thead style="font-weight: bold; background-color: #DDDDDD;">
                     <tr>
                         <td width="30">#</td>
-                        <td width="55">레벨</td>
-                        <td width="115">이름</td>
-                        <td width="100">총 경험치</td>
+                        <td width="55" th:text="#{kkutu.dialog.leaderboard.level}">레벨</td>
+                        <td width="115" th:text="#{kkutu.dialog.leaderboard.name}">이름</td>
+                        <td width="100" th:text="#{kkutu.dialog.leaderboard.totalExp}">총 경험치</td>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -88,130 +93,53 @@
                 <h4 style="width: 100%;" id="lb-page"></h4>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="lb-next" style="margin-right: 6px;">다음</button>
-                <button id="lb-me">내 순위</button>
-                <button id="lb-prev">이전</button>
+                <button id="lb-next" style="margin-right: 6px;" th:text="#{kkutu.dialog.leaderboard.next}">다음</button>
+                <button id="lb-me" th:text="#{kkutu.dialog.leaderboard.me}">내 순위</button>
+                <button id="lb-prev" th:text="#{kkutu.dialog.leaderboard.prev}">이전</button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=230,title='빠른 입장')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=230,title=#{kkutu.dialog.quick.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
-                <h4>게임 유형</h4>
+                <h4 th:text="#{kkutu.dialog.quick.gameMode}"></h4>
                 <select id="quick-mode">
                     <option th:value="${data.index}" th:each="gameMode,data : ${gameModes}"
-                            th:text="${gameMode}"></option>
+                            th:text="#{'game.mode.' + ${gameMode} + '.name'}"></option>
                 </select>
             </div>
+
             <div class="dialog-bar" style="height: 59px;">
-                <h4 style="height: 45px;">특수 규칙</h4>
-                <div class="dialog-opt" id="quick-manner-panel">
-                    <input class="game-option" id="quick-manner" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="quick-manner">매너</label>
-                    <div class="expl" style="width: initial;">
-                        <div>한방 단어를 사용할 수 없게 합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-safe-panel"><input class="game-option" id="quick-safe" type="checkbox"
-                                                                     style="margin-top: 5px; width: auto;"/><label
-                        for="quick-safe">안전</label>
-                    <div class="expl" style="width: initial;">
-                        <div>입력할 수 있는 단어가 없으면 턴을 넘기지 못해도 점수가 감점되지 않습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-injeong-panel"><input class="game-option" id="quick-injeong"
-                                                                        type="checkbox"
-                                                                        style="margin-top: 5px; width: auto;"/><label
-                        for="quick-injeong">어인정</label>
-                    <div class="expl" style="width: initial;">
-                        <div><h5>특수한 단어의 사용을 인정합니다.</h5>    <h5
-                                style='margin-top: 2px; border-top: 1px dashed #444444; padding-top: 2px; color: #BBBBBB;'>
-                            사용 가능한 단어 그룹</h5>    <h5>THE iDOLM@STER,VOCALOID,개구리 중사 케로로,국내 방송 프로그램,니세코이,대한민국 철도역,도타 2,동방
-                            프로젝트,듀라라라!!,디지몬,라면/과자/음식,러브 라이브!,리그 오브 레전드,마법소녀 리리컬 나노하,마법소녀 마도카☆마기카,메이플스토리,메카쿠시티 액터즈,모노가타리
-                            시리즈,모바일 게임,빙과,사이퍼즈,스즈미야 하루히,스타크래프트,신조어,아지랑이 프로젝트,앙상블 스타즈!,엘소드,오레이모,오버워치,온라인 게임,유루유리,유명인,라이트
-                            노벨,만화/애니메이션,젤다의 전설,포켓몬스터,하이큐!!,하스스톤,한국 영화,함대 컬렉션,히어로즈 오브 더 스톰,귀혼</h5>    <h5
-                                style='margin-top: 2px; border-top: 1px dashed #444444; padding-top: 2px; color: #BBBBBB;'>
-                            사용 가능한 단어 그룹 (영어 끄투, 영어 끝말잇기)</h5>    <h5>리그 오브 레전드</h5></div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-mission-panel"><input class="game-option" id="quick-mission"
-                                                                        type="checkbox"
-                                                                        style="margin-top: 5px; width: auto;"/><label
-                        for="quick-mission">미션</label>
-                    <div class="expl" style="width: initial;">
-                        <div>좌측에 제시된 특정 글자를 포함한 단어로 이으면 추가 점수를 얻습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-loanword-panel"><input class="game-option" id="quick-loanword"
-                                                                         type="checkbox"
-                                                                         style="margin-top: 5px; width: auto;"/><label
-                        for="quick-loanword">우리말</label>
-                    <div class="expl" style="width: initial;">
-                        <div>외래어를 사용할 수 없게 합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-proverb-panel"><input class="game-option" id="quick-proverb"
-                                                                        type="checkbox"
-                                                                        style="margin-top: 5px; width: auto;"/><label
-                        for="quick-proverb">속담</label>
-                    <div class="expl" style="width: initial;">
-                        <div>화면에 낱말 대신 한 문장씩 나타납니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-strict-panel"><input class="game-option" id="quick-strict"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="quick-strict">깐깐</label>
-                    <div class="expl" style="width: initial;">
-                        <div>방언, 옛말, 북한말을 제외한 명사 단어만 입력할 수 있습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-sami-panel"><input class="game-option" id="quick-sami" type="checkbox"
-                                                                     style="margin-top: 5px; width: auto;"/><label
-                        for="quick-sami">3232</label>
-                    <div class="expl" style="width: initial;">
-                        <div>세 글자 단어와 두 글자 단어를 번갈아가며 잇습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-no2-panel"><input class="game-option" id="quick-no2" type="checkbox"
-                                                                    style="margin-top: 5px; width: auto;"/><label
-                        for="quick-no2">2글자 금지</label>
-                    <div class="expl" style="width: initial;">
-                        <div>두 글자 단어의 사용을 막습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-onlybeginner-panel"><input class="game-option" id="quick-onlybeginner"
-                                                                             type="checkbox"
-                                                                             style="margin-top: 5px; width: auto;"/><label
-                        for="quick-onlybeginner">초보</label>
-                    <div class="expl" style="width: initial;">
-                        <div>레벨 50 이상 유저의 출입을 금지합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="quick-noguest-panel"><input class="game-option" id="quick-noguest"
-                                                                        type="checkbox"
-                                                                        style="margin-top: 5px; width: auto;"/><label
-                        for="quick-noguest">게스트 금지</label>
-                    <div class="expl" style="width: initial;">
-                        <div>해당 방의 손님 유저 출입을 금지합니다.</div>
-                    </div>
-                </div>
+                <h4 style="height: 45px;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
+                <th:block th:each="entry : ${gameOptionMap}">
+                    <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='quick')}"/>
+                </th:block>
             </div>
             <div class="dialog-bar"><h4 style="width: 100%; height: 20px;" id="quick-status"></h4></div>
             <div class="dialog-bar"><h4 style="width: 100%; height: 20px;" id="quick-queue"></h4></div>
             <div class="dialog-bar tail-button">
-                <button id="quick-ok">확인</button>
+                <button id="quick-ok" th:text="#{kkutu.dialog.quick.ok}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomDiag',width=300,height=425)}">
         <th:block layout:fragment="content">
-            <div class="dialog-bar"><h4>방 제목</h4><input id="room-title" placeholder="회원님의 방" maxlength="20"></div>
-            <div class="dialog-bar"><h4>비밀번호</h4><input id="room-pw" type="password" placeholder="비밀번호" maxlength="20">
+            <div class="dialog-bar">
+                <h4>방 제목</h4>
+                <input id="room-title" placeholder="회원님의 방" maxlength="20">
             </div>
-            <div class="dialog-bar"><h4>인원</h4><input id="room-limit" type="number" min="2" max="8" step="1" value="8">
+            <div class="dialog-bar">
+                <h4>비밀번호</h4>
+                <input id="room-pw" type="password" placeholder="비밀번호" maxlength="20">
             </div>
-            <div class="dialog-bar"><h4>게임 유형</h4><select id="room-mode">
+            <div class="dialog-bar">
+                <h4>인원</h4>
+                <input id="room-limit" type="number" min="2" max="8" step="1" value="8">
+            </div>
+            <div class="dialog-bar">
+                <h4>게임 유형</h4>
+                <select id="room-mode">
                 <optgroup label="한국어">
                     <option value="3">한국어 끝말잇기</option>
                     <option value="2">한국어 쿵쿵따</option>

@@ -8,3 +8,12 @@
 <div layout:fragment="settingOptionVolume(id)">
     <input th:id="${id}" type="range" min="0" max="1" step="0.01" value="1" style="width:50%;"/>
 </div>
+
+<div layout:fragment="gameOption(key, prefix)" class="dialog-opt" th:id="${prefix + '-' + sid + '-panel'}"
+     th:with="name=${gameOptionMap.get(key)},sid=${name.toLowerCase()}">
+    <input class="game-option" th:id="${prefix + '-' + sid}" type="checkbox" style="margin-top: 5px; width: auto;"/>
+    <label th:for="${prefix + '-' + sid}" th:text="#{'game.option.' + ${name} + '.name'}"></label>
+    <div class="expl" style="width: initial;">
+        <div th:text="#{'game.option.' + ${name} + '.expl'}"></div>
+    </div>
+</div>

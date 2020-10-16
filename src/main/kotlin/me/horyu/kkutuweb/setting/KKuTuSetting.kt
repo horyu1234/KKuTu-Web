@@ -50,5 +50,14 @@ class KKuTuSetting(
 
     fun getGameOptions() = objectMapper.writeValueAsString(settingNode["game-options"])!!
 
+    fun getGameOptionMap(): Map<String, String> {
+        val resultMap = HashMap<String, String>()
+        for (key in settingNode["game-options"].fieldNames()) {
+            resultMap[key] = settingNode["game-options"][key]["name"].textValue()
+        }
+
+        return resultMap
+    }
+
     fun getGameModes() = settingNode["game-rules"].fieldNames().asSequence().toList()
 }

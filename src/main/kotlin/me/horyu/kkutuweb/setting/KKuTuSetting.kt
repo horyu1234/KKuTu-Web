@@ -26,6 +26,8 @@ class KKuTuSetting(
         }
     }
 
+    fun getVersion() = settingNode["version"].textValue()!!
+
     fun getMaxPlayer() = settingNode["max-player"].intValue()
 
     fun getGameServers() = settingNode["game-servers"].toList().map {

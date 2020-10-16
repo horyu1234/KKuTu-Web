@@ -1,4 +1,5 @@
 {
+  "version": "2.6.0",
   "max-player": 400,
   "game-servers": [
     {

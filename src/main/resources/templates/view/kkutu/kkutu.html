@@ -16,7 +16,7 @@
     <div id="Intro">
         <img id="intro" src="https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/intro.png">
         <!-- img#intro-start(src='https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/intro_start.gif')-->
-        <div id="version">4.5.7</div>
+        <div id="version" th:text="${version}"></div>
         <div id="intro-text">불러오는 중</div>
     </div>
     <th:block th:replace="view/kkutu/menu"/>
@@ -762,9 +762,16 @@
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ReplayDiag',width=300,height=300,title='리플레이')}">
         <th:block layout:fragment="content">
             <input id="replay-file" type="file" style="width: 288px;" accept=".kkt">
-            <div class="dialog-bar"><h4>기록 날짜</h4><h4 class="dialog-bar-value" id="replay-date">-</h4><h4>4.5.7</h4><h4
-                    class="dialog-bar-value" id="replay-version">-</h4></div>
-            <div class="dialog-bar"><h4>참가자</h4><h4 class="dialog-bar-value" id="replay-players">-</h4></div>
+            <div class="dialog-bar">
+                <h4>기록 날짜</h4>
+                <h4 class="dialog-bar-value" id="replay-date">-</h4>
+                <h4 th:text="${version}"></h4>
+                <h4 class="dialog-bar-value" id="replay-version">-</h4>
+            </div>
+            <div class="dialog-bar">
+                <h4>참가자</h4>
+                <h4 class="dialog-bar-value" id="replay-players">-</h4>
+            </div>
             <div class="dialog-bar tail-button">
                 <button id="replay-view">보기</button>
             </div>

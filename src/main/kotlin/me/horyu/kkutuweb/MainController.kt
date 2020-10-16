@@ -48,6 +48,7 @@ class MainController(
                 ), randomSid)
             }
 
+            model.addAttribute("version", kKuTuSetting.getVersion())
             model.addAttribute("websocketUrl", "wss://test.kkutu.io:21000/" + aeS256.encrypt(randomSid))
             model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts().joinToString(","))
             model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips().joinToString(","))

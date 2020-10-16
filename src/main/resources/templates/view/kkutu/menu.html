@@ -1,30 +1,35 @@
 <div class="kkutu-menu">
     <button class="tiny-menu for-lobby for-master for-normal for-gaming" id="HelpBtn"
-            style="display: none; background-color: #BBBBBB;"><i class='fa fa-question-circle'></i></button>
+            style="display: none; background-color: #BBBBBB;" th:utext="#{kkutu.menu.help}"></button>
     <button class="tiny-menu for-lobby for-master for-normal for-gaming" id="SettingBtn"
-            style="display: none; background-color: #CCCCCC;"><i class='fa fa-wrench'></i></button>
+            style="display: none; background-color: #CCCCCC;" th:utext="#{kkutu.menu.setting}"></button>
     <button class="tiny-menu for-lobby for-master for-normal for-gaming" id="CommunityBtn"
-            style="display: none; background-color: #DAA9FF;"><i class='fa fa-comments'></i></button>
-    <button class="for-master for-normal" id="SpectateBtn" style="display: none; background-color: #D19DFF;">관전하기
-    </button>
-    <button class="for-master" id="SetRoomBtn" style="display: none; background-color: #B0D2F3;">방 설정</button>
-    <button class="for-lobby" id="NewRoomBtn" style="display: none; background-color: #8EC0F3;">방 만들기</button>
-    <button class="for-lobby" id="QuickRoomBtn" style="display: none; background-color: #B0D2F3;">빠른 입장</button>
-    <button class="for-lobby" id="ShopBtn" style="display: none; background-color: #B3E7B7;">상점</button>
+            style="display: none; background-color: #DAA9FF;" th:utext="#{kkutu.menu.community}"></button>
+    <button class="for-master for-normal" id="SpectateBtn" style="display: none; background-color: #D19DFF;"
+            th:text="#{kkutu.menu.spectate}"></button>
+    <button class="for-master" id="SetRoomBtn" style="display: none; background-color: #B0D2F3;"
+            th:text="#{kkutu.menu.setRoom}"></button>
+    <button class="for-lobby" id="NewRoomBtn" style="display: none; background-color: #8EC0F3;"
+            th:text="#{kkutu.menu.newRoom}"></button>
+    <button class="for-lobby" id="QuickRoomBtn" style="display: none; background-color: #B0D2F3;"
+            th:text="#{kkutu.menu.quickRoom}"></button>
+    <button class="for-lobby" id="ShopBtn" style="display: none; background-color: #B3E7B7;"
+            th:text="#{kkutu.menu.shop}"></button>
     <button class="for-lobby for-master for-normal for-gaming" id="DictionaryBtn"
-            style="display: none; background-color: #73D07A;">사전
-    </button>
+            style="display: none; background-color: #73D07A;" th:text="#{kkutu.menu.dict}"></button>
     <!-- button#WordPlusBtn.for-lobby.for-master.for-normal.for-gaming(style='display: none; background-color: #73D07A;')= L('wordPlus')-->
-    <button class="for-master" id="InviteBtn" style="display: none; background-color: #9FE669;">초대</button>
-    <button class="for-master for-normal" id="PracticeBtn" style="display: none; background-color: #FCF5A9;">연습
-    </button>
-    <button class="for-normal" id="ReadyBtn" style="display: none; background-color: #FFC67F;">준비</button>
-    <button class="for-master" id="StartBtn" style="display: none; background-color: #FFB576;">시작</button>
-    <button class="for-master for-normal for-gaming" id="ExitBtn" style="display: none; background-color: #FFADAD;">
-        나가기
-    </button>
-    <button class="for-lobby" id="ReplayBtn" style="display: none; background-color: #D9FF82;">리플레이</button>
-    <button class="for-lobby" id="LeaderboardBtn" style="display: none; background-color: #FFADD3;"><i
-            class='fa fa-trophy'></i>&nbsp;랭킹
-    </button>
+    <button class="for-master" id="InviteBtn" style="display: none; background-color: #9FE669;"
+            th:text="#{kkutu.menu.invite}"></button>
+    <button class="for-master for-normal" id="PracticeBtn" style="display: none; background-color: #FCF5A9;"
+            th:text="#{kkutu.menu.practice}"></button>
+    <button class="for-normal" id="ReadyBtn" style="display: none; background-color: #FFC67F;"
+            th:text="#{kkutu.menu.ready}"></button>
+    <button class="for-master" id="StartBtn" style="display: none; background-color: #FFB576;"
+            th:text="#{kkutu.menu.start}"></button>
+    <button class="for-master for-normal for-gaming" id="ExitBtn" style="display: none; background-color: #FFADAD;"
+            th:text="#{kkutu.menu.leave}"></button>
+    <button class="for-lobby" id="ReplayBtn" style="display: none; background-color: #D9FF82;"
+            th:text="#{kkutu.menu.replay}"></button>
+    <button class="for-lobby" id="LeaderboardBtn" style="display: none; background-color: #FFADD3;"
+            th:utext="#{kkutu.menu.leaderboard}"></button>
 </div>

@@ -341,7 +341,7 @@
             이러한 단어들은 뜻 대신 단어의 그룹 이름이 나타납니다.</p>
             <h4>사용 가능한 단어 그룹:</h4>
             <ul id="box-injeong-list" th:each="theme : ${koInjeongThemes}">
-                <li th:text="${theme}"></li>
+                <li th:text="#{'word.theme.' + ${theme}}"></li>
             </ul>
         </div>
         <div class="page-body" id="box-c4p4"><p>주어진 미션 글자를 포함시킨 단어로 차례를 넘길 경우 추가 점수를 획득합니다.

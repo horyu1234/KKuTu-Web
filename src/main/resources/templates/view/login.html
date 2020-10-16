@@ -1,32 +1,17 @@
 <link rel="stylesheet" th:href="@{/css/in_login.css}"/>
 
-<div class="login-with">로그인</div>
+<div class="login-with" th:text="#{login.title}"></div>
 
-<a href="/login/discord">
-    <button style="color: #FFFFFF; background-color: #7289DA;">Discord 로그인</button>
+<a th:href="@{/login/facebook}">
+    <button style="color: #FFFFFF; background-color: #235EE3;" th:text="#{login.button.facebook}"></button>
 </a>
 
-<a href="/login/facebook">
-    <button style="color: #FFFFFF; background-color: #235EE3;">Facebook 로그인</button>
+<a th:href="@{/login/google}">
+    <button style="color: #000000; background-color: #FFFFFF;" th:text="#{login.button.google}"></button>
 </a>
 
-<a href="/login/github">
-    <button style="color: #000000; background-color: #B6B9BD;">Github 로그인</button>
+<a th:href="@{/login/naver}">
+    <button style="color: #FFFFFF; background-color: #1EC800;" th:text="#{login.button.naver}"></button>
 </a>
 
-<a href="/login/google">
-    <button style="color: #000000; background-color: #FFFFFF;">Google 로그인</button>
-</a>
-
-<a href="/login/kakao">
-    <button style="color: #3C1E1E; background-color: #FFDE00;">Kakao 로그인</button>
-</a>
-
-<a href="/login/naver">
-    <button style="color: #FFFFFF; background-color: #1EC800;">네이버 로그인</button>
-</a>
-
-<div class="login-legal">
-    회원가입 또는 로그인을 하면 <a href='https://legal.kkutu.io/legal/terms.html' target='_blank'>이용약관</a>과 <a
-        href='https://legal.kkutu.io/legal/privacy.html' target='_blank'>개인정보처리방침</a>에 동의하는 것으로 봅니다.
-</div>
+<div class="login-legal" th:utext="#{login.legal}"></div>

@@ -47,4 +47,6 @@ class KKuTuSetting(
     fun getGameRules() = objectMapper.writeValueAsString(settingNode["game-rules"])!!
 
     fun getGameOptions() = objectMapper.writeValueAsString(settingNode["game-options"])!!
+
+    fun getGameModes() = settingNode["game-rules"].fieldNames().asSequence().toList()
 }

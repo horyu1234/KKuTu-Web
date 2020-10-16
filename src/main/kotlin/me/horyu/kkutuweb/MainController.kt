@@ -53,6 +53,7 @@ class MainController(
             model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips().joinToString(","))
             model.addAttribute("gameRules", kKuTuSetting.getGameRules())
             model.addAttribute("gameOptions", kKuTuSetting.getGameOptions())
+            model.addAttribute("gameModes", kKuTuSetting.getGameModes())
 
             model.addAttribute("viewName", "view/kkutu/kkutu")
         }

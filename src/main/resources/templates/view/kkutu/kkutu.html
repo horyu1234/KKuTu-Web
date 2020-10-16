@@ -24,49 +24,33 @@
         <th:block layout:fragment="content">
             <div class="dialog-bar">
                 <h4>배경 음악</h4>
-                <input id="volume-bgm" type="range" min="0" max="1" step="0.01" value="1" style="width:50%;"/>
+                <th:block layout:replace="~{view/kkutu/option::settingOptionVolume(id='volume-bgm')}"/>
             </div>
             <div class="dialog-bar">
                 <h4>효과음</h4>
-                <input id="volume-effect" type="range" min="0" max="1" step="0.01" value="1" style="width:50%;"/>
+                <th:block layout:replace="~{view/kkutu/option::settingOptionVolume(id='volume-effect')}"/>
             </div>
             <div class="dialog-bar">
                 <h4>요청 거부</h4>
-                <div class="dialog-opt">
-                    <input id="deny-invite" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="deny-invite">초대</label>
-                </div>
-                <div class="dialog-opt">
-                    <input id="deny-whisper" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="deny-whisper">귓속말</label>
-                </div>
+                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-invite',text='초대')}"/>
+                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-whisper',text='귓속말')}"/>
                 <h4></h4>
-                <div class="dialog-opt">
-                    <input id="deny-friend" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="deny-friend">친구 추가</label></div>
+                <th:block layout:replace="~{view/kkutu/option::settingOption(id='deny-friend',text='친구 추가')}"/>
             </div>
             <div class="dialog-bar">
                 <h4>게임 관련</h4>
-                <div class="dialog-opt">
-                    <input id="auto-ready" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="auto-ready">자동 준비</label>
-                </div>
+                <th:block layout:replace="~{view/kkutu/option::settingOption(id='auto-ready',text='자동 준비')}"/>
             </div>
-            <div class="dialog-bar"><h4>기타</h4>
-                <div class="dialog-opt" style="width: 200px;">
-                    <input id="sort-user" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="sort-user">접속자 목록 레벨 순 정렬</label>
-                </div>
+            <div class="dialog-bar">
+                <h4>기타</h4>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='sort-user',text='접속자 목록 레벨 순 정렬',style='width: 200px')}"/>
                 <h4></h4>
-                <div class="dialog-opt" style="width: 200px;">
-                    <input id="only-waiting" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="only-waiting">대기 중인 방만 보기</label>
-                </div>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='only-waiting',text='대기 중인 방만 보기',style='width: 200px')}"/>
                 <h4></h4>
-                <div class="dialog-opt" style="width: 200px;">
-                    <input id="only-unlock" type="checkbox" style="margin-top: 5px; width: auto;"/>
-                    <label for="only-unlock">열려 있는 방만 보기</label>
-                </div>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='only-unlock',text='열려 있는 방만 보기',style='width: 200px')}"/>
             </div>
             <div class="dialog-bar tail-button">
                 <button id="setting-ok">저장</button>
@@ -100,7 +84,9 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="dialog-bar"><h4 style="width: 100%;" id="lb-page"></h4></div>
+            <div class="dialog-bar">
+                <h4 style="width: 100%;" id="lb-page"></h4>
+            </div>
             <div class="dialog-bar tail-button">
                 <button id="lb-next" style="margin-right: 6px;">다음</button>
                 <button id="lb-me">내 순위</button>
@@ -113,26 +99,15 @@
             <div class="dialog-bar">
                 <h4>게임 유형</h4>
                 <select id="quick-mode">
-                    <option value="0">영어 끄투</option>
-                    <option value="1">영어 끝말잇기</option>
-                    <option value="2">한국어 쿵쿵따</option>
-                    <option value="3">한국어 끝말잇기</option>
-                    <option value="4">자음퀴즈</option>
-                    <option value="5">한국어 십자말풀이</option>
-                    <option value="6">한국어 타자 대결</option>
-                    <option value="7">영어 타자 대결</option>
-                    <option value="8">한국어 앞말잇기</option>
-                    <option value="9">훈민정음</option>
-                    <option value="10">한국어 단어 대결</option>
-                    <option value="11">영어 단어 대결</option>
-                    <option value="12">한국어 솎솎</option>
-                    <option value="13">영어 솎솎</option>
-                </select></div>
-            <div class="dialog-bar" style="height: 59px;"><h4 style="height: 45px;">특수 규칙</h4>
-                <div class="dialog-opt" id="quick-manner-panel"><input class="game-option" id="quick-manner"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="quick-manner">매너</label>
+                    <option th:value="${data.index}" th:each="gameMode,data : ${gameModes}"
+                            th:text="${gameMode}"></option>
+                </select>
+            </div>
+            <div class="dialog-bar" style="height: 59px;">
+                <h4 style="height: 45px;">특수 규칙</h4>
+                <div class="dialog-opt" id="quick-manner-panel">
+                    <input class="game-option" id="quick-manner" type="checkbox" style="margin-top: 5px; width: auto;"/>
+                    <label for="quick-manner">매너</label>
                     <div class="expl" style="width: initial;">
                         <div>한방 단어를 사용할 수 없게 합니다.</div>
                     </div>
@@ -978,9 +953,8 @@
     <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title='<i class=\'fa fa-comment\'></i>채팅</h5>')}">
         <th:block layout:fragment="content">
             <div id="Chat"></div>
-            <input id="Talk" maxlength="180" style="display:none;visibility:hidden;"><input id="MessageInput"
-                                                                                            maxlength="180"
-                                                                                            autocomplete="off">
+            <input id="Talk" maxlength="180" style="display:none;visibility:hidden;">
+            <input id="MessageInput" maxlength="180" autocomplete="off">
             <button id="ChatBtn">전송</button>
         </th:block>
     </th:block>

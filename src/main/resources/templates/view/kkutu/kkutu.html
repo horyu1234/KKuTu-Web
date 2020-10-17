@@ -454,7 +454,7 @@
                     <th:block th:each="moremiCategory : ${moremiCategories}">
                         <div class="category-filter dress-type" th:id="${'dress-type-' + moremiCategory}"
                              th:value="${#strings.listJoin(moremiGroups.get(moremiCategory), ',')}"
-                             th:text="#{'kkutu.dialog.dress.category.' + ${moremiCategory}}">
+                             th:text="#{'item.category.' + ${moremiCategory}}">
                         </div>
                     </th:block>
                 </div>
@@ -519,37 +519,33 @@
     </th:block>
 
     <th:block
-            layout:replace="~{view/kkutu/product::product(id='UserList',title='<i class=\'fa fa-users\'></i>채널 접속자')}">
+            layout:replace="~{view/kkutu/product::product(id='UserList',title=#{kkutu.product.userList.title})}">
         <th:block layout:fragment="content">
-            <div>불러오는 중</div>
+            <div th:text="#{kkutu.product.userList.loading}"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='RoomList',title='<i class=\'fa fa-bars\'></i>방 목록')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='RoomList',title=#{kkutu.product.roomList.title})}">
         <th:block layout:fragment="content">
-            <div>불러오는 중</div>
+            <div th:text="#{kkutu.product.roomList.loading}"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Shop',title='<i class=\'fa fa-shopping-bag\'></i>상점')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='Shop',title=#{kkutu.product.shop.title})}">
         <th:block layout:fragment="content">
             <div class="shop-categories">
-                <div class="category-filter shop-type" id="shop-type-all" value="">전체</div>
-                <div class="category-filter shop-type" id="shop-type-spec" value="PIX,PIY,PIZ,CNS">특수</div>
-                <div class="category-filter shop-type" id="shop-type-skin" value="NIK">스킨</div>
-                <div class="category-filter shop-type" id="shop-type-badge" value="BDG1,BDG2,BDG3,BDG4">휘장</div>
-                <div class="category-filter shop-type" id="shop-type-head" value="Mhead">머리</div>
-                <div class="category-filter shop-type" id="shop-type-eye" value="Meye">눈</div>
-                <div class="category-filter shop-type" id="shop-type-mouth" value="Mmouth">입</div>
-                <div class="category-filter shop-type" id="shop-type-clothes" value="Mclothes">옷</div>
-                <div class="category-filter shop-type" id="shop-type-hs" value="Mhand,Mshoes">손발</div>
-                <div class="category-filter shop-type" id="shop-type-back" value="Mback,Mfront">배경</div>
+                <th:block th:each="moremiCategory : ${moremiCategories}">
+                    <div class="category-filter shop-type" th:id="${'shop-type-' + moremiCategory}"
+                         th:value="${#strings.listJoin(moremiGroups.get(moremiCategory), ',')}"
+                         th:text="#{'item.category.' + ${moremiCategory}}">
+                    </div>
+                </th:block>
             </div>
             <div id="shop-shelf" style="width: 100%; height: 305px; overflow-y: scroll;"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Room',title='방')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='Room',title=#{kkutu.product.room.title})}">
         <th:block layout:fragment="content">
             <div class="team-selector">
-                <div class="team-button team-0" id="team-0">개인</div>
+                <div class="team-button team-0" id="team-0" th:text="#{kkutu.product.room.teamSolo}"></div>
                 <div class="team-button team-1" id="team-1">A</div>
                 <div class="team-button team-2" id="team-2">B</div>
                 <div class="team-button team-3" id="team-3">C</div>
@@ -558,14 +554,14 @@
             <div class="room-users"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Game',title='게임')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='Game',title=#{kkutu.product.game.title})}">
         <th:block layout:fragment="content">
             <div class="game-head">
                 <div class="items"></div>
                 <div class="hints" style="display: none;"></div>
                 <div class="b-left cwcmd" style="display: none;">
                     <div class="cw-q-head"></div>
-                    <input id="cw-q-input" placeholder="여기에 입력하세요."
+                    <input id="cw-q-input" th:placeholder="#{kkutu.product.game.inputHere}"
                            style="width: 313px; height: 20px; font-size: 15px;">
                     <div class="cw-q-body"></div>
                 </div>
@@ -591,10 +587,12 @@
                 </div>
             </div>
             <div class="game-body"></div>
-            <div class="game-input"><input id="game-input" placeholder="당신의 차례! 아래의 채팅 창에서 입력하세요." readonly></div>
+            <div class="game-input">
+                <input id="game-input" th:placeholder="#{kkutu.product.game.yourTurn}" readonly>
+            </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Me',title='<i class=\'fa fa-user\'></i>내 정보</h5>')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='Me',title=#{kkutu.product.me.title})}">
         <th:block layout:fragment="content">
             <div class="moremi my-image"></div>
             <div class="my-stat">
@@ -608,10 +606,7 @@
                     </div>
                     <div class="bar-text my-okg-text"></div>
                     <div class="expl" style="width: initial;">
-                        <div style="color: #CCCCCC;"><h4><label style='color: #FFFF44;'>오늘도 끄투를 이용해 주셔서 감사합니다!</label>
-                        </h4>끄투에서 사람들과 함께 게임 플레이 시간 10분을 달성할 때마다<br>경험치와 핑을 더욱 많이 얻을 수 있는 <label
-                                style='color: #FFFF44;'>오끄감 버프</label>를 획득할 수 있습니다!
-                        </div>
+                        <div style="color: #CCCCCC;" th:utext="#{kkutu.product.me.okgExpl}"></div>
                     </div>
                 </div>
             </div>
@@ -622,12 +617,12 @@
             <div class="bar-text my-gauge-text"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title='<i class=\'fa fa-comment\'></i>채팅</h5>')}">
+    <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title=#{kkutu.product.chat.title})}">
         <th:block layout:fragment="content">
             <div id="Chat"></div>
             <input id="Talk" maxlength="180" style="display:none;visibility:hidden;">
             <input id="MessageInput" maxlength="180" autocomplete="off">
-            <button id="ChatBtn">전송</button>
+            <button id="ChatBtn" th:text="#{kkutu.product.chat.sendBtn}"></button>
         </th:block>
     </th:block>
 

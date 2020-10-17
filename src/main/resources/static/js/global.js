@@ -113,7 +113,7 @@ var L;
 
         if (global.profile.token) {
             $("#account-info").html(global.profile.title || global.profile.name).on('click', function (e) {
-                if (confirm(L['ASK_LOGOUT'])) requestLogout(e);
+                if (confirm(Messages['portal.js.askLogout'])) requestLogout(e);
             });
         } else {
             if (window['FB']) {
@@ -125,7 +125,7 @@ var L;
                     }, 1000);
                 }
             }
-            $("#account-info").html(L['LOGIN']).on('click', requestLogin);
+            $("#account-info").html(Messages['portal.js.login']).on('click', requestLogin);
         }
         /*if($.cookie('forlogout')){
             requestLogout();

@@ -40,7 +40,7 @@ export default class Portal {
         })
 
         this._$stage.start.prop('disabled', true).on('click', () => {
-            if ($("#account-info").html() === L['LOGIN']) {
+            if ($("#account-info").html() === Messages['portal.js.login']) {
                 this._joinServer(0);
                 return;
             }
@@ -57,7 +57,7 @@ export default class Portal {
 
         this._$stage.ref.on('click', (e) => {
             if (this._$stage.refi.hasClass("fa-spin")) {
-                return alert(L['serverWait']);
+                return alert(Messages['portal.js.serverWait']);
             }
 
             this._$stage.refi.addClass("fa-spin");
@@ -97,16 +97,16 @@ export default class Portal {
                             'data-server-status': status
                         })
                         .append($("<div>").addClass(`server-status ss-${status}`))
-                        .append($("<div>").addClass("server-name").html(L[`server_${idx}`]))
+                        .append($("<div>").addClass("server-name").html(Messages[`portal.js.server.${idx}`]))
                         .append($("<div>").addClass("server-people graph")
                             .append($("<div>").addClass("graph-bar").width(limp + "%"))
                             .append($("<label>").html(peopleText))
                         )
-                        .append($("<div>").addClass("server-enter").html(status === 'x' ? '-' : L['serverEnter']))
+                        .append($("<div>").addClass("server-enter").html(status === 'x' ? '-' : Messages['portal.js.serverEnter']))
                 );
             });
 
-            this._$stage.total.html("&nbsp;" + L['TOTAL'] + " " + totalPlayers + L['MN']);
+            this._$stage.total.html("&nbsp;" + Messages['portal.js.totalMember'].replace('{totalPlayers}', totalPlayers));
             this._$stage.refi.removeClass("fa-spin");
             this._$stage.start.prop('disabled', false);
         });

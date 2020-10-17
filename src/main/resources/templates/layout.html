@@ -27,8 +27,10 @@
     <link rel="stylesheet" th:href="@{/css/expl.css}"/>
     <link rel="stylesheet" th:href="@{/css/in_game_kkutu.css}">
 
+    <script th:inline="javascript">
+        var Messages = /*[[${messages}]]*/{};
+    </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="https://kkutu.io/language/portal/ko_KR"></script>
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
 
     <script type="text/javascript"

@@ -126,411 +126,116 @@
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomDiag',width=300,height=425)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
-                <h4>방 제목</h4>
+                <h4 th:text="#{kkutu.dialog.room.room-title}"></h4>
                 <input id="room-title" placeholder="회원님의 방" maxlength="20">
             </div>
             <div class="dialog-bar">
-                <h4>비밀번호</h4>
-                <input id="room-pw" type="password" placeholder="비밀번호" maxlength="20">
+                <h4 th:text="#{kkutu.dialog.room.password}"></h4>
+                <input id="room-pw" type="password" th:placeholder="#{kkutu.dialog.room.password}" maxlength="20">
             </div>
             <div class="dialog-bar">
-                <h4>인원</h4>
+                <h4 th:text="#{kkutu.dialog.room.user-limit}"></h4>
                 <input id="room-limit" type="number" min="2" max="8" step="1" value="8">
             </div>
             <div class="dialog-bar">
-                <h4>게임 유형</h4>
+                <h4 th:text="#{kkutu.dialog.room.gameMode}"></h4>
                 <select id="room-mode">
-                <optgroup label="한국어">
-                    <option value="3">한국어 끝말잇기</option>
-                    <option value="2">한국어 쿵쿵따</option>
-                    <option value="8">한국어 앞말잇기</option>
-                    <option value="6">한국어 타자 대결</option>
-                    <option value="10">한국어 단어 대결</option>
-                    <option value="5">한국어 십자말풀이</option>
-                    <option value="12">한국어 솎솎</option>
-                    <option value="4">자음퀴즈</option>
-                    <option value="9">훈민정음</option>
-                </optgroup>
-                <optgroup label="영어">
-                    <option value="1">영어 끝말잇기</option>
-                    <option value="0">영어 끄투</option>
-                    <option value="7">영어 타자 대결</option>
-                    <option value="11">영어 단어 대결</option>
-                    <option value="13">영어 솎솎</option>
-                </optgroup>
-            </select></div>
-            <div class="dialog-bar" style="margin-top: -5px; height: 50px;"><h4></h4><h4 class="dialog-bar-value"
-                                                                                         id="game-mode-expl"
-                                                                                         style="width: 100%; font-size: 11px;"></h4>
+                    <optgroup label="한국어">
+                        <option value="3" th:text="#{'game.mode.KSH.name'}">한국어 끝말잇기</option>
+                        <option value="2" th:text="#{'game.mode.KKT.name'}">한국어 쿵쿵따</option>
+                        <option value="8" th:text="#{'game.mode.KAP.name'}">한국어 앞말잇기</option>
+                        <option value="6" th:text="#{'game.mode.KTY.name'}">한국어 타자 대결</option>
+                        <option value="10" th:text="#{'game.mode.KDA.name'}">한국어 단어 대결</option>
+                        <option value="5" th:text="#{'game.mode.KCW.name'}">한국어 십자말풀이</option>
+                        <option value="12" th:text="#{'game.mode.KSS.name'}">한국어 솎솎</option>
+                        <option value="4" th:text="#{'game.mode.CSQ.name'}">자음퀴즈</option>
+                        <option value="9" th:text="#{'game.mode.HUN.name'}">훈민정음</option>
+                    </optgroup>
+                    <optgroup label="영어">
+                        <option value="1" th:text="#{'game.mode.ESH.name'}">영어 끝말잇기</option>
+                        <option value="0" th:text="#{'game.mode.EKT.name'}">영어 끄투</option>
+                        <option value="7" th:text="#{'game.mode.ETY.name'}">영어 타자 대결</option>
+                        <option value="11" th:text="#{'game.mode.EDA.name'}">영어 단어 대결</option>
+                        <option value="13" th:text="#{'game.mode.ESS.name'}">영어 솎솎</option>
+                    </optgroup>
+                </select></div>
+            <div class="dialog-bar" style="margin-top: -5px; height: 50px;">
+                <h4></h4>
+                <h4 class="dialog-bar-value" id="game-mode-expl" style="width: 100%; font-size: 11px;"></h4>
             </div>
-            <div class="dialog-bar"><h4>라운드 수</h4><input id="room-round" type="number" min="1" max="10" step="1"
-                                                         value="5"></div>
-            <div class="dialog-bar"><h4>라운드 시간</h4><select id="room-time">
-                <option value="10" style="color: #FF4444;"></option>
-                <option value="30"></option>
-                <option value="60" selected></option>
-                <option value="90"></option>
-                <option value="120"></option>
-                <option value="150"></option>
-            </select></div>
-            <div class="dialog-bar" style="height: 110px;"><h4 style="height: 100px;">특수 규칙</h4>
-                <div class="dialog-opt" id="room-manner-panel"><input class="game-option" id="room-manner"
-                                                                      type="checkbox"
-                                                                      style="margin-top: 5px; width: auto;"/><label
-                        for="room-manner">매너</label>
-                    <div class="expl" style="width: initial;">
-                        <div>한방 단어를 사용할 수 없게 합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-safe-panel"><input class="game-option" id="room-safe" type="checkbox"
-                                                                    style="margin-top: 5px; width: auto;"/><label
-                        for="room-safe">안전</label>
-                    <div class="expl" style="width: initial;">
-                        <div>입력할 수 있는 단어가 없으면 턴을 넘기지 못해도 점수가 감점되지 않습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-injeong-panel"><input class="game-option" id="room-injeong"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="room-injeong">어인정</label>
-                    <div class="expl" style="width: initial;">
-                        <div><h5>특수한 단어의 사용을 인정합니다.</h5>    <h5
-                                style='margin-top: 2px; border-top: 1px dashed #444444; padding-top: 2px; color: #BBBBBB;'>
-                            사용 가능한 단어 그룹</h5>    <h5>THE iDOLM@STER,VOCALOID,개구리 중사 케로로,국내 방송 프로그램,니세코이,대한민국 철도역,도타 2,동방
-                            프로젝트,듀라라라!!,디지몬,라면/과자/음식,러브 라이브!,리그 오브 레전드,마법소녀 리리컬 나노하,마법소녀 마도카☆마기카,메이플스토리,메카쿠시티 액터즈,모노가타리
-                            시리즈,모바일 게임,빙과,사이퍼즈,스즈미야 하루히,스타크래프트,신조어,아지랑이 프로젝트,앙상블 스타즈!,엘소드,오레이모,오버워치,온라인 게임,유루유리,유명인,라이트
-                            노벨,만화/애니메이션,젤다의 전설,포켓몬스터,하이큐!!,하스스톤,한국 영화,함대 컬렉션,히어로즈 오브 더 스톰,귀혼</h5>    <h5
-                                style='margin-top: 2px; border-top: 1px dashed #444444; padding-top: 2px; color: #BBBBBB;'>
-                            사용 가능한 단어 그룹 (영어 끄투, 영어 끝말잇기)</h5>    <h5>리그 오브 레전드</h5></div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-mission-panel"><input class="game-option" id="room-mission"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="room-mission">미션</label>
-                    <div class="expl" style="width: initial;">
-                        <div>좌측에 제시된 특정 글자를 포함한 단어로 이으면 추가 점수를 얻습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-loanword-panel"><input class="game-option" id="room-loanword"
-                                                                        type="checkbox"
-                                                                        style="margin-top: 5px; width: auto;"/><label
-                        for="room-loanword">우리말</label>
-                    <div class="expl" style="width: initial;">
-                        <div>외래어를 사용할 수 없게 합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-proverb-panel"><input class="game-option" id="room-proverb"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="room-proverb">속담</label>
-                    <div class="expl" style="width: initial;">
-                        <div>화면에 낱말 대신 한 문장씩 나타납니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-strict-panel"><input class="game-option" id="room-strict"
-                                                                      type="checkbox"
-                                                                      style="margin-top: 5px; width: auto;"/><label
-                        for="room-strict">깐깐</label>
-                    <div class="expl" style="width: initial;">
-                        <div>방언, 옛말, 북한말을 제외한 명사 단어만 입력할 수 있습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-sami-panel"><input class="game-option" id="room-sami" type="checkbox"
-                                                                    style="margin-top: 5px; width: auto;"/><label
-                        for="room-sami">3232</label>
-                    <div class="expl" style="width: initial;">
-                        <div>세 글자 단어와 두 글자 단어를 번갈아가며 잇습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-no2-panel"><input class="game-option" id="room-no2" type="checkbox"
-                                                                   style="margin-top: 5px; width: auto;"/><label
-                        for="room-no2">2글자 금지</label>
-                    <div class="expl" style="width: initial;">
-                        <div>두 글자 단어의 사용을 막습니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-onlybeginner-panel"><input class="game-option" id="room-onlybeginner"
-                                                                            type="checkbox"
-                                                                            style="margin-top: 5px; width: auto;"/><label
-                        for="room-onlybeginner">초보</label>
-                    <div class="expl" style="width: initial;">
-                        <div>레벨 50 이상 유저의 출입을 금지합니다.</div>
-                    </div>
-                </div>
-                <div class="dialog-opt" id="room-noguest-panel"><input class="game-option" id="room-noguest"
-                                                                       type="checkbox"
-                                                                       style="margin-top: 5px; width: auto;"/><label
-                        for="room-noguest">게스트 금지</label>
-                    <div class="expl" style="width: initial;">
-                        <div>해당 방의 손님 유저 출입을 금지합니다.</div>
-                    </div>
-                </div>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.room.roundCount}"></h4>
+                <input id="room-round" type="number" min="1" max="10" step="1" value="5">
+            </div>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.room.roundTime}"></h4>
+                <select id="room-time">
+                    <option value="10" style="color: #FF4444;"></option>
+                    <option value="30"></option>
+                    <option value="60" selected></option>
+                    <option value="90"></option>
+                    <option value="120"></option>
+                    <option value="150"></option>
+                </select></div>
+            <div class="dialog-bar" style="height: 110px;">
+                <h4 style="height: 100px;" th:text="#{kkutu.dialog.room.gameRule}"></h4>
+                <th:block th:each="entry : ${gameOptionMap}">
+                    <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='room')}"/>
+                </th:block>
+
                 <div class="dialog-opt" id="room-injpick-panel">
-                    <button id="room-injeong-pick" style="font-size: 11px;">주제 선택</button>
+                    <button id="room-injeong-pick" style="font-size: 11px;"
+                            th:text="#{kkutu.dialog.room.pickInjeong}"></button>
                 </div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="room-ok">확인</button>
+                <button id="room-ok" th:text="#{kkutu.dialog.room.ok}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='InjPickDiag',width=200,height=400,title='주제 선택')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='InjPickDiag',width=200,height=400,title=#{kkutu.dialog.injPick.title})}">
         <th:block layout:fragment="content">
-            <h4>게임에서 사용할 주제를 선택하세요.</h4>
+            <h4 th:text="#{kkutu.dialog.injPick.expl}"></h4>
             <div class="dialog-bar">
-                <button id="injpick-all">모두 설정</button>
-                <button id="injpick-no">모두 해제</button>
+                <button id="injpick-all" th:text="#{kkutu.dialog.injPick.selectAll}"></button>
+                <button id="injpick-no" th:text="#{kkutu.dialog.injPick.deselectAll}"></button>
             </div>
             <div class="dialog-bar" id="injpick-list" style="height: 280px; overflow-y: scroll;">
                 <div class="dialog-opt" id="ko-pick-list" style="width: 100%;">
-                    <div style="float: left; width: 100%;"><input id="ko-pick-30" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-30">경제</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-40" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-40">고적</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-60" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-60">공업</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-80" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-80">교육</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-90" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-90">교통</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-140" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-140">농업</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-150" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-150">문학</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-160" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-160">물리</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-170" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-170">미술</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-190" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-190">동물</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-220" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-220">사회</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-230" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-230">생물</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-240" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-240">수학</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-270" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-270">식물</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-310" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-310">언어</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-320" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-320">역사</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-350" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-350">운동</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-360" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-360">음악</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-420" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-420">지리</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-430" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-430">지명</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-450" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-450">천문</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-490" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-490">컴퓨터</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-530" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-530">화학</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-1001" type="checkbox"
-                                                                  style="width: auto;"><label for="ko-pick-1001">나라 이름과
-                        수도</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-IMS" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-IMS">THE iDOLM@STER</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-VOC" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-VOC">VOCALOID</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KRR" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KRR">개구리 중사 케로로</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KTV" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KTV">국내 방송 프로그램</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-NSK" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-NSK">니세코이</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KOT" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KOT">대한민국 철도역</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-DOT" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-DOT">도타 2</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-THP" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-THP">동방 프로젝트</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-DRR" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-DRR">듀라라라!!</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-DGM" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-DGM">디지몬</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-RAG" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-RAG">라면/과자/음식</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-LVL" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-LVL">러브 라이브!</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-LOL" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-LOL">리그 오브 레전드</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MRN" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MRN">마법소녀 리리컬 나노하</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MMM" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MMM">마법소녀 마도카☆마기카</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MAP" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MAP">메이플스토리</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MKK" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MKK">메카쿠시티 액터즈</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MNG" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MNG">모노가타리 시리즈</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-MOB" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-MOB">모바일 게임</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HYK" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HYK">빙과</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-CYP" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-CYP">사이퍼즈</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HRH" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HRH">스즈미야 하루히</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-STA" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-STA">스타크래프트</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KGR" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KGR">아지랑이 프로젝트</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-ESB" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-ESB">앙상블 스타즈!</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-ELW" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-ELW">엘소드</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-OIM" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-OIM">오레이모</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-OVW" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-OVW">오버워치</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-NEX" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-NEX">온라인 게임</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-YRY" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-YRY">유루유리</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KPO" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KPO">유명인</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-JLN" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-JLN">라이트 노벨</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-JAN" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-JAN">만화/애니메이션</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-ZEL" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-ZEL">젤다의 전설</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-POK" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-POK">포켓몬스터</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HAI" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HAI">하이큐!!</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HSS" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HSS">하스스톤</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-KMV" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-KMV">한국 영화</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HDC" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HDC">함대 컬렉션</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HOS" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HOS">히어로즈 오브 더 스톰</label></div>
-                    <div style="float: left; width: 100%;"><input id="ko-pick-HON" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="ko-pick-HON">귀혼</label></div>
+                    <div th:each="theme : ${koThemes}" style="float: left; width: 100%;">
+                        <input th:id="${'ko-pick-' + theme}" type="checkbox" style="width: auto;">
+                        <label th:for="${'ko-pick-' + theme}" th:text="#{'word.theme.' + ${theme}}"></label>
+                    </div>
                 </div>
                 <div class="dialog-opt" id="en-pick-list" style="width: 100%;">
-                    <div style="float: left; width: 100%;"><input id="en-pick-e05" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e05">동물</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e08" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e08">인체</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e12" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e12">감정</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e13" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e13">음식</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e15" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e15">지명</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e18" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e18">사람</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e20" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e20">식물</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-e43" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-e43">날씨</label></div>
-                    <div style="float: left; width: 100%;"><input id="en-pick-LOL" type="checkbox"
-                                                                  style="width: auto;"><label
-                            for="en-pick-LOL">리그 오브 레전드</label></div>
+                    <div th:each="theme : ${enThemes}" style="float: left; width: 100%;">
+                        <input th:id="${'en-pick-' + theme}" type="checkbox" style="width: auto;">
+                        <label th:for="${'en-pick-' + theme}" th:text="#{'word.theme.' + ${theme}}"></label>
+                    </div>
                 </div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="injpick-ok">확인</button>
+                <button id="injpick-ok" th:text="#{kkutu.dialog.injPick.ok}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='PracticeDiag',width=300,height=135)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
-                <h4>난이도</h4>
+                <h4 th:text="#{kkutu.dialog.practice.level}"></h4>
                 <select id="practice-level">
-                    <option value="0">왕초보</option>
-                    <option value="1">초보</option>
-                    <option value="2" selected>적절</option>
-                    <option value="3">고수</option>
-                    <option value="4">사기</option>
+                    <option value="0" th:text="#{kkutu.dialog.practice.level.0}"></option>
+                    <option value="1" th:text="#{kkutu.dialog.practice.level.1}"></option>
+                    <option value="2" selected th:text="#{kkutu.dialog.practice.level.2}"></option>
+                    <option value="3" th:text="#{kkutu.dialog.practice.level.3}"></option>
+                    <option value="4" th:text="#{kkutu.dialog.practice.level.4}"></option>
                 </select>
             </div>
             <div class="dialog-bar">
-                <h4>팀</h4>
+                <h4 th:text="#{kkutu.dialog.practice.team}"></h4>
                 <select id="ai-team">
-                    <option value="0" selected>개인</option>
+                    <option value="0" selected th:text="#{kkutu.dialog.practice.team.solo}"></option>
                     <option value="1">A</option>
                     <option value="2">B</option>
                     <option value="3">C</option>
@@ -538,19 +243,19 @@
                 </select>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="practice-ok">확인</button>
+                <button id="practice-ok" th:text="#{kkutu.dialog.practice.ok}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block
-            layout:replace="~{view/kkutu/dialog::dialog(id='ResultDiag',width=400,height=420,title='게임 결과',nocls=true)}">
+            layout:replace="~{view/kkutu/dialog::dialog(id='ResultDiag',width=400,height=420,title=#{kkutu.dialog.result.title},nocls=true)}">
         <th:block layout:fragment="content">
             <div class="result-board"></div>
             <div class="result-me">
                 <div class="result-me-score"></div>
                 <div class="result-me-money"></div>
                 <div class="result-me-level">
-                    <div class="result-me-level-head">레벨</div>
+                    <div class="result-me-level-head" th:text="#{kkutu.dialog.result.level}"></div>
                     <div class="result-me-level-body"></div>
                 </div>
                 <div class="graph result-me-gauge">
@@ -560,73 +265,82 @@
                 <div class="expl result-me-expl"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="result-ok">확인</button>
-                <button id="result-save">경기 저장</button>
+                <button id="result-ok" th:text="#{kkutu.dialog.result.ok}"></button>
+                <button id="result-save" th:text="#{kkutu.dialog.result.saveReplay}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='DictionaryDiag',width=400,height=300,title='사전')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='DictionaryDiag',width=400,height=300,title=#{kkutu.dialog.dict.title})}">
         <th:block layout:fragment="content">
-            <div class="dialog-bar"><h4>검색어</h4><input id="dict-input" style="width: 283px;" placeholder="여기에 입력"
-                                                       maxlength="200"></div>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.dict.wpHere}"></h4>
+                <input id="dict-input" style="width: 283px;" th:placeholder="#{kkutu.dialog.dict.wpInput}"
+                       maxlength="200">
+            </div>
             <div class="dialog-bar" id="dict-output"
                  style="height: 195px; overflow-y: scroll; color: #BBBBBB; background-color: #111111;"></div>
             <div class="dialog-bar tail-button">
-                <button id="dict-search">검색</button>
+                <button id="dict-search" th:text="#{kkutu.dialog.dict.searchBtn}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='InviteDiag',width=300,height=420,title='초대')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='InviteDiag',width=300,height=420,title=#{kkutu.dialog.invite.title})}">
         <th:block layout:fragment="content">
             <div class="invite-board" style="height: 355px; overflow-y: scroll;"></div>
             <div class="dialog-bar tail-button">
-                <button id="invite-robot">AI 초대</button>
+                <button id="invite-robot" th:text="#{kkutu.dialog.invite.inviteAI}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomInfoDiag',width=300,height=365)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar room-info-head">
-                <h4>방 제목</h4>
+                <h4 th:text="#{kkutu.dialog.roomInfo.roomTitle}"></h4>
                 <h4 class="dialog-bar-value ellipse" id="ri-title"></h4>
-                <h4>게임 유형</h4>
+                <h4 th:text="#{kkutu.dialog.roomInfo.gameMode}"></h4>
                 <h4 class="dialog-bar-value" id="ri-mode"></h4>
-                <h4>라운드</h4>
+                <h4 th:text="#{kkutu.dialog.roomInfo.rounds}"></h4>
                 <h4 class="dialog-bar-value" id="ri-round"></h4>
             </div>
-            <div class="dialog-bar" style="padding: 2px 0px; border-top: 1px dashed #CCC; margin: 2px 0px;"><h4>참여자</h4>
-                <h4 class="dialog-bar-value" id="ri-limit"></h4></div>
+            <div class="dialog-bar" style="padding: 2px 0px; border-top: 1px dashed #CCC; margin: 2px 0px;">
+                <h4 th:text="#{kkutu.dialog.roomInfo.players}"></h4>
+                <h4 class="dialog-bar-value" id="ri-limit"></h4>
+            </div>
             <div class="dialog-bar" style="height: 190px; overflow-y: scroll;">
                 <div id="ri-players" style="width: 100%;"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="room-info-join">입장</button>
+                <button id="room-info-join" th:text="#{kkutu.dialog.roomInfo.joinBtn}"></button>
             </div>
         </th:block>
     </th:block>
     <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ProfileDiag',width=300,height=395)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar profile-head"></div>
-            <div class="dialog-bar"><h4 style="width: 83px;">위치</h4><h4 class="dialog-bar-value"
-                                                                        id="profile-place"></h4></div>
+            <div class="dialog-bar">
+                <h4 style="width: 83px;" th:text="#{kkutu.dialog.profile.place}"></h4>
+                <h4 class="dialog-bar-value" id="profile-place"></h4>
+            </div>
             <div class="dialog-bar profile-record"
                  style="padding: 2px 0px; border-top: 1px dashed #CCC; margin: 2px 0px; height: 175px; overflow-y: scroll;">
                 <div class="profile-record-field" style="font-weight: bold; text-align: center;">
-                    <div class="profile-field-name">게임 유형</div>
-                    <div class="profile-field-record">전적</div>
-                    <div class="profile-field-score">총 경험치</div>
+                    <div class="profile-field-name" th:text="#{kkutu.dialog.profile.gameMode}"></div>
+                    <div class="profile-field-record" th:text="#{kkutu.dialog.profile.record}"></div>
+                    <div class="profile-field-score" th:text="#{kkutu.dialog.profile.totalExp}"></div>
                 </div>
                 <div id="profile-record"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="profile-whisper">귓속말</button>
-                <button id="profile-shut">차단</button>
-                <button id="profile-kick">강제퇴장</button>
-                <button id="profile-report">신고하기</button>
-                <button id="profile-level">AI 설정</button>
-                <button id="profile-dress">프로필 관리</button>
-                <button id="profile-handover">방장 인계</button>
-                <button id="profile-copy">ID 복사</button>
+                <button id="profile-whisper" th:text="#{kkutu.dialog.profile.whisper}">귓속말</button>
+                <button id="profile-shut" th:text="#{kkutu.dialog.profile.block}">차단</button>
+                <button id="profile-kick" th:text="#{kkutu.dialog.profile.kick}">강제퇴장</button>
+                <button id="profile-report" th:text="#{kkutu.dialog.profile.report}">신고하기</button>
+                <button id="profile-level" th:text="#{kkutu.dialog.profile.aiSetting}">AI 설정</button>
+                <button id="profile-dress" th:text="#{kkutu.dialog.profile.dress}">프로필 관리</button>
+                <button id="profile-handover" th:text="#{kkutu.dialog.profile.handover}">방장 인계</button>
+                <button id="profile-copy" th:text="#{kkutu.dialog.profile.copyId}">ID 복사</button>
             </div>
         </th:block>
     </th:block>
@@ -653,100 +367,118 @@
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='KickVoteDiag',width=300,height=160,title='강제퇴장 투표')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='KickVoteDiag',width=300,height=160,title=#{kkutu.dialog.kickVote.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar" id="kick-vote-text" style="text-align: center;"></div>
-            <div class="dialog-bar" style="text-align: center;">시간 안에 응답하지 않을 경우 찬성으로 간주합니다.</div>
+            <div class="dialog-bar" style="text-align: center;" th:text="#{kkutu.dialog.kickVote.notice}"></div>
             <div class="dialog-bar">
                 <div class="graph kick-vote-time">
                     <div class="graph-bar" style="width: NaN%;"></div>
                 </div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="kick-vote-no">반대</button>
-                <button id="kick-vote-yes">찬성</button>
+                <button id="kick-vote-no" th:text="#{kkutu.dialog.kickVote.no}"></button>
+                <button id="kick-vote-yes" th:text="#{kkutu.dialog.kickVote.yes}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='PurchaseDiag',width=300,height=310,title='구매')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='PurchaseDiag',width=300,height=310,title=#{kkutu.dialog.purchase.title})}">
         <th:block layout:fragment="content">
-            <div class="dialog-bar"><h4>현재 핑</h4><h4 class="dialog-bar-value purchase-ping"
-                                                     id="purchase-ping-before"></h4></div>
-            <div class="dialog-bar"><h4>가격</h4><h4 class="dialog-bar-value purchase-ping" id="purchase-ping-cost"></h4>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.purchase.pingBefore}"></h4>
+                <h4 class="dialog-bar-value purchase-ping" id="purchase-ping-before"></h4>
             </div>
-            <div class="dialog-bar"><h4>이후 핑</h4><h4 class="dialog-bar-value purchase-ping"
-                                                     id="purchase-ping-after"></h4></div>
-            <div class="dialog-bar"><h4>착용 모습</h4>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.purchase.pingCost}"></h4>
+                <h4 class="dialog-bar-value purchase-ping" id="purchase-ping-cost"></h4>
+            </div>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.purchase.pingAfter}"></h4>
+                <h4 class="dialog-bar-value purchase-ping" id="purchase-ping-after"></h4>
+            </div>
+            <div class="dialog-bar">
+                <h4 th:text="#{kkutu.dialog.purchase.moremiAfter}"></h4>
                 <div class="moremi" id="moremi-after" style="float: left; width: 100px; height: 100px;"></div>
             </div>
-            <div class="dialog-bar"><h4 id="purchase-item-name" style="width: 100%; font-weight: bold;"></h4></div>
-            <div class="dialog-bar"><h4 id="purchase-item-desc" style="width: 100%;"></h4></div>
+            <div class="dialog-bar">
+                <h4 id="purchase-item-name" style="width: 100%; font-weight: bold;"></h4>
+            </div>
+            <div class="dialog-bar">
+                <h4 id="purchase-item-desc" style="width: 100%;"></h4>
+            </div>
             <div class="dialog-bar tail-button">
-                <button id="purchase-no">취소</button>
-                <button id="purchase-ok">확인</button>
+                <button id="purchase-no" th:text="#{kkutu.dialog.purchase.cancel}"></button>
+                <button id="purchase-ok" th:text="#{kkutu.dialog.purchase.ok}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ReplayDiag',width=300,height=300,title='리플레이')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='ReplayDiag',width=300,height=300,title=#{kkutu.dialog.replay.title})}">
         <th:block layout:fragment="content">
             <input id="replay-file" type="file" style="width: 288px;" accept=".kkt">
             <div class="dialog-bar">
-                <h4>기록 날짜</h4>
+                <h4 th:text="#{kkutu.dialog.replay.recordDate}"></h4>
                 <h4 class="dialog-bar-value" id="replay-date">-</h4>
                 <h4 th:text="${version}"></h4>
                 <h4 class="dialog-bar-value" id="replay-version">-</h4>
             </div>
             <div class="dialog-bar">
-                <h4>참가자</h4>
+                <h4 th:text="#{kkutu.dialog.replay.recordPlayers}"></h4>
                 <h4 class="dialog-bar-value" id="replay-players">-</h4>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="replay-view">보기</button>
+                <button id="replay-view" th:text="#{kkutu.dialog.replay.viewBtn}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='DressDiag',width=600,height=305,title='프로필 관리')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='DressDiag',width=600,height=305,title=#{kkutu.dialog.dress.title})}">
         <th:block layout:fragment="content">
-            <div class="dialog-bar"><h4 style="width: 150px;">별명</h4><input id="dress-nickname" type="textfield"
-                                                                            placeholder="18자 이내, 한글/영문/숫자/-/_/띄어쓰기 사용 가능"
-                                                                            style="width: 435px;" maxlength="18"></div>
-            <div class="dialog-bar"><h4 style="width: 150px;">소개 한마디</h4><input id="dress-exordial" type="textfield"
-                                                                                placeholder="100자 이내"
-                                                                                style="width: 435px;" maxlength="100">
+            <div class="dialog-bar">
+                <h4 style="width: 150px;" th:text="#{kkutu.dialog.dress.nickname.name}"></h4>
+                <input id="dress-nickname" type="textfield" th:placeholder="#{kkutu.dialog.dress.nickname.placeHolder}"
+                       style="width: 435px;" maxlength="18"></div>
+            <div class="dialog-bar">
+                <h4 style="width: 150px;" th:text="#{kkutu.dialog.dress.exordial.name}"></h4>
+                <input id="dress-exordial" type="textfield" th:placeholder="#{kkutu.dialog.dress.exordial.placeHolder}"
+                       style="width: 435px;" maxlength="100">
             </div>
             <div class="dialog-bar" style="width: 150px;">
                 <div class="moremi" id="dress-view" style="float: left; width: 150px; height: 150px;"></div>
-                <h4 style="width: 100%; font-weight: bold;">내 모레미</h4></div>
+                <h4 style="width: 100%; font-weight: bold;" th:text="#{kkutu.dialog.dress.myMoremi}"></h4>
+            </div>
             <div class="dialog-bar" style="padding: 5px; width: 440px;">
                 <div style="border-bottom: 1px solid #CCCCCC; height: 20px;">
-                    <div class="category-filter dress-type" id="dress-type-all" value="">전체</div>
-                    <div class="category-filter dress-type" id="dress-type-spec" value="PIX,PIY,PIZ,CNS">특수</div>
-                    <div class="category-filter dress-type" id="dress-type-skin" value="NIK">스킨</div>
-                    <div class="category-filter dress-type" id="dress-type-badge" value="BDG1,BDG2,BDG3,BDG4">휘장</div>
-                    <div class="category-filter dress-type" id="dress-type-head" value="Mhead">머리</div>
-                    <div class="category-filter dress-type" id="dress-type-eye" value="Meye">눈</div>
-                    <div class="category-filter dress-type" id="dress-type-mouth" value="Mmouth">입</div>
-                    <div class="category-filter dress-type" id="dress-type-clothes" value="Mclothes">옷</div>
-                    <div class="category-filter dress-type" id="dress-type-hs" value="Mhand,Mshoes">손발</div>
-                    <div class="category-filter dress-type" id="dress-type-back" value="Mback,Mfront">배경</div>
+                    <th:block th:each="moremiCategory : ${moremiCategories}">
+                        <div class="category-filter dress-type" th:id="${'dress-type-' + moremiCategory}"
+                             th:value="${#strings.listJoin(moremiGroups.get(moremiCategory), ',')}"
+                             th:text="#{'kkutu.dialog.dress.category.' + ${moremiCategory}}">
+                        </div>
+                    </th:block>
                 </div>
                 <div class="goods-box" id="dress-goods"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="dress-ok">확인</button>
-                <button id="dress-cf">글자 조합소</button>
-                <button onclick="alert(&quot;Ctrl 키를 누른 상태에서 되팔 항목을 선택해 주세요.&quot;);">되팔기</button>
+                <button id="dress-ok" th:text="#{kkutu.dialog.dress.ok}"></button>
+                <button id="dress-cf" th:text="#{kkutu.dialog.dress.charFactory}"></button>
+                <button th:with="paybackHelp=#{kkutu.dialog.dress.paybackHelp}"
+                        th:attr="onclick=${'alert(&quot;' + paybackHelp + '&quot;)'}"
+                        th:text="#{kkutu.dialog.dress.payback}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='CharFactoryDiag',width=500,height=410,title='글자 조합소')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='CharFactoryDiag',width=500,height=410,title=#{kkutu.dialog.charFactory.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar" style="width: 300px;">
                 <div id="cf-tray"></div>
                 <div id="cf-dict"></div>
             </div>
             <div class="dialog-bar" style="width: 200px;"><h4
-                    style="border-bottom: 1px solid #CCCCCC; width: 100%; height: 24px;">조합 보상</h4>
+                    style="border-bottom: 1px solid #CCCCCC; width: 100%; height: 24px;"
+                    th:text="#{kkutu.dialog.charFactory.cfReward}"></h4>
                 <div id="cf-reward"></div>
             </div>
             <div class="dialog-bar" style="width: 200px;">
@@ -756,26 +488,31 @@
                 <div class="goods-box" id="cf-goods"></div>
             </div>
             <div class="dialog-bar tail-button">
-                <button id="cf-compose">조합</button>
+                <button id="cf-compose" th:text="#{kkutu.dialog.charFactory.cfCompose}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ChatLogDiag',width=350,height=500,title='대화 기록')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='ChatLogDiag',width=350,height=500,title=#{kkutu.dialog.chatLog.title})}">
         <th:block layout:fragment="content">
             <div id="chat-log-board" style="height: 475px; font-size: 11px; overflow-y: scroll;"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ObtainDiag',width=300,height=200,title='알림',nocls=true)}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='ObtainDiag',width=300,height=200,title=#{kkutu.dialog.obtain.title},nocls=true)}">
         <th:block layout:fragment="content">
-            <div class="dialog-bar"><h4 style="width: 100%;">아이템을 획득했습니다!</h4></div>
+            <div class="dialog-bar">
+                <h4 style="width: 100%;" th:text="#{kkutu.dialog.obtain.obtained}"></h4>
+            </div>
             <div class="jt-image" id="obtain-image" style="margin-left: 110px; width: 80px; height: 80px;"></div>
             <div class="dialog-bar" id="obtain-name" style="text-align: center;"></div>
             <div class="dialog-bar tail-button">
-                <button id="obtain-ok">확인</button>
+                <button id="obtain-ok" th:text="#{kkutu.dialog.obtain.ok}"></button>
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='HelpDiag',width=550,height=400,title='도움말')}">
+    <th:block
+            layout:replace="~{view/kkutu/dialog::dialog(id='HelpDiag',width=550,height=400,title=#{kkutu.dialog.help.title})}">
         <th:block layout:fragment="content">
             <iframe id="help-board" width="550" height="375"></iframe>
         </th:block>

@@ -51,11 +51,27 @@ class MainController(
             model.addAttribute("version", kKuTuSetting.getVersion())
             model.addAttribute("websocketUrl", "wss://test.kkutu.io:21000/" + aeS256.encrypt(randomSid))
             model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts().joinToString(","))
+            model.addAttribute("moremiCategories", kKuTuSetting.getMoremiCategories())
             model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips().joinToString(","))
+            model.addAttribute("moremiGroups", kKuTuSetting.getMoremiGroups())
             model.addAttribute("gameRules", kKuTuSetting.getGameRules())
             model.addAttribute("gameOptions", kKuTuSetting.getGameOptions())
             model.addAttribute("gameOptionMap", kKuTuSetting.getGameOptionMap())
             model.addAttribute("gameModes", kKuTuSetting.getGameModes())
+
+            val injeongPickExcepts = kKuTuSetting.getInjeongPickExcepts()
+            val koThemes = ArrayList<String>()
+            koThemes.addAll(kKuTuSetting.getKoThemes())
+            koThemes.addAll(kKuTuSetting.getKoInjeongThemes())
+            koThemes.removeAll(injeongPickExcepts)
+
+            val enThemes = ArrayList<String>()
+            enThemes.addAll(kKuTuSetting.getEnThemes())
+            enThemes.addAll(kKuTuSetting.getEnInjeongThemes())
+            enThemes.removeAll(injeongPickExcepts)
+
+            model.addAttribute("koThemes", koThemes)
+            model.addAttribute("enThemes", enThemes)
 
             model.addAttribute("viewName", "view/kkutu/kkutu")
         }

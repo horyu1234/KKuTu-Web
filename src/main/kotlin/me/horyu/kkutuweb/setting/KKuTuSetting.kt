@@ -40,11 +40,30 @@ class KKuTuSetting(
 
     fun getCryptoKey() = settingNode["crypto-key"].textValue()!!
 
+    fun getKoThemes() = settingNode["word"]["themes"]["normal"]["ko"].toList().map(JsonNode::textValue)
+
     fun getKoInjeongThemes() = settingNode["word"]["themes"]["injeong"]["ko"].toList().map(JsonNode::textValue)
+
+    fun getEnThemes() = settingNode["word"]["themes"]["normal"]["en"].toList().map(JsonNode::textValue)
+
+    fun getEnInjeongThemes() = settingNode["word"]["themes"]["injeong"]["en"].toList().map(JsonNode::textValue)
+
+    fun getInjeongPickExcepts() = settingNode["word"]["themes"]["ijp-except"].toList().map(JsonNode::textValue)
 
     fun getMoremiParts() = settingNode["moremi"]["parts"].toList().map(JsonNode::textValue)
 
+    fun getMoremiCategories() = settingNode["moremi"]["categories"].toList().map(JsonNode::textValue)
+
     fun getMoremiEquips() = settingNode["moremi"]["equips"].toList().map(JsonNode::textValue)
+
+    fun getMoremiGroups(): Map<String, List<String>> {
+        val resultMap = HashMap<String, List<String>>()
+        for (key in settingNode["moremi"]["groups"].fieldNames()) {
+            resultMap[key] = settingNode["moremi"]["groups"][key].toList().map(JsonNode::textValue)
+        }
+
+        return resultMap
+    }
 
     fun getGameRules() = objectMapper.writeValueAsString(settingNode["game-rules"])!!
 

@@ -2302,7 +2302,7 @@ function onMessage(data) {
         case 'friend':
             $data._friends[data.id] = {server: (data.stat == "on") ? data.s : false};
             if ($data._friends[data.id] && $data.friends[data.id])
-                notice(((data.stat == "on") ? ("&lt;<b>" + Messages[`portal.js.server.${$data._friends[data.id].server}`] + "</b>&gt; ") : "")
+                notice(((data.stat == "on") ? ("&lt;<b>" + Messages[`server.${$data._friends[data.id].server}`] + "</b>&gt; ") : "")
                     + Messages['kkutu.js.friend'] + " " + $data.friends[data.id] + Messages['kkutu.js.fstat.' + data.stat]);
             updateCommunity();
             break;
@@ -2441,7 +2441,7 @@ function onMessage(data) {
                     break;
                 }
             } else if (data.code == 409) {
-                i = Messages[`portal.js.server.${i}`];
+                i = Messages[`server.${i}`];
             } else if (data.code == 416) {
                 // 게임 중
                 if (confirm(Messages[`kkutu.js.error.${data.code}`])) {
@@ -2940,7 +2940,7 @@ function updateUserList(refresh) {
         for (i in $data.users) len++;
     }
     $stage.lobby.userListTitle.html("<i class='fa fa-users'></i>"
-        + "&lt;<b>" + Messages[`portal.js.server.${$data.server}`] + "</b>&gt; "
+        + "&lt;<b>" + Messages[`server.${$data.server}`] + "</b>&gt; "
         + Messages['kkutu.js.userList']
         + " [" + len + Messages['kkutu.js.mn'] + "]");
 
@@ -3548,7 +3548,7 @@ function updateCommunity() {
 
         $stage.dialog.commFriends.append($("<div>").addClass("cf-item").attr('id', "cfi-" + i)
             .append($("<div>").addClass("cfi-status cfi-stat-" + (o.server ? 'on' : 'off')))
-            .append($("<div>").addClass("cfi-server").html(o.server ? Messages[`portal.js.server.${o.server}`] : "-"))
+            .append($("<div>").addClass("cfi-server").html(o.server ? Messages[`server.${o.server}`] : "-"))
             .append($("<div>").addClass("cfi-name ellipse").html(p ? (p.title || p.name) : Messages['kkutu.js.hidden']))
             .append($("<div>").addClass("cfi-memo ellipse").text(memo))
             .append($("<div>").addClass("cfi-menu")

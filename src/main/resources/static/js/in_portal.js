@@ -97,7 +97,7 @@ export default class Portal {
                             'data-server-status': status
                         })
                         .append($("<div>").addClass(`server-status ss-${status}`))
-                        .append($("<div>").addClass("server-name").html(Messages[`portal.js.server.${idx}`]))
+                        .append($("<div>").addClass("server-name").html(Messages[`server.${idx}`]))
                         .append($("<div>").addClass("server-people graph")
                             .append($("<div>").addClass("graph-bar").width(limp + "%"))
                             .append($("<label>").html(peopleText))

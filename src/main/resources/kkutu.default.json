@@ -5,7 +5,8 @@
     {
       "is-secure": true,
       "host": "127.0.0.2",
-      "port": 8080
+      "port": 8080,
+      "cid": 1
     }
   ],
   "crypto-key": "<32 Length Secret Key>",

@@ -34,7 +34,8 @@ class KKuTuSetting(
         GameServerSetting(
                 it["is-secure"].booleanValue(),
                 it["host"].textValue(),
-                it["port"].intValue()
+                it["port"].intValue(),
+                it["cid"].shortValue()
         )
     }
 

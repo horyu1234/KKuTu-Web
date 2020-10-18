@@ -29,7 +29,7 @@ class GameClient(
             val protocol = if (isSecure) "wss" else "ws"
 
             val webSocketClient = StandardWebSocketClient()
-            clientSession = webSocketClient.doHandshake(this, WebSocketHttpHeaders(), URI.create("$protocol://$host:$port/$id")).get()
+            clientSession = webSocketClient.doHandshake(this, WebSocketHttpHeaders(), URI.create("$protocol://$host:$port/$id/")).get()
         } catch (e: Exception) {
             logger.warn("$port @ 게임서버 연결에 실패했습니다. ${e.message}")
         }

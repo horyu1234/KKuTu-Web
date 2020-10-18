@@ -16,8 +16,8 @@ class GameClientManager(
 
     @PostConstruct
     fun init() {
-        for ((index, gameServer) in kKuTuSetting.getGameServers().withIndex()) {
-            gameClientList.add(GameClient(gameServer.isSecure, gameServer.host, gameServer.port, (index + 10).toShort()))
+        for (gameServer in kKuTuSetting.getGameServers()) {
+            gameClientList.add(GameClient(gameServer.isSecure, gameServer.host, gameServer.port, gameServer.cid))
         }
     }
 

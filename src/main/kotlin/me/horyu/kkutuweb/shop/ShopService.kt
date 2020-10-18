@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.shop.response.ResponseGood
+import me.horyu.kkutuweb.shop.response.ResponseGoodDetail
 import me.horyu.kkutuweb.shop.response.ShopResponse
 import me.horyu.kkutuweb.user.UserDao
 import org.postgresql.util.PGobject
@@ -20,6 +21,7 @@ import kotlin.math.roundToInt
 class ShopService(
         @Autowired private val objectMapper: ObjectMapper,
         @Autowired private val shopDao: ShopDao,
+        @Autowired private val shopDetailDao: ShopDetailDao,
         @Autowired private val userDao: UserDao
 ) {
     private val logger = LoggerFactory.getLogger(ShopService::class.java)
@@ -135,5 +137,16 @@ class ShopService(
                 boxObjectNode.remove(goodId)
             }
         }
+    }
+
+    fun getGoodDetails(): Map<String, ResponseGoodDetail> {
+        val resultMap = HashMap<String, ResponseGoodDetail>()
+
+        val goodDetails = shopDetailDao.getGoodDetails()
+        for (goodDetail in goodDetails) {
+            resultMap[goodDetail.id] = ResponseGoodDetail(goodDetail.namekoKR, goodDetail.desckoKR)
+        }
+
+        return resultMap
     }
 }

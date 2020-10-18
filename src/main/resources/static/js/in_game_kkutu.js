@@ -28,7 +28,7 @@ var BEAT = [null,
     "11111111"
 ];
 var NULL_USER = {
-    profile: {title: L['null']},
+    profile: {title: Messages['kkutu.js.null']},
     data: {score: 0}
 };
 var MOREMI_PART;
@@ -100,7 +100,7 @@ $(document).ready(function () {
             userList: $(".UserListBox .product-body"),
             roomListTitle: $(".RoomListBox .product-title"),
             roomList: $(".RoomListBox .product-body"),
-            createBanner: $("<div>").addClass("rooms-item rooms-create").append($("<div>").html(L['newRoom']))
+            createBanner: $("<div>").addClass("rooms-item rooms-create").append($("<div>").html(Messages['kkutu.js.newRoom']))
         },
         chat: $("#Chat"),
         chatLog: $("#chat-log-board"),
@@ -217,8 +217,8 @@ $(document).ready(function () {
         balloons: $("#Balloons")
     };
     if (_WebSocket == undefined) {
-        loading(L['websocketUnsupport']);
-        alert(L['websocketUnsupport']);
+        loading(Messages['kkutu.js.websocketNotSupport']);
+        alert(Messages['kkutu.js.websocketNotSupport']);
         return;
     }
     $data._soundList = [
@@ -436,7 +436,7 @@ $(document).ready(function () {
         $stage.game.hereText.val($stage.talk.val());
     });
     $(window).on('beforeunload', function (e) {
-        if ($data.room) return L['sureExit'];
+        if ($data.room) return Messages['kkutu.js.confirmExit'];
     });
 
     function startDrag($diag, sx, sy) {
@@ -477,7 +477,7 @@ $(document).ready(function () {
         showDialog($stage.dialog.community);
     });
     $stage.dialog.commFriendAdd.on('click', function (e) {
-        var id = prompt(L['friendAddNotice']);
+        var id = prompt(Messages['kkutu.js.friendAddNotice']);
 
         if (!id) return;
         if (!$data.users[id]) return fail(450);
@@ -491,7 +491,7 @@ $(document).ready(function () {
 
         $data.typeRoom = 'enter';
         showDialog($d = $stage.dialog.room);
-        $d.find(".dialog-title").html(L['newRoom']);
+        $d.find(".dialog-title").html(Messages['kkutu.js.newRoom']);
     });
     $stage.menu.setRoom.on('click', function (e) {
         var $d;
@@ -510,7 +510,7 @@ $(document).ready(function () {
         }
         $data._injpick = $data.room.opts.injpick;
         showDialog($d = $stage.dialog.room);
-        $d.find(".dialog-title").html(L['setRoom']);
+        $d.find(".dialog-title").html(Messages['kkutu.js.newRoom']);
     });
 
     function updateGameOptions(opts, prefix) {
@@ -560,7 +560,7 @@ $(document).ready(function () {
         for (i in $data.rooms) {
             if (isRoomMatched($data.rooms[i], val, opts, true)) ct++;
         }
-        $("#quick-status").html(L['quickStatus'] + " " + ct);
+        $("#quick-status").html(Messages['kkutu.js.quickStatus'] + " " + ct);
     });
     $stage.menu.quickRoom.on('click', function (e) {
         $stage.dialog.room.hide();
@@ -569,7 +569,7 @@ $(document).ready(function () {
             $("#QuickDiag>.dialog-body").find("*").prop('disabled', false);
             $("#quick-mode").trigger('change');
             $("#quick-queue").html("");
-            $stage.dialog.quickOK.removeClass("searching").html(L['OK']);
+            $stage.dialog.quickOK.removeClass("searching").html(Messages['kkutu.js.ok']);
         }
     });
     $stage.dialog.quickOK.on('click', function (e) {
@@ -584,7 +584,7 @@ $(document).ready(function () {
             return;
         }
         $("#QuickDiag>.dialog-body").find("*").prop('disabled', true);
-        $stage.dialog.quickOK.addClass("searching").html("<i class='fa fa-spinner fa-spin'></i> " + L['NO']).prop('disabled', false);
+        $stage.dialog.quickOK.addClass("searching").html("<i class='fa fa-spinner fa-spin'></i> " + Messages['kkutu.js.no']).prop('disabled', false);
         $data._quickn = 0;
         $data._quickT = addInterval(quickTick, 1000);
 
@@ -595,7 +595,7 @@ $(document).ready(function () {
                 clearTimeout($data._quickT);
                 return;
             }
-            $("#quick-queue").html(L['quickQueue'] + " " + prettyTime($data._quickn++ * 1000));
+            $("#quick-queue").html(Messages['kkutu.js.quickQueue'] + " " + prettyTime($data._quickn++ * 1000));
             for (i in $data.rooms) {
                 if (isRoomMatched($data.rooms[i], mode, opts)) arr.push(i);
             }
@@ -609,7 +609,7 @@ $(document).ready(function () {
     $("#room-mode").on('change', function (e) {
         var v = $("#room-mode").val();
         var rule = RULE[MODE[v]];
-        $("#game-mode-expl").html(L['modex' + v]);
+        $("#game-mode-expl").html(Messages[`game.mode.${v}.x`]);
 
         updateGameOptions(rule.opts, 'room');
 
@@ -618,7 +618,7 @@ $(document).ready(function () {
         else $("#room-injpick-panel").hide();
         if (rule.rule == "Typing") $("#room-round").val(3);
         $("#room-time").children("option").each(function (i, o) {
-            $(o).html(Number($(o).val()) * rule.time + L['SECOND']);
+            $(o).html(Number($(o).val()) * rule.time + Messages['kkutu.js.second']);
         });
     }).trigger('change');
     $stage.menu.spectate.on('click', function (e) {
@@ -662,7 +662,7 @@ $(document).ready(function () {
     });
     $stage.menu.practice.on('click', function (e) {
         if (RULE[MODE[$data.room.mode]].ai) {
-            $("#PracticeDiag .dialog-title").html(L['practice']);
+            $("#PracticeDiag .dialog-title").html(Messages['kkutu.js.practice']);
             $("#ai-team").val(0).prop('disabled', true);
             showDialog($stage.dialog.practice);
         } else {
@@ -677,7 +677,7 @@ $(document).ready(function () {
     });
     $stage.menu.exit.on('click', function (e) {
         if ($data.room.gaming) {
-            if (!confirm(L['sureExit'])) return;
+            if (!confirm(Messages['kkutu.js.confirmExit'])) return;
             clearGame();
         }
         send('leave');
@@ -738,7 +738,7 @@ $(document).ready(function () {
         $stage.dialog.setting.hide();
     });
     $stage.dialog.profileLevel.on('click', function (e) {
-        $("#PracticeDiag .dialog-title").html(L['robot']);
+        $("#PracticeDiag .dialog-title").html(Messages['kkutu.js.robot']);
         $("#ai-team").prop('disabled', false);
         showDialog($stage.dialog.practice);
     });
@@ -747,7 +747,7 @@ $(document).ready(function () {
         var team = $("#ai-team").val();
 
         $stage.dialog.practice.hide();
-        if ($("#PracticeDiag .dialog-title").html() == L['robot']) {
+        if ($("#PracticeDiag .dialog-title").html() == Messages['kkutu.js.robot']) {
             send('setAI', {target: $data._profiled, level: level, team: team});
         } else {
             send('practice', {level: level});
@@ -819,14 +819,14 @@ $(document).ready(function () {
         if ($target.is(':disabled')) return;
         if (!$("#dict-theme").val()) return;
         $target.prop('disabled', true);
-        $("#dict-output").html(L['searching']);
+        $("#dict-output").html(Messages['kkutu.js.searching']);
         $.get("/injeong/" + $("#dict-input").val() + "?theme=" + $("#dict-theme").val(), function (res) {
             addTimeout(function () {
                 $target.prop('disabled', false);
             }, 2000);
-            if (res.error) return $("#dict-output").html(res.error + ": " + L['wpFail_' + res.error]);
+            if (res.error) return $("#dict-output").html(res.error + ": " + Messages[`kkutu.js.wpFail.${res.error}`]);
 
-            $("#dict-output").html(L['wpSuccess'] + "(" + res.message + ")");
+            $("#dict-output").html(Messages['kkutu.js.wpSuccess'] + "(" + res.message + ")");
         });
     });
     $stage.dialog.dictSearch.on('click', function (e) {
@@ -834,12 +834,12 @@ $(document).ready(function () {
 
         if ($target.is(':disabled')) return;
         $target.prop('disabled', true);
-        $("#dict-output").html(L['searching']);
+        $("#dict-output").html(Messages['kkutu.js.searching']);
         tryDict($("#dict-input").val(), function (res) {
             addTimeout(function () {
                 $target.prop('disabled', false);
             }, 500);
-            if (res.error) return $("#dict-output").html(res.error + ": " + L['wpFail_' + res.error]);
+            if (res.error) return $("#dict-output").html(res.error + ": " + Messages[`kkutu.js.wpFail.${res.error}`]);
 
             $("#dict-output").html(processWord(res.word, res.mean, res.theme, res.type.split(',')));
         });
@@ -866,7 +866,7 @@ $(document).ready(function () {
         tryJoin($data._roominfo);
     });
     $stage.dialog.profileHandover.on('click', function (e) {
-        if (!confirm(L['sureHandover'])) return;
+        if (!confirm(Messages['kkutu.js.confirmHandover'])) return;
         send('handover', {target: $data._profiled});
     });
     $stage.dialog.profileKick.on('click', function (e) {
@@ -884,7 +884,7 @@ $(document).ready(function () {
         $stage.talk.val("/e " + (o.profile.title || o.profile.name).replace(/\s/g, "") + " ").focus();
     });
     $stage.dialog.profileDress.on('click', function (e) {
-        // alert(L['error_555']);
+        // alert(Messages['error_555']);
         if ($data.guest) return fail(421);
         if ($data._gaming) return fail(438);
         if (showDialog($stage.dialog.dress)) $.get("/box", function (res) {
@@ -904,7 +904,7 @@ $(document).ready(function () {
             $stage.dialog.dressOK.attr('disabled', false);
             if (res.error) return fail(res.error);
             if (($("#dress-nickname").val() != $data.users[$data.id].profile.title && $("#dress-nickname").val() != $data.users[$data.id].profile.name) || $("#dress-exordial").val() != $data.users[$data.id].exordial) {
-                alert(L['profileChanged']);
+                alert(Messages['kkutu.js.profileChanged']);
             }
 
             $stage.dialog.dress.hide();
@@ -925,14 +925,14 @@ $(document).ready(function () {
     });
     $stage.dialog.cfCompose.on('click', function (e) {
         if (!$stage.dialog.cfCompose.hasClass("cf-composable")) return fail(436);
-        if (!confirm(L['cfSureCompose'])) return;
+        if (!confirm(Messages['kkutu.js.cfConfirmCompose'])) return;
 
         $.post("/cf", {tray: $data._tray.join('|')}, function (res) {
             var i;
 
             if (res.error) return fail(res.error);
             send('refresh');
-            alert(L['cfComposed']);
+            alert(Messages['kkutu.js.cfComposed']);
             $data.users[$data.id].money = res.money;
             $data.box = res.box;
             for (i in res.gain) queueObtain(res.gain[i]);
@@ -994,7 +994,7 @@ $(document).ready(function () {
             var my = $data.users[$data.id];
 
             if (res.error) return fail(res.error);
-            alert(L['purchased']);
+            alert(Messages['kkutu.js.purchased']);
             my.money = res.money;
             my.box = res.box;
             updateMe();
@@ -1056,7 +1056,7 @@ $(document).ready(function () {
                 $stage.dialog.replayView.attr('disabled', false);
             } catch (ex) {
                 console.warn(ex);
-                return alert(L['replayError']);
+                return alert(Messages['kkutu.js.replayError']);
             }
         };
     });
@@ -1100,7 +1100,7 @@ $(document).ready(function () {
             onMessage(data);
         };
         ws.onclose = function (e) {
-            var ct = L['closed'] + " (#" + e.code + ")";
+            var ct = Messages['kkutu.js.closed'] + " (#" + e.code + ")";
 
             if (rws) rws.close();
             stopAllSounds();
@@ -1110,7 +1110,7 @@ $(document).ready(function () {
             });
         };
         ws.onerror = function (e) {
-            console.warn(L['error'], e);
+            console.warn(Messages['kkutu.js.error'], e);
         };
 
         function recaptchaCallback(response) {
@@ -1194,10 +1194,10 @@ $lib.Classic.turnGoing = function () {
 
     $stage.game.turnBar
         .width($data._timePercent())
-        .html(($data._turnTime * 0.001).toFixed(1) + L['SECOND']);
+        .html(($data._turnTime * 0.001).toFixed(1) + Messages['kkutu.js.second']);
     $stage.game.roundBar
         .width($data._roundTime / $data.room.time * 0.1 + "%")
-        .html(($data._roundTime * 0.001).toFixed(1) + L['SECOND']);
+        .html(($data._roundTime * 0.001).toFixed(1) + Messages['kkutu.js.second']);
 
     if (!$stage.game.roundBar.hasClass("round-extreme")) if ($data._roundTime <= 5000) $stage.game.roundBar.addClass("round-extreme");
 };
@@ -1268,7 +1268,7 @@ $lib.Classic.turnEnd = function (id, data) {
  */
 
 $lib.Jaqwi.roundReady = function (data) {
-    var tv = L['jqTheme'] + ": " + L['theme_' + data.theme];
+    var tv = Messages['kkutu.js.jqTheme'] + ": " + Messages[`word.theme.${data.theme}`];
 
     clearBoard();
     $data._roundTime = $data.room.time * 1000;
@@ -1301,7 +1301,7 @@ $lib.Jaqwi.turnGoing = function () {
     if (!$data.room) clearInterval($data._tTime);
     $data._roundTime -= TICK;
 
-    tt = $data._spectate ? L['stat_spectate'] : ($data._roundTime * 0.001).toFixed(1) + L['SECOND'];
+    tt = $data._spectate ? Messages['kkutu.js.statSpectate'] : ($data._roundTime * 0.001).toFixed(1) + Messages['kkutu.js.second'];
     $rtb
         .width($data._roundTime / $data.room.time * 0.1 + "%")
         .html(tt);
@@ -1460,7 +1460,7 @@ $lib.Crossword.onBar = function (e) {
 
     $stage.game.cwcmd.css('opacity', 1);
     $data._sel = [$data.selectedRound - 1, pos[0], pos[1], pos[2]];
-    $(".cw-q-head").html(L[vert ? 'cwVert' : 'cwHorz'] + data.len + L['cwL']);
+    $(".cw-q-head").html(Messages[vert ? 'kkutu.js.cwVert' : 'kkutu.js.cwHorz'] + data.len + Messages['kkutu.js.cwL']);
     $("#cw-q-input").val("").focus();
     $(".cw-q-body").html(processWord("★", data.mean, data.theme, data.type.split(',')));
 };
@@ -1608,7 +1608,7 @@ $lib.Typing.turnEnd = function (id, data) {
 
 function restGoing(rest) {
     $(".jjo-turn-time .graph-bar")
-        .html(rest + L['afterRun']);
+        .html(rest + Messages['kkutu.js.afterRun']);
     if (rest > 0) addTimeout(restGoing, 1000, rest - 1);
 }
 
@@ -1621,7 +1621,7 @@ function drawSpeed(table) {
                 'float': "none",
                 'color': "#4444FF",
                 'text-align': "center"
-            }).html(table[i] + "<label style='font-size: 11px;'>" + L['kpm'] + "</label>"));
+            }).html(table[i] + "<label style='font-size: 11px;'>" + Messages['kkutu.js.kpm'] + "</label>"));
     }
 }
 
@@ -1758,7 +1758,7 @@ $lib.Daneo.roundReady = function (data) {
 
     clearBoard();
     $data._roundTime = $data.room.time * 1000;
-    $stage.game.display.html($data._char = "&lt;" + (L['theme_' + data.theme]) + "&gt;");
+    $stage.game.display.html($data._char = "&lt;" + (Messages[`word.theme.${data.theme}`]) + "&gt;");
     $stage.game.chain.show().html($data.chain = 0);
     if ($data.room.opts.mission) {
         $stage.game.items.show().css('opacity', 1).html($data.mission = data.mission);
@@ -2126,7 +2126,7 @@ function connectToRoom(chan, rid) {
     if (rws) return;
     rws = new _WebSocket(url);
 
-    loading(L['connectToRoom'] + "\n<center><button id='ctr-close'>" + L['ctrCancel'] + "</button></center>");
+    loading(Messages['kkutu.js.connectToRoom'] + "\n<center><button id='ctr-close'>" + Messages['kkutu.js.ctrCancel'] + "</button></center>");
     $("#ctr-close").on('click', function () {
         loading();
         if (rws) rws.close();
@@ -2140,46 +2140,46 @@ function connectToRoom(chan, rid) {
         rws = undefined;
     };
     rws.onerror = function (e) {
-        console.warn(L['error'], e);
+        console.warn(Messages['kkutu.js.error'], e);
     };
 }
 
 function checkAge() {
-    if (!confirm(L['checkAgeAsk'])) return send('caj', {answer: "no"}, true);
+    if (!confirm(Messages['kkutu.js.checkAgeAsk'])) return send('caj', {answer: "no"}, true);
 
     while (true) {
         var input = [], lv = 1;
 
         while (lv <= 3) {
-            var str = prompt(L['checkAgeInput' + lv]);
+            var str = prompt(Messages[`kkutu.js.checkAgeInput.${lv}`]);
 
             if (!str || isNaN(str = Number(str))) {
                 if (--lv < 1) break; else continue;
             }
             if (lv == 1 && (str < 1000 || str > 2999)) {
-                alert(str + "\n" + L['checkAgeNo']);
+                alert(str + "\n" + Messages['kkutu.js.checkAgeNo']);
                 continue;
             }
             if (lv == 2 && (str < 1 || str > 12)) {
-                alert(str + "\n" + L['checkAgeNo']);
+                alert(str + "\n" + Messages['kkutu.js.checkAgeNo']);
                 continue;
             }
             if (lv == 3 && (str < 1 || str > 31)) {
-                alert(str + "\n" + L['checkAgeNo']);
+                alert(str + "\n" + Messages['kkutu.js.checkAgeNo']);
                 continue;
             }
             input[lv++ - 1] = str;
         }
         if (lv == 4) {
-            if (confirm(L['checkAgeSure'] + "\n"
-                + input[0] + L['YEAR'] + " "
-                + input[1] + L['MONTH'] + " "
-                + input[2] + L['DATE'])) return send('caj', {
+            if (confirm(Messages['kkutu.js.checkAgeSure'] + "\n"
+                + input[0] + Messages['kkutu.js.year'] + " "
+                + input[1] + Messages['kkutu.js.month'] + " "
+                + input[2] + Messages['kkutu.js.day'])) return send('caj', {
                 answer: "yes",
                 input: [input[1], input[2], input[0]]
             }, true);
         } else {
-            if (confirm(L['checkAgeCancel'])) return send('caj', {answer: "no"}, true);
+            if (confirm(Messages['kkutu.js.checkAgeCancel'])) return send('caj', {answer: "no"}, true);
         }
     }
 }
@@ -2203,10 +2203,10 @@ function onMessage(data) {
             $data._okg = data.okg;
             $data._gaming = false;
             $data.box = data.box;
-            if (data.test) alert(L['welcomeTestServer']);
+            if (data.test) alert(Messages['kkutu.js.welcomeTestServer']);
             if (location.hash[1]) tryJoin(location.hash.slice(1));
             updateUI(undefined, true);
-            notice(L['welcomeMsg']);
+            notice(Messages['kkutu.js.welcomeMsg']);
             welcome();
             if (data.caj) checkAge();
             updateCommunity();
@@ -2230,7 +2230,7 @@ function onMessage(data) {
             $target = $data.usersR[data.user.id] = data.user;
 
             if ($target.id == $data.id) loading();
-            else notice(($target.profile.title || $target.profile.name) + L['hasJoined']);
+            else notice(($target.profile.title || $target.profile.name) + Messages['kkutu.js.hasJoined']);
             updateUserList();
             break;
         case 'disconnRoom':
@@ -2238,17 +2238,17 @@ function onMessage(data) {
 
             if ($target) {
                 delete $data.usersR[data.id];
-                notice(($target.profile.title || $target.profile.name) + L['hasLeft']);
+                notice(($target.profile.title || $target.profile.name) + Messages['kkutu.js.hasLeft']);
                 updateUserList();
             }
             break;
         case 'yell':
             yell(data.value);
-            notice(data.value, L['yell']);
+            notice(data.value, Messages['kkutu.js.yell']);
             break;
         case 'dying':
-            yell(L['dying']);
-            notice(L['dying'], L['yell']);
+            yell(Messages['kkutu.js.dying']);
+            notice(Messages['kkutu.js.dying'], Messages['kkutu.js.yell']);
             break;
         case 'tail':
             notice(data.a + "|" + data.rid + "@" + data.id + ": " + ((data.msg instanceof String) ? data.msg : JSON.stringify(data.msg)).replace(/</g, "&lt;").replace(/>/g, "&gt;"), "tail");
@@ -2262,10 +2262,10 @@ function onMessage(data) {
                 if (data.message !== undefined) {
                     notice(data.message);
                 } else {
-                    notice(L['error_' + data.code]);
+                    notice(Messages[`kkutu.js.error.${data.code}`]);
                 }
             } else {
-                chat(data.profile || {title: L['robot']}, data.value, data.from, data.timestamp);
+                chat(data.profile || {title: Messages['kkutu.js.robot']}, data.value, data.from, data.timestamp);
             }
             break;
         case 'roomStuck':
@@ -2302,8 +2302,8 @@ function onMessage(data) {
         case 'friend':
             $data._friends[data.id] = {server: (data.stat == "on") ? data.s : false};
             if ($data._friends[data.id] && $data.friends[data.id])
-                notice(((data.stat == "on") ? ("&lt;<b>" + L['server_' + $data._friends[data.id].server] + "</b>&gt; ") : "")
-                    + L['friend'] + " " + $data.friends[data.id] + L['fstat_' + data.stat]);
+                notice(((data.stat == "on") ? ("&lt;<b>" + Messages[`portal.js.server.${$data._friends[data.id].server}`] + "</b>&gt; ") : "")
+                    + Messages['kkutu.js.friend'] + " " + $data.friends[data.id] + Messages['kkutu.js.fstat.' + data.stat]);
             updateCommunity();
             break;
         case 'friendAdd':
@@ -2311,13 +2311,13 @@ function onMessage(data) {
             i = ($target.title || $target.name) + "(#" + data.from.substr(0, 5) + ")";
             send('friendAddRes', {
                 from: data.from,
-                res: $data.opts.df ? false : confirm(i + L['attemptFriendAdd'])
+                res: $data.opts.df ? false : confirm(i + Messages['kkutu.js.attemptFriendAdd'])
             }, true);
             break;
         case 'friendAddRes':
             $target = $data.users[data.target].profile;
             i = ($target.title || $target.name) + "(#" + data.target.substr(0, 5) + ")";
-            notice(i + L['friendAddRes_' + (data.res ? 'ok' : 'no')]);
+            notice(i + Messages['kkutu.js.friendAddRes.' + (data.res ? 'ok' : 'no')]);
             if (data.res) {
                 $data.friends[data.target] = $target.title || $target.name;
                 $data._friends[data.target] = {server: $data.server};
@@ -2329,7 +2329,7 @@ function onMessage(data) {
             updateCommunity();
             break;
         case 'starting':
-            loading(L['gameLoading']);
+            loading(Messages['kkutu.js.gameLoading']);
             break;
         case 'roundReady':
             route("roundReady", data);
@@ -2363,7 +2363,7 @@ function onMessage(data) {
             }
             /*if($data.guest){
 				$stage.menu.exit.trigger('click');
-				alert(L['guestExit']);
+				alert(Messages['guestExit']);
 			}*/
             $data._resultRank = data.ranks;
             roundEnd(data.result, data.data);
@@ -2373,7 +2373,7 @@ function onMessage(data) {
             if ($data.id != data.target && $data.id != $data.room.master) {
                 kickVoting(data.target);
             }
-            notice(($data._kickTarget.profile.title || $data._kickTarget.profile.name) + L['kickVoting']);
+            notice(($data._kickTarget.profile.title || $data._kickTarget.profile.name) + Messages['kkutu.js.kickVoting']);
             break;
         case 'kickDeny':
             notice(getKickText($data._kickTarget.profile, data));
@@ -2381,31 +2381,31 @@ function onMessage(data) {
         case 'invited':
             send('inviteRes', {
                 from: data.from,
-                res: $data.opts.di ? false : confirm(data.from + L['invited'])
+                res: $data.opts.di ? false : confirm(data.from + Messages['kkutu.js.invited'])
             });
             break;
         case 'inviteNo':
             $target = $data.users[data.target];
-            notice(($target.profile.title || $target.profile.name) + L['inviteDenied']);
+            notice(($target.profile.title || $target.profile.name) + Messages['kkutu.js.inviteDenied']);
             break;
         case 'okg':
             if ($data._playTime > data.time) {
-                notice(L['okgExpired']);
-            } else if ($data._okg != data.count) notice(L['okgNotice'] + " (" + L['okgCurrent'] + data.count + ")");
+                notice(Messages['kkutu.js.okgExpired']);
+            } else if ($data._okg != data.count) notice(Messages['kkutu.js.okgNotice'] + " (" + Messages['kkutu.js.okgCurrent'] + data.count + ")");
             $data._playTime = data.time;
             $data._okg = data.count;
             break;
         case 'obtain':
             queueObtain(data);
-            // notice(L['obtained'] + ": " + iName(data.key) + " x" + data.q);
+            // notice(Messages['obtained'] + ": " + iName(data.key) + " x" + data.q);
             break;
         case 'expired':
             for (i in data.list) {
-                notice(iName(data.list[i]) + L['hasExpired']);
+                notice(iName(data.list[i]) + Messages['kkutu.js.hasExpired']);
             }
             break;
         case 'blocked':
-            notice(L['blocked']);
+            notice(Messages['kkutu.js.blocked']);
             break;
         case 'test':
             if ($data._test = !$data._test) {
@@ -2441,10 +2441,10 @@ function onMessage(data) {
                     break;
                 }
             } else if (data.code == 409) {
-                i = L['server_' + i];
+                i = Messages[`portal.js.server.${i}`];
             } else if (data.code == 416) {
                 // 게임 중
-                if (confirm(L['error_' + data.code])) {
+                if (confirm(Messages[`kkutu.js.error.${data.code}`])) {
                     stopBGM();
                     $data._spectate = true;
                     $data._gaming = true;
@@ -2480,7 +2480,7 @@ function onMessage(data) {
                 alert(data.message);
                 break;
             }
-            alert("[#" + data.code + "] " + L['error_' + data.code] + i);
+            alert(`[#${data.code}] ${Messages[`kkutu.js.error.${data.code}`]}${i}`);
             break;
         default:
             break;
@@ -2492,7 +2492,7 @@ function welcome() {
     playBGM('lobby');
 
     $("#Intro").animate({'opacity': 1}, 1000).animate({'opacity': 0}, 1000);
-    $("#intro-text").text(L['welcome']);
+    $("#intro-text").text(Messages['kkutu.js.welcome']);
 
     dhtr = _setInterval(detectHacker, 10000);
 
@@ -2525,25 +2525,25 @@ function detectHacker() {
 }
 
 function getKickText(profile, vote) {
-    var vv = L['agree'] + " " + vote.Y + ", " + L['disagree'] + " " + vote.N + L['kickCon'];
+    var vv = Messages['kkutu.js.agree'] + " " + vote.Y + ", " + Messages['kkutu.js.disagree'] + " " + vote.N + Messages['kkutu.js.kickCon'];
     if (vote.Y >= vote.N) {
-        vv += (profile.title || profile.name) + L['kicked'];
+        vv += (profile.title || profile.name) + Messages['kkutu.js.kicked'];
     } else {
-        vv += (profile.title || profile.name) + L['kickDenied'];
+        vv += (profile.title || profile.name) + Messages['kkutu.js.kickDenied'];
     }
     return vv;
 }
 
 function runCommand(cmd) {
     var i, c, CMD = {
-        '/ㄱ': L['cmd_r'],
-        '/청소': L['cmd_cls'],
-        '/ㄹ': L['cmd_f'],
-        '/ㄷ': L['cmd_e'],
-        '/ㄷㄷ': L['cmd_ee'],
-        '/무시': L['cmd_wb'],
-        '/차단': L['cmd_shut'],
-        '/id': L['cmd_id']
+        '/ㄱ': Messages['kkutu.js.cmd.r'],
+        '/청소': Messages['kkutu.js.cmd.cls'],
+        '/ㄹ': Messages['kkutu.js.cmd.f'],
+        '/ㄷ': Messages['kkutu.js.cmd.e'],
+        '/ㄷㄷ': Messages['kkutu.js.cmd.ee'],
+        '/무시': Messages['kkutu.js.cmd.wb'],
+        '/차단': Messages['kkutu.js.cmd.shut'],
+        '/id': Messages['kkutu.js.cmd.id']
     };
 
     switch (cmd[0].toLowerCase()) {
@@ -2574,7 +2574,7 @@ function runCommand(cmd) {
             if ($data._recentFrom) {
                 sendWhisper($data._recentFrom, cmd.slice(1).join(' '));
             } else {
-                notice(L['error_425']);
+                notice(Messages['kkutu.js.error.425']);
             }
             break;
         case "/무시":
@@ -2594,9 +2594,9 @@ function runCommand(cmd) {
                         notice("[" + (++c) + "] " + i);
                     }
                 }
-                if (!c) notice(L['error_405']);
+                if (!c) notice(Messages['kkutu.js.error.405']);
             } else {
-                notice(L['myId'] + $data.id);
+                notice(Messages['kkutu.js.myId'] + $data.id);
             }
             break;
         default:
@@ -2616,20 +2616,20 @@ function sendWhisper(target, text) {
 function toggleWhisperBlock(target) {
     if ($data._wblock.hasOwnProperty(target)) {
         delete $data._wblock[target];
-        notice(target + L['wnblocked']);
+        notice(target + Messages['kkutu.js.wnblocked']);
     } else {
         $data._wblock[target] = true;
-        notice(target + L['wblocked']);
+        notice(target + Messages['kkutu.js.wblocked']);
     }
 }
 
 function toggleShutBlock(target) {
     if ($data._shut.hasOwnProperty(target)) {
         delete $data._shut[target];
-        notice(target + L['userNShut']);
+        notice(target + Messages['kkutu.js.userNShut']);
     } else {
         $data._shut[target] = true;
-        notice(target + L['userShut']);
+        notice(target + Messages['kkutu.js.userShut']);
     }
 }
 
@@ -2649,7 +2649,7 @@ function processRoom(data) {
         $target = $data.users[data.target];
         if (data.kickVote) {
             notice(getKickText($target.profile, data.kickVote));
-            if ($target.id == data.id) alert(L['hasKicked']);
+            if ($target.id == data.id) alert(Messages['kkutu.js.hasKicked']);
         }
         if (data.room.players.indexOf($data.id) == -1) {
             if ($data.room) if ($data.room.gaming) {
@@ -2857,7 +2857,7 @@ function checkRoom(modify) {
         for (i in arr) {
             if (arr[i] != OBJ) $data.users[arr[i]].game.ready = false;
         }
-        notice(L['hasModified']);
+        notice(Messages['kkutu.js.hasModified']);
     }
     if ($data._gaming != $data.room.gaming) {
         if ($data.room.gaming) {
@@ -2878,7 +2878,7 @@ function checkRoom(modify) {
     }
     if ($data._master != $data.room.master) {
         u = $data.users[$data.room.master];
-        notice((u.profile.title || u.profile.name) + L['hasMaster']);
+        notice((u.profile.title || u.profile.name) + Messages['kkutu.js.hasMaster']);
     }
     $data._players = $data.room.players.toString();
     $data._master = $data.room.master;
@@ -2897,11 +2897,11 @@ function updateMe() {
     // $(".my-image").css('background-image', "url('"+my.profile.image+"')");
     $(".my-stat-level").replaceWith(getLevelImage(my.data.score).addClass("my-stat-level"));
     $(".my-stat-name").html(my.profile.title || my.profile.name);
-    $(".my-stat-record").html(L['globalWin'] + " " + gw + L['W']);
-    $(".my-stat-ping").html(commify(my.money) + L['ping']);
+    $(".my-stat-record").html(Messages['kkutu.js.globalWin'] + " " + gw + Messages['kkutu.js.w']);
+    $(".my-stat-ping").html(commify(my.money) + Messages['kkutu.js.ping']);
     $(".my-okg .graph-bar").width(($data._playTime % 600000) / 6000 + "%");
     $(".my-okg-text").html(prettyTime($data._playTime));
-    $(".my-level").html(L['LEVEL'] + " " + lv);
+    $(".my-level").html(Messages['kkutu.js.level'] + " " + lv);
     $(".my-gauge .graph-bar").width((my.data.score - prev) / (goal - prev) * 190);
     $(".my-gauge-text").html(commify(my.data.score) + " / " + commify(goal));
 }
@@ -2911,9 +2911,9 @@ function prettyTime(time) {
     var hour = Math.floor(time / 3600000);
     var txt = [];
 
-    if (hour) txt.push(hour + L['HOURS']);
-    if (min) txt.push(min + L['MINUTE']);
-    if (!hour) txt.push(sec + L['SECOND']);
+    if (hour) txt.push(hour + Messages['kkutu.js.hours']);
+    if (min) txt.push(min + Messages['kkutu.js.minute']);
+    if (!hour) txt.push(sec + Messages['kkutu.js.second']);
     return txt.join(' ');
 }
 
@@ -2940,9 +2940,9 @@ function updateUserList(refresh) {
         for (i in $data.users) len++;
     }
     $stage.lobby.userListTitle.html("<i class='fa fa-users'></i>"
-        + "&lt;<b>" + L['server_' + $data.server] + "</b>&gt; "
-        + L['UserList'].replace("FA{users}", "")
-        + " [" + len + L['MN'] + "]");
+        + "&lt;<b>" + Messages[`portal.js.server.${$data.server}`] + "</b>&gt; "
+        + Messages['kkutu.js.userList']
+        + " [" + len + Messages['kkutu.js.mn'] + "]");
 
     if (refresh) {
         $stage.lobby.userList.empty();
@@ -3020,7 +3020,7 @@ function updateRoomList(refresh) {
             len++;
         }
     }
-    $stage.lobby.roomListTitle.html(L['RoomList'].replace("FA{bars}", "<i class='fa fa-bars'></i>") + " [" + len + L['GAE'] + "]");
+    $stage.lobby.roomListTitle.html(Messages['kkutu.js.roomList'] + " [" + len + Messages['kkutu.js.gae'] + "]");
 
     if (len) {
         $(".rooms-gaming").css('display', $data.opts.ow ? "none" : "");
@@ -3047,8 +3047,8 @@ function roomListBar(o) {
         .append($("<div>").addClass("rooms-limit").html(o.players.length + " / " + o.limit))
         .append($("<div>").width(270)
             .append($("<div>").addClass("rooms-mode").html(opts.join(" / ").toString()))
-            .append($("<div>").addClass("rooms-round").html(L['rounds'] + " " + o.round))
-            .append($("<div>").addClass("rooms-time").html(o.time + L['SECOND']))
+            .append($("<div>").addClass("rooms-round").html(Messages['kkutu.js.rounds'] + " " + o.round))
+            .append($("<div>").addClass("rooms-time").html(o.time + Messages['kkutu.js.second']))
         )
         .append($("<div>").addClass("rooms-lock").html(o.password ? "<i class='fa fa-lock'></i>" : "<i class='fa fa-unlock'></i>"))
         .on('click', function (e) {
@@ -3068,7 +3068,7 @@ function normalGameUserBar(o) {
         .append($("<div>").addClass("game-user-title")
             .append(getLevelImage(o.data.score).addClass("game-user-level"))
             .append($bar = $("<div>").addClass("game-user-name ellipse").html(o.profile.title || o.profile.name))
-            .append($("<div>").addClass("expl").html(L['LEVEL'] + " " + getLevel(o.data.score)))
+            .append($("<div>").addClass("expl").html(Messages['kkutu.js.level'] + " " + getLevel(o.data.score)))
         )
         .append($n = $("<div>").addClass("game-user-score"));
     renderMoremi($m, o.equip);
@@ -3096,7 +3096,7 @@ function miniGameUserBar(o) {
 
 function getAIProfile(level) {
     return {
-        title: L['aiLevel' + level] + ' ' + L['robot'],
+        title: Messages['kkutu.js.aiLevel.' + level] + ' ' + Messages['kkutu.js.robot'],
         image: "https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/robot.png"
     };
 }
@@ -3139,8 +3139,8 @@ function updateRoom(gaming) {
             o = $data.users[$data.room.players[i]] || $data.room.players[i];
             if (!o.game) continue;
 
-            var prac = o.game.practice ? ('/' + L['stat_practice']) : '';
-            var spec = (o.game.form == "S") ? ('/' + L['stat_spectate']) : false;
+            var prac = o.game.practice ? ('/' + Messages['kkutu.js.statPractice']) : '';
+            var spec = (o.game.form == "S") ? ('/' + Messages['kkutu.js.statSpectate']) : false;
 
             if (o.robot) {
                 o.profile = getAIProfile(o.level);
@@ -3162,17 +3162,17 @@ function updateRoom(gaming) {
             renderMoremi($m, o.equip);
             if (spec) $z.hide();
             if (o.id == $data.room.master) {
-                $y.addClass("room-user-master").html(L['master'] + prac + (spec || ''));
+                $y.addClass("room-user-master").html(Messages['kkutu.js.master'] + prac + (spec || ''));
             } else if (spec) {
-                $y.addClass("room-user-spectate").html(L['stat_spectate'] + prac);
+                $y.addClass("room-user-spectate").html(Messages['kkutu.js.statSpectate'] + prac);
             } else if (o.game.ready || o.robot) {
-                $y.addClass("room-user-readied").html(L['stat_ready']);
+                $y.addClass("room-user-readied").html(Messages['kkutu.js.statReady']);
                 if (!o.robot) arAcc = true;
             } else if (o.game.practice) {
-                $y.addClass("room-user-practice").html(L['stat_practice']);
+                $y.addClass("room-user-practice").html(Messages['kkutu.js.statPractice']);
                 allReady = false;
             } else {
-                $y.html(L['stat_noready']);
+                $y.html(Messages['kkutu.js.statNoReady']);
                 allReady = false;
             }
             addonNickname($bar, o);
@@ -3190,10 +3190,10 @@ function updateRoom(gaming) {
 }
 
 function onMasterSubJamsu() {
-    notice(L['subJamsu']);
+    notice(Messages['kkutu.js.subJamsu']);
     $data._jamsu = addTimeout(function () {
         send('leave');
-        alert(L['masterJamsu']);
+        alert(Messages['kkutu.js.masterJamsu']);
     }, 30000);
 }
 
@@ -3343,10 +3343,10 @@ function drawMyGoods(avGroup) {
 
         if (e.ctrlKey) {
             if ($target.hasClass("dress-equipped")) return fail(426);
-            if (!confirm(L['surePayback'] + commify(Math.round((item.cost || 0) * 0.2)) + L['ping'])) return;
+            if (!confirm(Messages['kkutu.js.surePayback'] + commify(Math.round((item.cost || 0) * 0.2)) + Messages['kkutu.js.ping'])) return;
             $.post("/payback/" + id, function (res) {
                 if (res.error) return fail(res.error);
-                alert(L['painback']);
+                alert(Messages['kkutu.js.payback']);
                 $data.box = res.box;
                 $data.users[$data.id].money = res.money;
 
@@ -3355,14 +3355,14 @@ function drawMyGoods(avGroup) {
             });
         } else if (AVAIL_EQUIP.indexOf(item.group) != -1) {
             if (item.group == "Mhand") {
-                isLeft = confirm(L['dressWhichHand']);
+                isLeft = confirm(Messages['kkutu.js.dressWhichHand']);
             }
             requestEquip(id, isLeft);
         } else if (item.group == "CNS") {
-            if (!confirm(L['sureConsume'])) return;
+            if (!confirm(Messages['kkutu.js.sureConsume'])) return;
             $.post("/consume/" + id, function (res) {
-                if (res.exp) notice(L['obtainExp'] + ": " + commify(res.exp));
-                if (res.money) notice(L['obtainMoney'] + ": " + commify(res.money));
+                if (res.exp) notice(Messages['kkutu.js.obtainExp'] + ": " + commify(res.exp));
+                if (res.money) notice(Messages['kkutu.js.obtainMoney'] + ": " + commify(res.money));
                 res.gain.forEach(function (item) {
                     queueObtain(item);
                 });
@@ -3384,7 +3384,7 @@ function requestEquip(id, isLeft) {
     if (part.substr(0, 3) == "BDG") part = "BDG";
     var already = my.equip[part] == id;
 
-    if (confirm(L[already ? 'sureUnequip' : 'sureEquip'] + ": " + L[id][0])) {
+    if (confirm(Messages[already ? 'kkutu.js.sureUnequip' : 'kkutu.js.sureEquip'] + ": " + GoodDetails[id]['name'])) {
         $.post("/equip/" + id, {isLeft: isLeft}, function (res) {
             if (res.error) return fail(res.error);
             $data.box = res.box;
@@ -3427,7 +3427,7 @@ function drawCharFactory() {
     });
 
     function trayEmpty() {
-        $tray.html($("<h4>").css('padding-top', "8px").width("100%").html(L['cfTray']));
+        $tray.html($("<h4>").css('padding-top', "8px").width("100%").html(Messages['kkutu.js.cfTray']));
     }
 
     function drawCFTray() {
@@ -3448,7 +3448,7 @@ function drawCharFactory() {
             );
             $("#cf-\\" + item).addClass("cf-tray-selected");
         });
-        $dict.html(L['searching']);
+        $dict.html(Messages['kkutu.js.searching']);
         $rew.empty();
         $stage.dialog.cfCompose.removeClass("cf-composable");
         $cost.html("");
@@ -3458,8 +3458,8 @@ function drawCharFactory() {
             if (res.error) {
                 if (word.length == 3) {
                     blend = true;
-                    $dict.html(L['cfBlend']);
-                } else return $dict.html(L['wpFail_' + res.error]);
+                    $dict.html(Messages['kkutu.js.cfBlend']);
+                } else return $dict.html(Messages[`kkutu.js.wpFail.${res.error}`]);
             }
             viewReward(word, level, blend);
             $stage.dialog.cfCompose.addClass("cf-composable");
@@ -3475,7 +3475,7 @@ function drawCharFactory() {
             $rew.empty();
             res.data.forEach(function (item) {
                 var bd = iGoods(item.key);
-                var rt = (item.rate >= 1) ? L['cfRewAlways'] : ((item.rate * 100).toFixed(1) + '%');
+                var rt = (item.rate >= 1) ? Messages['kkutu.js.cfRewAlways'] : ((item.rate * 100).toFixed(1) + '%');
 
                 $rew.append($("<div>").addClass("cf-rew-item")
                     .append($("<div>").addClass("jt-image cf-rew-image")
@@ -3488,7 +3488,7 @@ function drawCharFactory() {
                     .append($("<div>").addClass("cf-rew-rate").html(rt))
                 );
             });
-            $cost.html(L['cfCost'] + ": " + res.cost + L['ping']);
+            $cost.html(Messages['kkutu.js.cfCost'] + ": " + res.cost + Messages['kkutu.js.ping']);
         });
     }
 
@@ -3513,7 +3513,7 @@ function drawLeaderboard(data) {
         var profile = $data.users[item.id];
 
         if (profile) profile = profile.profile.title || profile.profile.name;
-        else profile = L['hidden'];
+        else profile = Messages['kkutu.js.hidden'];
 
         item.score = Number(item.score);
         $board.append($("<tr>").attr('id', "ranking-" + item.id)
@@ -3528,7 +3528,7 @@ function drawLeaderboard(data) {
         );
     });
     $("#ranking-" + $data.id).addClass("ranking-me");
-    $stage.dialog.lbPage.html(L['page'] + " " + page);
+    $stage.dialog.lbPage.html(Messages['kkutu.js.page'] + " " + page);
     $stage.dialog.lbPrev.attr('disabled', page <= 1);
     $stage.dialog.lbNext.attr('disabled', data.data.length < 15);
     $stage.dialog.lbMe.attr('disabled', !!$data.guest);
@@ -3548,8 +3548,8 @@ function updateCommunity() {
 
         $stage.dialog.commFriends.append($("<div>").addClass("cf-item").attr('id', "cfi-" + i)
             .append($("<div>").addClass("cfi-status cfi-stat-" + (o.server ? 'on' : 'off')))
-            .append($("<div>").addClass("cfi-server").html(o.server ? L['server_' + o.server] : "-"))
-            .append($("<div>").addClass("cfi-name ellipse").html(p ? (p.title || p.name) : L['hidden']))
+            .append($("<div>").addClass("cfi-server").html(o.server ? Messages[`portal.js.server.${o.server}`] : "-"))
+            .append($("<div>").addClass("cfi-name ellipse").html(p ? (p.title || p.name) : Messages['kkutu.js.hidden']))
             .append($("<div>").addClass("cfi-memo ellipse").text(memo))
             .append($("<div>").addClass("cfi-menu")
                 .append($("<i>").addClass("fa fa-pencil").on('click', requestEditMemo))
@@ -3561,7 +3561,7 @@ function updateCommunity() {
     function requestEditMemo(e) {
         var id = $(e.currentTarget).parent().parent().attr('id').slice(4);
         var _memo = $data.friends[id];
-        var memo = prompt(L['friendEditMemo'], _memo);
+        var memo = prompt(Messages['kkutu.js.friendEditMemo'], _memo);
 
         if (!memo) return;
         send('friendEdit', {id: id, memo: memo}, true);
@@ -3572,11 +3572,11 @@ function updateCommunity() {
         var memo = $data.friends[id];
 
         if ($data._friends[id].server) return fail(455);
-        if (!confirm(memo + "(#" + id.substr(0, 5) + ")\n" + L['friendSureRemove'])) return;
+        if (!confirm(memo + "(#" + id.substr(0, 5) + ")\n" + Messages['kkutu.js.friendSureRemove'])) return;
         send('friendRemove', {id: id}, true);
     }
 
-    $("#CommunityDiag .dialog-title").html(L['communityText'] + " (" + len + " / 100)");
+    $("#CommunityDiag .dialog-title").html(Messages['kkutu.js.communityText'] + " (" + len + " / 100)");
 }
 
 function requestRoomInfo(id) {
@@ -3584,10 +3584,10 @@ function requestRoomInfo(id) {
     var $pls = $("#ri-players").empty();
 
     $data._roominfo = id;
-    $("#RoomInfoDiag .dialog-title").html(id + L['sRoomInfo']);
+    $("#RoomInfoDiag .dialog-title").html(id + Messages['kkutu.js.sRoomInfo']);
     $("#ri-title").html((o.password ? "<i class='fa fa-lock'></i>&nbsp;" : "") + o.title.replace(/<.*?>/gi, ''));
-    $("#ri-mode").html(L['mode' + MODE[o.mode]]);
-    $("#ri-round").html(o.round + ", " + o.time + L['SECOND']);
+    $("#ri-mode").html(Messages[`game.mode.${MODE[o.mode]}.name`]);
+    $("#ri-round").html(o.round + ", " + o.time + Messages['kkutu.js.second']);
     $("#ri-limit").html(o.players.length + " / " + o.limit);
     o.players.forEach(function (p, i) {
         var $p, $moremi;
@@ -3595,7 +3595,7 @@ function requestRoomInfo(id) {
 
         p = $data.users[p] || NULL_USER;
         if (o.players[i].robot) {
-            p.profile = {title: L['robot']};
+            p.profile = {title: Messages['kkutu.js.robot']};
             p.equip = {robot: true};
         } else rd.t = rd.t || 0;
 
@@ -3603,9 +3603,9 @@ function requestRoomInfo(id) {
             .append($moremi = $("<div>").addClass("moremi rip-moremi"))
             .append($p = $("<div>").addClass("ellipse rip-title").html(p.profile.title || p.profile.name))
             .append($("<div>").addClass("rip-team team-" + rd.t).html($("#team-" + rd.t).html()))
-            .append($("<div>").addClass("rip-form").html(L['pform_' + rd.f]))
+            .append($("<div>").addClass("rip-form").html(Messages['kkutu.js.pform.' + rd.f]))
         );
-        if (p.id == o.master) $p.prepend($("<label>").addClass("rip-master").html("[" + L['master'] + "]&nbsp;"));
+        if (p.id == o.master) $p.prepend($("<label>").addClass("rip-master").html("[" + Messages['kkutu.js.master'] + "]&nbsp;"));
         $p.prepend(getLevelImage(p.data.score).addClass("profile-level rip-level"));
 
         renderMoremi($moremi, p.equip);
@@ -3621,10 +3621,10 @@ function requestProfile(id) {
     var i;
 
     if (!o) {
-        notice(L['error_405']);
+        notice(Messages['kkutu.js.error.405']);
         return;
     }
-    $("#ProfileDiag .dialog-title").html((o.profile.title || o.profile.name) + L['sProfile']);
+    $("#ProfileDiag .dialog-title").html((o.profile.title || o.profile.name) + Messages['kkutu.js.sProfile']);
 
     var idString = o.id.toString() || "robot__robot";
     var profileImageUrl = "https://cdn.jsdelivr.net/npm/kkutuio@latest/img/auth/" + ((o.robot || o.guest) ? "guest.png" : idString.split("-")[0] + ".png");
@@ -3638,8 +3638,8 @@ function requestProfile(id) {
         )
         .append($("<div>").addClass("profile-head-item")
             .append(getLevelImage(o.data.score).addClass("profile-level"))
-            .append($("<div>").addClass("profile-level-text").html(L['LEVEL'] + " " + (i = getLevel(o.data.score))))
-            .append($("<div>").addClass("profile-score-text").html(commify(o.data.score) + " / " + commify(EXP[i - 1]) + L['PTS']))
+            .append($("<div>").addClass("profile-level-text").html(Messages['kkutu.js.level'] + " " + (i = getLevel(o.data.score))))
+            .append($("<div>").addClass("profile-score-text").html(commify(o.data.score) + " / " + commify(EXP[i - 1]) + Messages['kkutu.js.pts']))
         )
         .append($ex = $("<div>").addClass("profile-head-item profile-exordial ellipse").text(badWords(o.exordial || ""))
             .append($("<div>").addClass("expl").css({
@@ -3651,17 +3651,17 @@ function requestProfile(id) {
     if (o.robot) {
         $stage.dialog.profileLevel.show();
         $stage.dialog.profileLevel.prop('disabled', $data.id != $data.room.master);
-        $("#profile-place").html($data.room.id + L['roomNumber']);
+        $("#profile-place").html($data.room.id + Messages['kkutu.js.roomNumber']);
     } else {
         $stage.dialog.profileLevel.hide();
-        $("#profile-place").html(o.place ? (o.place + L['roomNumber']) : L['lobby']);
+        $("#profile-place").html(o.place ? (o.place + Messages['kkutu.js.roomNumber']) : Messages['kkutu.js.lobby']);
         for (i in o.data.record) {
             var r = o.data.record[i];
 
             $rec.append($("<div>").addClass("profile-record-field")
-                .append($("<div>").addClass("profile-field-name").html(L['mode' + i]))
-                .append($("<div>").addClass("profile-field-record").html(r[0] + L['P'] + " " + r[1] + L['W']))
-                .append($("<div>").addClass("profile-field-score").html(commify(r[2]) + L['PTS']))
+                .append($("<div>").addClass("profile-field-name").html(Messages[`game.mode.${i}.name`]))
+                .append($("<div>").addClass("profile-field-record").html(r[0] + Messages['kkutu.js.p'] + " " + r[1] + Messages['kkutu.js.w']))
+                .append($("<div>").addClass("profile-field-score").html(commify(r[2]) + Messages['kkutu.js.pts']))
             );
         }
         renderMoremi($pi, o.equip);
@@ -3703,7 +3703,7 @@ function requestInvite(id) {
 
     if (id != "AI") {
         nick = $data.users[id].profile.title || $data.users[id].profile.name;
-        if (!confirm(nick + L['sureInvite'])) return;
+        if (!confirm(nick + Messages['kkutu.js.confirmInvite'])) return;
     }
     send('invite', {target: id});
 }
@@ -3711,7 +3711,7 @@ function requestInvite(id) {
 function checkFailCombo(id) {
     if (!$data._replay && $data.lastFail == $data.id && $data.id == id) {
         $data.failCombo++;
-        if ($data.failCombo == 1) notice(L['trollWarning']);
+        if ($data.failCombo == 1) notice(Messages['kkutu.js.trollWarning']);
         if ($data.failCombo > 1) {
             send('leave');
             fail(437);
@@ -3749,7 +3749,7 @@ function gameReady() {
     stopBGM();
     $stage.dialog.resultSave.attr('disabled', false);
     clearBoard();
-    $stage.game.display.html(L['soon']);
+    $stage.game.display.html(Messages['kkutu.js.soon']);
     playSound('game_start');
     forkChat();
     addTimeout(function () {
@@ -3820,11 +3820,11 @@ function replayReady() {
     $data.$gp = $(".GameBox .product-title").empty()
         .append($data.$gpt = $("<div>").addClass("game-replay-title"))
         .append($data.$gpc = $("<div>").addClass("game-replay-controller")
-            .append($("<button>").html(L['replayNext']).on('click', replayNext))
-            .append($("<button>").html(L['replayPause']).on('click', replayPause))
-            .append($("<button>").html(L['replayPrev']).on('click', replayPrev))
+            .append($("<button>").html(Messages['kkutu.js.replayNext']).on('click', replayNext))
+            .append($("<button>").html(Messages['kkutu.js.replayPause']).on('click', replayPause))
+            .append($("<button>").html(Messages['kkutu.js.replayPrev']).on('click', replayPrev))
         );
-    $data._gpp = L['replay'] + " - " + (new Date($rec.time)).toLocaleString();
+    $data._gpp = Messages['kkutu.js.replay'] + " - " + (new Date($rec.time)).toLocaleString();
     $data._gtt = $data.room.events[$data.room.events.length - 1].time;
     $data._eventTime = 0;
     $data._rt = addTimeout(replayTick, 2000);
@@ -3885,7 +3885,7 @@ function replayPrev(e) {
 function replayPause(e) {
     var p = $data._rpause = !$data._rpause;
 
-    $(e.target).html(p ? L['replayResume'] : L['replayPause']);
+    $(e.target).html(p ? Messages['kkutu.js.replayResume'] : Messages['kkutu.js.replayPause']);
 }
 
 function replayNext(e) {
@@ -3895,8 +3895,8 @@ function replayNext(e) {
 
 function replayStatus() {
     $data.$gpt.html($data._gpp
-        + " (" + ($data._eventTime * 0.001).toFixed(1) + L['SECOND']
-        + " / " + ($data._gtt * 0.001).toFixed(1) + L['SECOND']
+        + " (" + ($data._eventTime * 0.001).toFixed(1) + Messages['kkutu.js.second']
+        + " / " + ($data._gtt * 0.001).toFixed(1) + Messages['kkutu.js.second']
         + ")"
     );
 }
@@ -4046,7 +4046,7 @@ function turnHint(data) {
 
 function turnError(code, text) {
     $stage.game.display.empty().append($("<label>").addClass("game-fail-text")
-        .text((L['turnError_' + code] ? (L['turnError_' + code] + ": ") : "") + text)
+        .text((Messages['kkutu.js.turn.error.' + code] ? (Messages['kkutu.js.turn.error.' + code] + ": ") : "") + text)
     );
     playSound('fail');
     clearTimeout($data._fail);
@@ -4087,7 +4087,7 @@ function roundEnd(result, data) {
     var addit, addp;
 
     $(".result-me-expl").empty();
-    $stage.game.display.html(L['roundEnd']);
+    $stage.game.display.html(Messages['kkutu.js.roundEnd']);
     $data._resultPage = 1;
     $data._result = null;
     for (i in result) {
@@ -4111,12 +4111,12 @@ function roundEnd(result, data) {
             .append(getLevelImage(sc).addClass("result-board-level"))
             .append($("<div>").addClass("result-board-name").html(o.profile.title || o.profile.name))
             .append($("<div>").addClass("result-board-score")
-                .html(data.scores ? (L['avg'] + " " + commify(data.scores[r.id]) + L['kpm']) : (commify(r.score || 0) + L['PTS']))
+                .html(data.scores ? (Messages['kkutu.js.avg'] + " " + commify(data.scores[r.id]) + Messages['kkutu.js.kpm']) : (commify(r.score || 0) + Messages['kkutu.js.pts']))
             )
             .append($("<div>").addClass("result-board-reward").html(r.reward.score ? ("+" + commify(r.reward.score)) : "-"))
             .append($("<div>").addClass("result-board-lvup").css('display', lvUp ? "block" : "none")
                 .append($("<i>").addClass("fa fa-arrow-up"))
-                .append($("<div>").html(L['lvUp']))
+                .append($("<div>").html(Messages['kkutu.js.lvUp']))
             )
         );
         if (o.game.team) $p.addClass("team-" + o.game.team);
@@ -4148,10 +4148,10 @@ function roundEnd(result, data) {
             addp = "<label class='result-me-bonus'>(+" + commify(addp) + ")</label>";
         } else addp = "";
 
-        notice(L['scoreGain'] + ": " + commify($data._result.reward.score) + ", " + L['moneyGain'] + ": " + commify($data._result.reward.money));
+        notice(Messages['kkutu.js.scoreGain'] + ": " + commify($data._result.reward.score) + ", " + Messages['kkutu.js.moneyGain'] + ": " + commify($data._result.reward.money));
         $(".result-me").css('opacity', 1);
-        $(".result-me-score").html(L['scoreGain'] + " +" + commify($data._result.reward.score) + addit);
-        $(".result-me-money").html(L['moneyGain'] + " +" + commify($data._result.reward.money) + addp);
+        $(".result-me-score").html(Messages['kkutu.js.scoreGain'] + " +" + commify($data._result.reward.score) + addit);
+        $(".result-me-money").html(Messages['kkutu.js.moneyGain'] + " +" + commify($data._result.reward.money) + addp);
     }
 
     function roundEndAnimation(first) {
@@ -4195,13 +4195,13 @@ function roundEnd(result, data) {
     function explainReward(orgX, orgM, list) {
         var $sb, $mb;
         var $R = $("<div>")
-            .append($("<h4>").html(L['scoreGain']))
+            .append($("<h4>").html(Messages['kkutu.js.scoreGain']))
             .append($sb = $("<div>"))
-            .append($("<h4>").html(L['moneyGain']))
+            .append($("<h4>").html(Messages['kkutu.js.moneyGain']))
             .append($mb = $("<div>"));
 
-        row($sb, L['scoreOrigin'], orgX);
-        row($mb, L['moneyOrigin'], orgM);
+        row($sb, Messages['kkutu.js.scoreOrigin'], orgX);
+        row($mb, Messages['kkutu.js.moneyOrigin'], orgM);
         list.forEach(function (item) {
             var from = item.charAt(0);
             var type = item.charAt(1);
@@ -4215,7 +4215,7 @@ function roundEnd(result, data) {
             if (type == 'g') vtx = "+" + (org * value).toFixed(1);
             else if (type == 'h') vtx = "+" + Math.floor(value);
 
-            row($t, L['bonusFrom_' + from], vtx);
+            row($t, Messages['kkutu.js.bonusFrom.' + from], vtx);
         });
 
         function row($t, h, b) {
@@ -4247,7 +4247,7 @@ function drawRanking(ranks) {
     for (i in ranks.list) {
         r = ranks.list[i];
         o = $data.users[r.id] || {
-            profile: {title: L['hidden']}
+            profile: {title: Messages['kkutu.js.hidden']}
         };
         me = r.id == $data.id;
 
@@ -4255,7 +4255,7 @@ function drawRanking(ranks) {
             .append($("<div>").addClass("result-board-rank").html(r.rank + 1))
             .append(getLevelImage(r.score).addClass("result-board-level"))
             .append($("<div>").addClass("result-board-name").html(o.profile.title || o.profile.name))
-            .append($("<div>").addClass("result-board-score").html(commify(r.score) + L['PTS']))
+            .append($("<div>").addClass("result-board-score").html(commify(r.score) + Messages['kkutu.js.pts']))
             .append($("<div>").addClass("result-board-reward").html(""))
             .append($v = $("<div>").addClass("result-board-lvup").css('display', me ? "block" : "none")
                 .append($("<i>").addClass("fa fa-arrow-up"))
@@ -4273,7 +4273,7 @@ function drawRanking(ranks) {
 function kickVoting(target) {
     var op = $data.users[target].profile;
 
-    $("#kick-vote-text").html((op.title || op.name) + L['kickVoteText']);
+    $("#kick-vote-text").html((op.title || op.name) + Messages['kkutu.js.kickVoteText']);
     $data.kickTime = 10;
     $data._kickTime = 10;
     $data._kickTimer = addTimeout(kickVoteTick, 1000);
@@ -4289,7 +4289,7 @@ function kickVoteTick() {
 function loadShop() {
     var $body = $("#shop-shelf");
 
-    $body.html(L['LOADING']);
+    $body.html(Messages['kkutu.js.loading']);
     processShop(function (res) {
         $body.empty();
         if ($data.guest) res.error = 423;
@@ -4306,7 +4306,7 @@ function loadShop() {
             $body.append($("<div>").attr('id', "goods_" + item._id).addClass("goods")
                 .append($("<div>").addClass("jt-image goods-image").css('background-image', "url(" + url + ")"))
                 .append($("<div>").addClass("goods-title").html(iName(item._id)))
-                .append($("<div>").addClass("goods-cost").html(commify(item.cost) + L['ping']))
+                .append($("<div>").addClass("goods-cost").html(commify(item.cost) + Messages['kkutu.js.ping']))
                 .append(explainGoods(item, false))
                 .on('click', onGoods));
         });
@@ -4334,14 +4334,14 @@ function filterShop(by) {
 function explainGoods(item, equipped, expire) {
     var i;
     var $R = $("<div>").addClass("expl dress-expl")
-        .append($("<div>").addClass("dress-item-title").html(iName(item._id) + (equipped ? L['equipped'] : "")))
-        .append($("<div>").addClass("dress-item-group").html(L['GROUP_' + item.group]))
+        .append($("<div>").addClass("dress-item-title").html(iName(item._id) + (equipped ? Messages['kkutu.js.equipped'] : "")))
+        .append($("<div>").addClass("dress-item-group").html(Messages['item.group.' + item.group]))
         .append($("<div>").addClass("dress-item-expl").html(iDesc(item._id)));
     var $opts = $("<div>").addClass("dress-item-opts");
     var txt;
 
-    if (item.term) $R.append($("<div>").addClass("dress-item-term").html(Math.floor(item.term / 86400) + L['DATE'] + " " + L['ITEM_TERM']));
-    if (expire) $R.append($("<div>").addClass("dress-item-term").html((new Date(expire * 1000)).toLocaleString() + L['ITEM_TERMED']));
+    if (item.term) $R.append($("<div>").addClass("dress-item-term").html(Math.floor(item.term / 86400) + Messages['kkutu.js.day'] + " " + Messages['kkutu.js.itemTerm']));
+    if (expire) $R.append($("<div>").addClass("dress-item-term").html((new Date(expire * 1000)).toLocaleString() + Messages['kkutu.js.itemTermed']));
     for (i in item.options) {
         if (i == "gif") continue;
         var k = i.charAt(0);
@@ -4350,7 +4350,7 @@ function explainGoods(item, equipped, expire) {
         if (k == 'g') txt = "+" + (txt * 100).toFixed(1) + "%p";
         else if (k == 'h') txt = "+" + txt;
 
-        $opts.append($("<label>").addClass("item-opts-head").html(L['OPTS_' + i]))
+        $opts.append($("<label>").addClass("item-opts-head").html(Messages['kkutu.js.opts.' + i]))
             .append($("<label>").addClass("item-opts-body").html(txt))
             .append($("<br>"));
     }
@@ -4377,16 +4377,16 @@ function onGoods(e) {
     var ping = my.money;
     var after = ping - $obj.cost;
     var $oj;
-    var spt = L['surePurchase'];
+    var spt = Messages['kkutu.js.surePurchase'];
     var i, ceq = {};
 
-    if ($data.box) if ($data.box[id]) spt = L['alreadyGot'] + " " + spt;
+    if ($data.box) if ($data.box[id]) spt = Messages['kkutu.js.alreadyGot'] + " " + spt;
     showDialog($stage.dialog.purchase, true);
-    $("#purchase-ping-before").html(commify(ping) + L['ping']);
-    $("#purchase-ping-cost").html(commify($obj.cost) + L['ping']);
-    $("#purchase-item-name").html(L[id][0]);
-    $oj = $("#purchase-ping-after").html(commify(after) + L['ping']);
-    $("#purchase-item-desc").html((after < 0) ? L['notEnoughMoney'] : spt);
+    $("#purchase-ping-before").html(commify(ping) + Messages['kkutu.js.ping']);
+    $("#purchase-ping-cost").html(commify($obj.cost) + Messages['kkutu.js.ping']);
+    $("#purchase-item-name").html(GoodDetails[id]['name']);
+    $oj = $("#purchase-ping-after").html(commify(after) + Messages['kkutu.js.ping']);
+    $("#purchase-item-desc").html((after < 0) ? Messages['kkutu.js.notEnoughMoney'] : spt);
     for (i in my.equip) ceq[i] = my.equip[i];
     ceq[($obj.group == "Mhand") ? ["Mlhand", "Mrhand"][Math.floor(Math.random() * 2)] : $obj.group] = id;
 
@@ -4540,9 +4540,9 @@ function pushHistory(text, mean, theme, wc) {
 
     wcs.forEach(function (item) {
         if (wd[item]) return;
-        if (!L['class_' + item]) return;
+        if (!Messages['word.class.' + item]) return;
         wd[item] = true;
-        $v.append($("<label>").addClass("history-class").html(L['class_' + item]));
+        $v.append($("<label>").addClass("history-class").html(Messages['word.class.' + item]));
     });
     $v.append($w = $("<div>").addClass("history-mean ellipse").append(val))
         .append($x = $("<div>").addClass("expl").css({'width': 200, 'white-space': "normal"})
@@ -4564,10 +4564,10 @@ function processWord(word, _mean, _theme, _wcs) {
         });
     });
     var types = _wcs ? _wcs.map(function (_wc) {
-        return L['class_' + _wc];
+        return Messages['word.class.' + _wc];
     }) : [];
     var themes = _theme ? _theme.split(',').map(function (_t) {
-        return L['theme_' + _t];
+        return Messages['word.theme.' + _t];
     }) : [];
     var ms = means.length > 1;
 
@@ -4665,12 +4665,12 @@ function getImage(url) {
 }
 
 function getOptions(mode, opts, hash) {
-    var R = [L["mode" + MODE[mode]]];
+    var R = [Messages[`game.mode.${MODE[mode]}.name`]];
     var i, k;
 
     for (i in OPTIONS) {
         k = OPTIONS[i].name.toLowerCase();
-        if (opts[k]) R.push(L['opt' + OPTIONS[i].name]);
+        if (opts[k]) R.push(Messages[`game.option.${OPTIONS[i].name}.name`]);
     }
     if (hash) R.push(opts.injpick.join('|'));
 
@@ -4683,16 +4683,16 @@ function setRoomHead($obj, room) {
     var $rm;
 
     $obj.empty()
-        .append($("<h5>").addClass("room-head-number").html("[" + (room.practice ? L['practice'] : room.id) + "]"))
+        .append($("<h5>").addClass("room-head-number").html("[" + (room.practice ? Messages['kkutu.js.practice'] : room.id) + "]"))
         .append($("<h5>").addClass("room-head-title").text(badWords(room.title)))
         .append($rm = $("<h5>").addClass("room-head-mode").html(opts.join(" / ")))
-        .append($("<h5>").addClass("room-head-limit").html((mobile ? "" : (L['players'] + " ")) + room.players.length + " / " + room.limit))
-        .append($("<h5>").addClass("room-head-round").html(L['rounds'] + " " + room.round))
-        .append($("<h5>").addClass("room-head-time").html(room.time + L['SECOND']));
+        .append($("<h5>").addClass("room-head-limit").html((mobile ? "" : (Messages['kkutu.js.players'] + " ")) + room.players.length + " / " + room.limit))
+        .append($("<h5>").addClass("room-head-round").html(Messages['kkutu.js.rounds'] + " " + room.round))
+        .append($("<h5>").addClass("room-head-time").html(room.time + Messages['kkutu.js.second']));
 
     if (rule.opts.indexOf("ijp") != -1) {
         $rm.append($("<div>").addClass("expl").html("<h5>" + room.opts.injpick.map(function (item) {
-            return L["theme_" + item];
+            return Messages['word.theme.' + item];
         }) + "</h5>"));
         global.expl($obj);
     }
@@ -4727,7 +4727,7 @@ function getAudio(k, url, cb) {
     function done() {
         if (--$data._lsRemain == 0) {
             if (cb) cb();
-        } else loading(L['loadRemain'] + $data._lsRemain);
+        } else loading(Messages['kkutu.js.loadRemain'] + $data._lsRemain);
     }
 
     function AudioSound(url) {
@@ -4811,7 +4811,7 @@ function tryJoin(id) {
 
     if (!$data.rooms[id]) return;
     if ($data.rooms[id].password) {
-        pw = prompt(L['putPassword']);
+        pw = prompt(Messages['kkutu.js.putPassword']);
         if (!pw) return;
     }
     $data._pw = pw;
@@ -4898,7 +4898,7 @@ function chat(profile, msg, from, timestamp) {
     }
     if (from) {
         if (from !== true) $data._recentFrom = from;
-        $msg.html("<label style='color: #7777FF; font-weight: bold;'>&lt;" + L['whisper'] + "&gt;</label>" + $msg.html());
+        $msg.html("<label style='color: #7777FF; font-weight: bold;'>&lt;" + Messages['kkutu.js.whisper'] + "&gt;</label>" + $msg.html());
     }
     addonNickname($bar, {equip: equip});
     $stage.chat.scrollTop(999999999);
@@ -4910,7 +4910,7 @@ function notice(msg, head) {
     playSound('k');
     stackChat();
     $("#Chat,#chat-log-board").append($("<div>").addClass("chat-item chat-notice")
-        .append($("<div>").addClass("chat-head").text(head || L['notice']))
+        .append($("<div>").addClass("chat-head").text(head || Messages['kkutu.js.notice']))
         .append($("<div>").addClass("chat-body").html(msg))
         .append($("<div>").addClass("chat-stamp").text(time.toLocaleTimeString()))
     );
@@ -4951,13 +4951,13 @@ function iGoods(key) {
 }
 
 function iName(key) {
-    if (key.charAt() == "$") return L[key.slice(0, 4)][0] + ' - ' + key.slice(4);
-    else return L[key][0];
+    if (key.charAt() == "$") return GoodDetails[key.slice(0, 4)]['name'] + ' - ' + key.slice(4);
+    else return GoodDetails[key]['name'];
 }
 
 function iDesc(key) {
-    if (key.charAt() == "$") return L[key.slice(0, 4)][1];
-    else return L[key][1];
+    if (key.charAt() == "$") return GoodDetails[key.slice(0, 4)]['detail'];
+    else return GoodDetails[key]['detail'];
 }
 
 function iImage(key, sObj) {
@@ -5064,7 +5064,7 @@ function setLocation(place) {
 }
 
 function fail(code) {
-    return alert(L['error_' + code]);
+    return alert(Messages['kkutu.js.error.' + code]);
 }
 
 function yell(msg) {

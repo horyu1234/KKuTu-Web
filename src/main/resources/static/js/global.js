@@ -111,7 +111,7 @@ var L;
         // 계정
         if ($.cookie('lc') == "") $.cookie('lc', "ko_KR");
 
-        if (global.profile.token) {
+        if (global.profile.id) {
             $("#account-info").html(global.profile.title || global.profile.name).on('click', function (e) {
                 if (confirm(Messages['portal.js.askLogout'])) requestLogout(e);
             });
@@ -154,7 +154,7 @@ var L;
     }
 
     function requestLogout(e) {
-        location.href = "/logout";
+        location.href = "/login/logout";
     }
 
     function onWatchInput($o, prev) {

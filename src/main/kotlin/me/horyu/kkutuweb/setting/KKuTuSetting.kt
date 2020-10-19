@@ -33,6 +33,7 @@ class KKuTuSetting(
     fun getGameServers() = settingNode["game-servers"].toList().map {
         GameServerSetting(
                 it["is-secure"].booleanValue(),
+                it["public-host"].textValue(),
                 it["host"].textValue(),
                 it["port"].intValue(),
                 it["cid"].shortValue()

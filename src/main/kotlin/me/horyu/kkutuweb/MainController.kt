@@ -39,8 +39,12 @@ class MainController(
             val locale = RequestContextUtils.getLocale(request)
             val messages = localePropertyLoader.getMessages(locale)
 
+            val gameServers = kKuTuSetting.getGameServers()
+            val gameServer = gameServers[if (gameServers.size <= server) 0 else server.toInt()]
+            val webSocketUrl = (if (gameServer.isSecure) "wss" else "ws") + "://" + gameServer.publicHost + ":" + gameServer.port
+
             model.addAttribute("version", kKuTuSetting.getVersion())
-            model.addAttribute("websocketUrl", "wss://test.kkutu.io:21000/" + aeS256.encrypt(randomSid))
+            model.addAttribute("websocketUrl", webSocketUrl + "/" + aeS256.encrypt(randomSid))
             model.addAttribute("nickname", sessionProfile?.title ?: messages["kkutu.dialog.room.room-title.guest"])
             model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts().joinToString(","))
             model.addAttribute("moremiCategories", kKuTuSetting.getMoremiCategories())

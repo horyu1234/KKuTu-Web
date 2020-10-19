@@ -26,3 +26,10 @@
 - Kotlin
 - Spring boot Framework
 - Thymeleaf View Engine
+
+### 라이선스
+본 프로젝트는 여러 라이선스가 존재합니다. 프로젝트를 사용하시기 전 반드시 확인해주시기 바랍니다.
+
+* `src/main/resources` 경로에 존재하는 파일 중 [원본 레포 (오리지널 끄투)](https://github.com/JJoriping/KKuTu) 에 원래 버전이 존재하는 경우, 이에 대한 원작자는 [JJoriping](https://github.com/JJoriping) 이고 [GNU 일반 공중 사용 라이선스](https://github.com/JJoriping/KKuTu/blob/master/LICENSE) 라이선스를 따르고 있습니다.
+* `src/main/kotlin`, `src/test` 경로의 모든 소스파일 및 리소스의 원작자는 [horyu1234](https://github.com/horyu1234) 이며, [GNU 아페로 일반 공중 사용 라이선스](https://github.com/horyu1234/KKuTu-Web/blob/kkutuio/LICENSE) 라이선스를 따릅니다.
+* 끄투리오에서 특화된 서비스 운영을 위해 새롭게 추가된 모든 이미지 및 소리에 대해서 Copyright 2017-2020. horyu1234 All rights reserved 라이선스를 따릅니다. 

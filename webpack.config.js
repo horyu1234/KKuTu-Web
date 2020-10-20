@@ -38,7 +38,11 @@ module.exports = {
     devtool: 'inline-source-map',
     mode: 'development',
     plugins: [
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+            reportFilename: 'bundle-analyze-report.html'
+        })
     ],
     optimization: {
         minimizer: [new UglifyJsPlugin()]

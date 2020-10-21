@@ -24,5 +24,18 @@
 ### 라이선스
 본 프로젝트는 여러 라이선스가 존재합니다. 프로젝트를 사용하시기 전 반드시 확인해주시기 바랍니다.
 
+#### [저작자 크레딧 필수 명시]
+* **본 프로젝트를 이용할 경우 사용되는 서비스의 하단 등 눈에 쉽게 보이는 곳에 아래의 문구를 필수로 추가해야 합니다.**  
+```
+본 서버는 horyu1234의 오픈소스 KKuTu-Web 프로젝트(끄투 웹서버 재개발)를 기반으로 두고 있습니다.
+```
+
+* **위 문구의 의미를 해치지 않는 선에서 아래와 같은 느낌으로 수정하는 것은 허용됩니다.**  
+```
+글자로 놀자! 끄투 온라인. 끄투는 JJoriping의 오픈소스 KKuTu를 기반으로 제작되었으며,
+horyu1234의 오픈소스 KKuTu-Web 프로젝트(끄투 웹서버 재개발)를 기반으로 두고 있습니다.
+```
+
+#### [라이선스]
 * `src/main/resources` 경로에 존재하는 파일 중 [원본 레포 (오리지널 끄투)](https://github.com/JJoriping/KKuTu) 에 원래 버전이 존재하는 경우, 이에 대한 원작자는 [JJoriping](https://github.com/JJoriping) 이고 [GNU 일반 공중 사용 라이선스](https://github.com/JJoriping/KKuTu/blob/master/LICENSE) 라이선스를 따르고 있습니다.
 * `src/main/kotlin`, `src/test` 경로의 모든 소스파일 및 리소스의 원작자는 [horyu1234](https://github.com/horyu1234) 이며, [GNU 아페로 일반 공중 사용 라이선스](https://github.com/horyu1234/KKuTu-Web/blob/main/LICENSE) 라이선스를 따릅니다.

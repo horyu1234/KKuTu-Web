@@ -1,5 +1,10 @@
 server:
   port: <Port>
+  servlet:
+    session:
+      tracking-modes: cookie
+      cookie:
+        name: KKUTU-WEB-SESSION
 
 spring:
   thymeleaf:

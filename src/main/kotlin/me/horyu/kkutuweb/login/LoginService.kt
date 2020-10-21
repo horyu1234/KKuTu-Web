@@ -4,6 +4,7 @@ import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.oauth.facebook.FacebookOAuthService
+import me.horyu.kkutuweb.oauth.github.GithubOAuthService
 import me.horyu.kkutuweb.oauth.google.GoogleOAuthService
 import me.horyu.kkutuweb.oauth.naver.NaverOAuthService
 import me.horyu.kkutuweb.session.SessionProfile
@@ -18,6 +19,7 @@ class LoginService(
         @Autowired private val facebookOAuthService: FacebookOAuthService,
         @Autowired private val googleOAuthService: GoogleOAuthService,
         @Autowired private val naverOAuthService: NaverOAuthService,
+        @Autowired private val githubOAuthService: GithubOAuthService,
         @Autowired private val userDao: UserDao
 ) {
     fun getAuthorizationUrl(session: HttpSession, vendorType: VendorType): String? {
@@ -25,6 +27,7 @@ class LoginService(
             VendorType.FACEBOOK -> facebookOAuthService.getAuthorizationUrl(session)
             VendorType.GOOGLE -> googleOAuthService.getAuthorizationUrl(session)
             VendorType.NAVER -> naverOAuthService.getAuthorizationUrl(session)
+            VendorType.GITHUB -> githubOAuthService.getAuthorizationUrl(session)
         }
     }
 
@@ -33,6 +36,7 @@ class LoginService(
             VendorType.FACEBOOK -> facebookOAuthService.login(request, code, state)
             VendorType.GOOGLE -> googleOAuthService.login(request, code, state)
             VendorType.NAVER -> naverOAuthService.login(request, code, state)
+            VendorType.GITHUB -> githubOAuthService.login(request, code, state)
         }
     }
 

@@ -39,3 +39,7 @@ oauth:
     client-id: <Client ID>
     client-secret: <Client Secret>
     callback-url: <Callback URL>
+  discord:
+    client-id: <Client ID>
+    client-secret: <Client Secret>
+    callback-url: <Callback URL>

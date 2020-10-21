@@ -4,7 +4,8 @@ enum class VendorType {
     FACEBOOK,
     GOOGLE,
     NAVER,
-    GITHUB;
+    GITHUB,
+    DISCORD;
 
     companion object {
         fun fromName(vendorName: String): VendorType? {

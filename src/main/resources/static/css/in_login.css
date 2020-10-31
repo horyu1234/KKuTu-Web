@@ -49,3 +49,40 @@ button {
 .login-legal a {
     color: #DDDDDD;
 }
+
+.lbtn {
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lbtn.lbtn-naver.white .label {
+    color: #1ec800;
+    border-color: inherit;
+}
+
+.lbtn.lbtn-daldalso {
+    color: #ffffff;
+    background-color: #2641A3;
+    border-color: #1d3699;
+}
+
+.lbtn.lbtn-daldalso.white {
+    color: #2641A3;
+    background-color: #ffffff;
+    border-color: #d7d7d7;
+}
+
+.lbtn.lbtn-daldalso.white .label {
+    color: #2641A3;
+    border-color: inherit;
+}
+
+.lbtn.lbtn-daldalso .logo {
+    background: url(../logo/daldalso.png);
+}
+
+.lbtn.lbtn-daldalso.lbtn-fallback-svg .logo {
+    background: url(../logo/daldalso.png);
+}

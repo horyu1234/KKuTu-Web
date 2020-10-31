@@ -9,7 +9,8 @@ module.exports = {
     entry: {
         vendor: ['@babel/polyfill'],
         in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
-        in_portal: path.resolve(devPath, 'in_portal.js')
+        in_portal: path.resolve(devPath, 'in_portal.js'),
+        in_login: path.resolve(devPath, 'in_login.js')
     },
     output: {
         path: deployPath,

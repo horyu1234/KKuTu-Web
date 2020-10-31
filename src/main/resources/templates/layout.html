@@ -40,14 +40,7 @@
 <body style="min-width: 640px;">
 
 <div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
-    <div class="Menu">
-        <button class="menu-btn" id="menu-item-HOME" onclick="location.href = '/'"><i class='fa fa-home'></i>
-        </button>
-        <div id="account">
-            <span id="profile" th:text="${profile == 'null' ? '{}' : profile}"></span>
-            <div id="account-info"></div>
-        </div>
-    </div>
+    <div th:include="menu" th:remove="tag"></div>
     <div id="global-notice">
         <div id="gn-content"></div>
         <div class="expl" style="width: initial;">

@@ -4,6 +4,8 @@ import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.setting.KKuTuSetting
+import me.horyu.kkutuweb.view.View
+import me.horyu.kkutuweb.view.Views.getView
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -27,7 +29,7 @@ class MainController(
     fun main(@RequestParam(required = false) server: Short?,
              model: Model, session: HttpSession, request: HttpServletRequest): String {
         if (server == null) {
-            model.addAttribute("viewName", "view/portal")
+            model.addAttribute("viewName", request.getView(View.PORTAL))
         } else {
             val randomSid = generateRandomSid()
 
@@ -72,7 +74,7 @@ class MainController(
             model.addAttribute("viewName", "view/kkutu/kkutu")
         }
 
-        return "layout"
+        return request.getView(View.LAYOUT)
     }
 
     fun generateRandomSid(): String {

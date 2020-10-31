@@ -1,0 +1,52 @@
+<div th:remove="tag" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/in_portal.css}"/>
+    <link rel="stylesheet" th:href="@{/css/in_game_kkutu.css}"/>
+
+    <div style="float: left; width: 100%; margin: 5px 0;"></div>
+    <div style="margin-left: calc(50% - 170px);">
+        <div style="float: left; padding-left: 70px;">
+            <h3 id="holder" th:text="#{portal.logo.text}"></h3>
+            <img alt="" id="logo" src="" th:alt="#{portal.logo.alt}" th:src="@{/img/kkutu/short_logo.png}">
+        </div>
+        <div class="jjoriping" style="margin-top: 10px;">
+            <img class="jjoObj jjoEyeL" style="top: 40px; left: -270px;" th:src="@{/img/jjoeyeL.png}"><img
+                class="jjoObj jjoNose" style="top: 42px; left: -170px;" th:src="@{/img/jjonose.png}"><img
+                class="jjoObj jjoEyeR" style="top: 40px; left: -70px;" th:src="@{/img/jjoeyeR.png}">
+            <div class="jjoDisplayBar" style="float: left; margin-top: -30px; width: 325px; height: 85px;">
+                <button class="jjo-display" id="game-start" th:text="#{portal.game-start}"></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-bar" style="float: left; margin: 10px 0px 10px calc(50% - 136px); width: 100%;">
+        <a href="//discord.gg/WzYxPj4" style="background-color: #7289DA;" target="_blank">공식 디스코드</a>
+    </div>
+
+    <div style="float: left; margin-left: calc(50% - 160px);">
+        <div class="server-list-box">
+            <h3 class="server-list-title">
+                <a id="server-refresh">
+                    <i class="fa fa-refresh"></i>
+                    <div class="expl" style="width: initial;">
+                        <h5 th:text="#{portal.server-list.refresh-tooltip}"></h5>
+                    </div>
+                </a>
+                <label th:text="#{portal.server-list.title}"></label>
+                <label id="server-total" style="color: #AAA; font-size: 13px;"></label>
+            </h3>
+            <div id="server-list"></div>
+        </div>
+    </div>
+
+    <div style="float: left; width: calc(100% - 4px); border: 2px solid #CCC; margin-top: 10px; background-color: #EEE;">
+        <iframe height="400px" id="kkutu-bulletin" th:src="@{/kkutu_bulletin.html}" width="100%"></iframe>
+    </div>
+    <div style="float: left; width: 100%; margin: 10px 0;"></div>
+
+    <script th:src="@{/js/in_portal.min.js}" type="text/javascript"></script>
+    <script th:inline="javascript" type="text/javascript">
+        $(document).on('ready', function() {
+            new KKuTu.in_portal.default();
+        })
+    </script>
+</div>

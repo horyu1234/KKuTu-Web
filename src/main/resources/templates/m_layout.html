@@ -3,7 +3,7 @@
 <head>
     <title th:text="#{title}"></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <script type="text/javascript">
         function getObject(v, i) {
             Object.defineProperty(v, i, {value: v[i], writable: false});
@@ -22,30 +22,27 @@
     <meta property="og:title" th:content="#{og.title}">
     <meta property="og:description" th:content="#{og.description}">
 
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/m_style.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/expl.css}"/>
-<!--    <link rel="stylesheet" th:href="@{/css/in_game_kkutu.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/css/in_m_game_kkutu.css}">-->
 
     <script th:inline="javascript">
         var Messages = /*[[${messages}]]*/{};
         var GoodDetails = /*[[${goodDetails}]]*/{};
     </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/global.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" type="text/javascript"></script>
+    <script th:src="@{/js/global.js}" type="text/javascript"></script>
 
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"
+            type="text/javascript"></script>
 </head>
-<body style="min-width: 640px;">
+<body style="min-width: 200px;">
 
 <div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
-    <div th:include="menu" th:remove="tag"></div>
+    <div th:include="m_menu" th:remove="tag"></div>
     <div id="global-notice">
         <div id="gn-content"></div>
-        <div class="expl" style="width: initial;">
-            <h5 th:text="#{global-notice.close}"></h5>
-        </div>
     </div>
 </div>
 

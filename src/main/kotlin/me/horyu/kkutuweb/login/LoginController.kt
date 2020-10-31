@@ -2,6 +2,8 @@ package me.horyu.kkutuweb.login
 
 import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.setting.OAuthSetting
+import me.horyu.kkutuweb.view.View
+import me.horyu.kkutuweb.view.Views.getView
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -19,16 +21,18 @@ class LoginController(
         @Autowired private val loginService: LoginService
 ) {
     @GetMapping
-    fun login(model: Model): String {
+    fun login(model: Model,
+              request: HttpServletRequest): String {
         model.addAttribute("oAuthSetting", oAuthSetting.getSetting())
         model.addAttribute("viewName", "view/login")
-        return "layout"
+        return request.getView(View.LAYOUT)
     }
 
     @GetMapping("/fail")
-    fun loginFailed(model: Model): String {
+    fun loginFailed(model: Model,
+                    request: HttpServletRequest): String {
         model.addAttribute("viewName", "view/loginFailed")
-        return "layout"
+        return request.getView(View.LAYOUT)
     }
 
     @GetMapping("/logout")

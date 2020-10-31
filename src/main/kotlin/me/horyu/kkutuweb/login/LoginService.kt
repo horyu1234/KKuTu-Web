@@ -2,6 +2,7 @@ package me.horyu.kkutuweb.login
 
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
+import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.oauth.daldalso.DaldalsoOAuthService
 import me.horyu.kkutuweb.oauth.discord.DiscordOAuthService
@@ -30,25 +31,11 @@ class LoginService(
     private val logger = LoggerFactory.getLogger(LoginService::class.java)
 
     fun getAuthorizationUrl(session: HttpSession, vendorType: VendorType): String? {
-        return when (vendorType) {
-            VendorType.DALDALSO -> daldalsoOAuthService.getAuthorizationUrl(session)
-            VendorType.FACEBOOK -> facebookOAuthService.getAuthorizationUrl(session)
-            VendorType.GOOGLE -> googleOAuthService.getAuthorizationUrl(session)
-            VendorType.NAVER -> naverOAuthService.getAuthorizationUrl(session)
-            VendorType.GITHUB -> githubOAuthService.getAuthorizationUrl(session)
-            VendorType.DISCORD -> discordOAuthService.getAuthorizationUrl(session)
-        }
+        return getService(vendorType).getAuthorizationUrl(session)
     }
 
     fun login(request: HttpServletRequest, vendorType: VendorType, code: String, state: String): Boolean {
-        val loginResult = when (vendorType) {
-            VendorType.DALDALSO -> daldalsoOAuthService.login(request, code, state)
-            VendorType.FACEBOOK -> facebookOAuthService.login(request, code, state)
-            VendorType.GOOGLE -> googleOAuthService.login(request, code, state)
-            VendorType.NAVER -> naverOAuthService.login(request, code, state)
-            VendorType.GITHUB -> githubOAuthService.login(request, code, state)
-            VendorType.DISCORD -> discordOAuthService.login(request, code, state)
-        }
+        val loginResult = getService(vendorType).login(request, code, state)
 
         logger.info("${request.session.id} 세션에서 ${vendorType.name} 로그인에 ${if (loginResult) "성공" else "실패"}했습니다.")
         return loginResult
@@ -71,5 +58,16 @@ class LoginService(
                 title = title,
                 image = oAuthUser.profileImage
         )
+    }
+
+    private fun getService(vendorType: VendorType): OAuthService {
+        return when (vendorType) {
+            VendorType.DALDALSO -> daldalsoOAuthService
+            VendorType.FACEBOOK -> facebookOAuthService
+            VendorType.GOOGLE -> googleOAuthService
+            VendorType.NAVER -> naverOAuthService
+            VendorType.GITHUB -> githubOAuthService
+            VendorType.DISCORD -> discordOAuthService
+        }
     }
 }

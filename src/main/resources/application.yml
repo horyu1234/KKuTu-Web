@@ -29,6 +29,10 @@ spring:
     port: <Port>
 
 oauth:
+  daldalso:
+    client-id: <Client ID>
+    client-secret: <Client Secret>
+    callback-url: <Callback URL>
   facebook:
     client-id: <Client ID>
     client-secret: <Client Secret>

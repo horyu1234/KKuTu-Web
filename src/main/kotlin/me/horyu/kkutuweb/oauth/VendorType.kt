@@ -1,6 +1,7 @@
 package me.horyu.kkutuweb.oauth
 
 enum class VendorType {
+    DALDALSO,
     FACEBOOK,
     GOOGLE,
     NAVER,

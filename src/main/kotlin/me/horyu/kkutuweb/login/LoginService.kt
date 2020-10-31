@@ -3,6 +3,7 @@ package me.horyu.kkutuweb.login
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.oauth.VendorType
+import me.horyu.kkutuweb.oauth.daldalso.DaldalsoOAuthService
 import me.horyu.kkutuweb.oauth.discord.DiscordOAuthService
 import me.horyu.kkutuweb.oauth.facebook.FacebookOAuthService
 import me.horyu.kkutuweb.oauth.github.GithubOAuthService
@@ -10,6 +11,7 @@ import me.horyu.kkutuweb.oauth.google.GoogleOAuthService
 import me.horyu.kkutuweb.oauth.naver.NaverOAuthService
 import me.horyu.kkutuweb.session.SessionProfile
 import me.horyu.kkutuweb.user.UserDao
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.servlet.http.HttpServletRequest
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpSession
 
 @Service
 class LoginService(
+        @Autowired private val daldalsoOAuthService: DaldalsoOAuthService,
         @Autowired private val facebookOAuthService: FacebookOAuthService,
         @Autowired private val googleOAuthService: GoogleOAuthService,
         @Autowired private val naverOAuthService: NaverOAuthService,
@@ -24,8 +27,11 @@ class LoginService(
         @Autowired private val discordOAuthService: DiscordOAuthService,
         @Autowired private val userDao: UserDao
 ) {
+    private val logger = LoggerFactory.getLogger(LoginService::class.java)
+
     fun getAuthorizationUrl(session: HttpSession, vendorType: VendorType): String? {
         return when (vendorType) {
+            VendorType.DALDALSO -> daldalsoOAuthService.getAuthorizationUrl(session)
             VendorType.FACEBOOK -> facebookOAuthService.getAuthorizationUrl(session)
             VendorType.GOOGLE -> googleOAuthService.getAuthorizationUrl(session)
             VendorType.NAVER -> naverOAuthService.getAuthorizationUrl(session)
@@ -35,13 +41,17 @@ class LoginService(
     }
 
     fun login(request: HttpServletRequest, vendorType: VendorType, code: String, state: String): Boolean {
-        return when (vendorType) {
+        val loginResult = when (vendorType) {
+            VendorType.DALDALSO -> daldalsoOAuthService.login(request, code, state)
             VendorType.FACEBOOK -> facebookOAuthService.login(request, code, state)
             VendorType.GOOGLE -> googleOAuthService.login(request, code, state)
             VendorType.NAVER -> naverOAuthService.login(request, code, state)
             VendorType.GITHUB -> githubOAuthService.login(request, code, state)
             VendorType.DISCORD -> discordOAuthService.login(request, code, state)
         }
+
+        logger.info("${request.session.id} 세션에서 ${vendorType.name} 로그인에 ${if (loginResult) "성공" else "실패"}했습니다.")
+        return loginResult
     }
 
     fun getSessionProfile(session: HttpSession): SessionProfile? {

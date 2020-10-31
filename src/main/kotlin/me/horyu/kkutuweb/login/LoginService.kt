@@ -11,15 +11,18 @@ import me.horyu.kkutuweb.oauth.github.GithubOAuthService
 import me.horyu.kkutuweb.oauth.google.GoogleOAuthService
 import me.horyu.kkutuweb.oauth.naver.NaverOAuthService
 import me.horyu.kkutuweb.session.SessionProfile
+import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.user.UserDao
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession
 
 @Service
 class LoginService(
+        @Autowired private val oAuthSetting: OAuthSetting,
         @Autowired private val daldalsoOAuthService: DaldalsoOAuthService,
         @Autowired private val facebookOAuthService: FacebookOAuthService,
         @Autowired private val googleOAuthService: GoogleOAuthService,
@@ -29,6 +32,16 @@ class LoginService(
         @Autowired private val userDao: UserDao
 ) {
     private val logger = LoggerFactory.getLogger(LoginService::class.java)
+
+    @PostConstruct
+    fun initOAuthServices() {
+        for (entry in oAuthSetting.getSetting().entries) {
+            val vendorType = entry.key
+            val setting = entry.value
+
+            getService(vendorType).init(setting.clientId, setting.clientSecret, setting.callbackUrl)
+        }
+    }
 
     fun getAuthorizationUrl(session: HttpSession, vendorType: VendorType): String? {
         return getService(vendorType).getAuthorizationUrl(session)

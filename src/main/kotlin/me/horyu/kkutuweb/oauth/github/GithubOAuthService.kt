@@ -13,26 +13,20 @@ import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpSession
 
 @Service
 class GithubOAuthService(
-        @Value("\${oauth.github.client-id}") private val githubApiKey: String,
-        @Value("\${oauth.github.client-secret}") private val githubApiSecret: String,
-        @Value("\${oauth.github.callback-url}") private val githubApiCallbackUrl: String,
         @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(GithubOAuthService::class.java)
     private val protectedResourceUrl = "https://api.github.com/user"
 
-    @PostConstruct
-    private fun init() {
-        oAuth20Service = ServiceBuilder(githubApiKey)
-                .apiSecret(githubApiSecret)
-                .callback(githubApiCallbackUrl)
+    override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
+        oAuth20Service = ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callbackUrl)
                 .build(GitHubApi.instance())
     }
 

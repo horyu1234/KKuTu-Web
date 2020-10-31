@@ -1,6 +1,7 @@
 package me.horyu.kkutuweb.login
 
 import me.horyu.kkutuweb.oauth.VendorType
+import me.horyu.kkutuweb.setting.OAuthSetting
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -14,10 +15,12 @@ import javax.servlet.http.HttpSession
 @Controller
 @RequestMapping("/login")
 class LoginController(
+        @Autowired private val oAuthSetting: OAuthSetting,
         @Autowired private val loginService: LoginService
 ) {
     @GetMapping
     fun login(model: Model): String {
+        model.addAttribute("oAuthSetting", oAuthSetting.getSetting())
         model.addAttribute("viewName", "view/login")
         return "layout"
     }

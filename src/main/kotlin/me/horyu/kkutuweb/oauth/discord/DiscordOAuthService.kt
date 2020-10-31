@@ -13,27 +13,21 @@ import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpSession
 
 
 @Service
 class DiscordOAuthService(
-        @Value("\${oauth.discord.client-id}") private val discordApiKey: String,
-        @Value("\${oauth.discord.client-secret}") private val discordApiSecret: String,
-        @Value("\${oauth.discord.callback-url}") private val discordApiCallbackUrl: String,
         @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(DiscordOAuthService::class.java)
     private val protectedResourceUrl = "https://discordapp.com/api/users/@me"
 
-    @PostConstruct
-    private fun init() {
-        oAuth20Service = ServiceBuilder(discordApiKey)
-                .apiSecret(discordApiSecret)
-                .callback(discordApiCallbackUrl)
+    override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
+        oAuth20Service = ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callbackUrl)
                 .defaultScope("identify")
                 .userAgent("KKuTu-Web (https://github.com/horyu1234/KKuTu-Web)")
                 .build(DiscordApi.instance())

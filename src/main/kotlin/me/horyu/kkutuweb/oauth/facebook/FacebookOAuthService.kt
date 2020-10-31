@@ -13,26 +13,20 @@ import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpSession
 
 @Service
 class FacebookOAuthService(
-        @Value("\${oauth.facebook.client-id}") private val facebookApiKey: String,
-        @Value("\${oauth.facebook.client-secret}") private val facebookApiSecret: String,
-        @Value("\${oauth.facebook.callback-url}") private val facebookApiCallbackUrl: String,
         @Autowired private val gson: Gson
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(FacebookOAuthService::class.java)
     private val protectedResourceUrl = "https://graph.facebook.com/v2.11/me?fields=id,name,gender,age_range"
 
-    @PostConstruct
-    private fun init() {
-        oAuth20Service = ServiceBuilder(facebookApiKey)
-                .apiSecret(facebookApiSecret)
-                .callback(facebookApiCallbackUrl)
+    override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
+        oAuth20Service = ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callbackUrl)
                 .build(FacebookApi.instance())
     }
 

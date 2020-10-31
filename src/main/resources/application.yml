@@ -27,29 +27,3 @@ spring:
         min-idle: 2
     host: <Host>
     port: <Port>
-
-oauth:
-  daldalso:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>
-  facebook:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>
-  google:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>
-  naver:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>
-  github:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>
-  discord:
-    client-id: <Client ID>
-    client-secret: <Client Secret>
-    callback-url: <Callback URL>

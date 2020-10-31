@@ -12,6 +12,7 @@ abstract class OAuthService {
 
     protected lateinit var oAuth20Service: OAuth20Service
 
+    abstract fun init(apiKey: String, apiSecret: String, callbackUrl: String)
     abstract fun getAuthorizationUrl(httpSession: HttpSession): String
     abstract fun abstractLogin(httpSession: HttpSession, oAuth20Service: OAuth20Service, code: String): Boolean
 

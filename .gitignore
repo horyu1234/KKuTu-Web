@@ -35,4 +35,5 @@ out/
 
 application-dev.yml
 kkutu.json
+oauth.json
 /node_modules/

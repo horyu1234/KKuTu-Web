@@ -13,26 +13,20 @@ import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpSession
 
 @Service
 class NaverOAuthService(
-        @Value("\${oauth.naver.client-id}") private val naverApiKey: String,
-        @Value("\${oauth.naver.client-secret}") private val naverApiSecret: String,
-        @Value("\${oauth.naver.callback-url}") private val naverApiCallbackUrl: String,
         @Autowired private val gson: Gson
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(NaverOAuthService::class.java)
     private val protectedResourceUrl = "https://openapi.naver.com/v1/nid/me"
 
-    @PostConstruct
-    private fun init() {
-        oAuth20Service = ServiceBuilder(naverApiKey)
-                .apiSecret(naverApiSecret)
-                .callback(naverApiCallbackUrl)
+    override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
+        oAuth20Service = ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callbackUrl)
                 .build(NaverApi.instance())
     }
 

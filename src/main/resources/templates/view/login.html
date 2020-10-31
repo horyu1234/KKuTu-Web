@@ -2,16 +2,10 @@
 
 <div class="login-with" th:text="#{login.title}"></div>
 
-<a th:href="@{/login/facebook}">
-    <button style="color: #FFFFFF; background-color: #235EE3;" th:text="#{login.button.facebook}"></button>
-</a>
-
-<a th:href="@{/login/google}">
-    <button style="color: #000000; background-color: #FFFFFF;" th:text="#{login.button.google}"></button>
-</a>
-
-<a th:href="@{/login/naver}">
-    <button style="color: #FFFFFF; background-color: #1EC800;" th:text="#{login.button.naver}"></button>
+<a th:each="entry : ${oAuthSetting}" th:href="@{'/login/' + ${vendorName}}"
+   th:with="vendorName=${entry.key.name().toLowerCase()}">
+    <button th:style="'color: ' + ${entry.value.button.color} + '; background-color: ' + ${entry.value.button.backgroundColor}"
+            th:text="#{'login.button.' + ${vendorName}}"></button>
 </a>
 
 <div class="login-legal" th:utext="#{login.legal}"></div>

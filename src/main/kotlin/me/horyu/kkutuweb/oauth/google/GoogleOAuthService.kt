@@ -13,28 +13,22 @@ import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.*
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpSession
 
 @Service
 class GoogleOAuthService(
-        @Value("\${oauth.google.client-id}") private val googleApiKey: String,
-        @Value("\${oauth.google.client-secret}") private val googleApiSecret: String,
-        @Value("\${oauth.google.callback-url}") private val googleApiCallbackUrl: String,
         @Autowired private val gson: Gson
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(GoogleOAuthService::class.java)
     private val protectedResourceUrl = "https://www.googleapis.com/plus/v1/people/me"
 
-    @PostConstruct
-    private fun init() {
-        oAuth20Service = ServiceBuilder(googleApiKey)
-                .apiSecret(googleApiSecret)
+    override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
+        oAuth20Service = ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
+                .callback(callbackUrl)
                 .defaultScope("profile https://www.googleapis.com/auth/plus.login")
-                .callback(googleApiCallbackUrl)
                 .build(GoogleApi20.instance())
     }
 

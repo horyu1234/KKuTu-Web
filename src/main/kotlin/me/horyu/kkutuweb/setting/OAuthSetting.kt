@@ -38,11 +38,7 @@ class OAuthSetting(
                     order = settingNode[oAuthVendorName]["order"].shortValue(),
                     clientId = settingNode[oAuthVendorName]["client-id"].textValue(),
                     clientSecret = settingNode[oAuthVendorName]["client-secret"].textValue(),
-                    callbackUrl = settingNode[oAuthVendorName]["callback-url"].textValue(),
-                    button = OAuthVendorSetting.Button(
-                            color = settingNode[oAuthVendorName]["button"]["color"].textValue(),
-                            backgroundColor = settingNode[oAuthVendorName]["button"]["backgroundColor"].textValue()
-                    )
+                    callbackUrl = settingNode[oAuthVendorName]["callback-url"].textValue()
             )
         }
 

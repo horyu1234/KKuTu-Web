@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
+import me.horyu.kkutuweb.extension.toJson
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.shop.ShopDao
 import me.horyu.kkutuweb.shop.ShopService
@@ -55,7 +56,7 @@ class UserService(
         val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
-        return objectMapper.writeValueAsString(user.box)
+        return user.box.toJson()
     }
 
     fun exordial(data: String, nick: String, session: HttpSession): String {
@@ -118,16 +119,16 @@ class UserService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
+        userBoxJsonObj.value = user.box.toJson()
 
         val userEquipJsonObj = PGobject()
         userEquipJsonObj.type = "json"
-        userEquipJsonObj.value = objectMapper.writeValueAsString(user.equip)
+        userEquipJsonObj.value = user.equip.toJson()
 
         userDao.updateUser(user.id, mapOf(
                 "box" to userBoxJsonObj,
                 "equip" to userEquipJsonObj
         ))
-        return "{\"result\":200,\"box\":${objectMapper.writeValueAsString(user.box)},\"equip\":${objectMapper.writeValueAsString(user.equip)}}"
+        return "{\"result\":200,\"box\":${user.box.toJson()},\"equip\":${user.equip.toJson()}}"
     }
 }

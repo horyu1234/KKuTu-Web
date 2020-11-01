@@ -20,6 +20,7 @@ package me.horyu.kkutuweb.setting
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import me.horyu.kkutuweb.extension.toJson
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
@@ -96,9 +97,9 @@ class KKuTuSetting(
         return resultMap
     }
 
-    fun getGameRules() = objectMapper.writeValueAsString(settingNode["game-rules"])!!
+    fun getGameRules() = settingNode["game-rules"].toJson()
 
-    fun getGameOptions() = objectMapper.writeValueAsString(settingNode["game-options"])!!
+    fun getGameOptions() = settingNode["game-options"].toJson()
 
     fun getGameOptionMap(): Map<String, String> {
         val resultMap = HashMap<String, String>()

@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import me.horyu.kkutuweb.dict.WordDao
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
+import me.horyu.kkutuweb.extension.toJson
 import me.horyu.kkutuweb.shop.ShopService
 import me.horyu.kkutuweb.user.UserDao
 import org.postgresql.util.PGobject
@@ -106,13 +107,13 @@ class CharFactoryService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
+        userBoxJsonObj.value = user.box.toJson()
 
         userDao.updateUser(user.id, mapOf(
                 "money" to afterMoney,
                 "box" to userBoxJsonObj
         ))
-        return "{\"result\":200,\"box\":${objectMapper.writeValueAsString(user.box)},\"money\":$afterMoney,\"gain\":${objectMapper.writeValueAsString(gained)}}"
+        return "{\"result\":200,\"box\":${user.box.toJson()},\"money\":$afterMoney,\"gain\":${objectMapper.writeValueAsString(gained)}}"
     }
 
     fun blendWord(word: String): String {

@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.node.IntNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
+import me.horyu.kkutuweb.extension.toJson
 import me.horyu.kkutuweb.shop.response.ResponseGood
 import me.horyu.kkutuweb.shop.response.ResponseGoodDetail
 import me.horyu.kkutuweb.shop.response.ShopResponse
@@ -67,7 +68,7 @@ class ShopService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
+        userBoxJsonObj.value = user.box.toJson()
 
         userDao.updateUser(user.id, mapOf(
                 "money" to afterBuyMoney,
@@ -78,7 +79,7 @@ class ShopService(
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
         logger.info("$userName 님이 $id 상품을 구매했습니다.")
 
-        return "{\"result\": 200, \"money\": $afterBuyMoney, \"box\": ${objectMapper.writeValueAsString(user.box)}}"
+        return "{\"result\": 200, \"money\": $afterBuyMoney, \"box\": ${user.box.toJson()}}"
     }
 
     fun paybackGood(id: String, session: HttpSession): String {
@@ -98,7 +99,7 @@ class ShopService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
+        userBoxJsonObj.value = user.box.toJson()
 
         val afterPaybackMoney = user.money + (0.2 * good.cost).roundToInt()
         userDao.updateUser(user.id, mapOf(
@@ -109,7 +110,7 @@ class ShopService(
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
         logger.info("$userName 님이 $id 상품을 환불했습니다.")
 
-        return "{\"result\": 200, \"money\": $afterPaybackMoney, \"box\": ${objectMapper.writeValueAsString(user.box)}}"
+        return "{\"result\": 200, \"money\": $afterPaybackMoney, \"box\": ${user.box.toJson()}}"
     }
 
     fun obtainGood(box: JsonNode, goodId: String, value: Int, term: Int?, addValue: Boolean = false) {

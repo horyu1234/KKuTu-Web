@@ -21,6 +21,8 @@ spring:
     url: jdbc:postgresql://<Host>:<Port>/<Database>
     username: <Username>
     password: <Password>
+  jpa:
+    open-in-view: false
   redis:
     lettuce:
       pool:

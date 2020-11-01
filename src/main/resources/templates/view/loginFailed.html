@@ -3,7 +3,5 @@
 <div class="middle">
     <p th:text="#{login-fail.title}"></p>
     <br>
-    <a th:href="@{/login}">
-        <button class="login" th:text="#{login-fail.login}"></button>
-    </a>
+    <button class="login" onclick="location.href='/login'" th:text="#{login-fail.login}"></button>
 </div>

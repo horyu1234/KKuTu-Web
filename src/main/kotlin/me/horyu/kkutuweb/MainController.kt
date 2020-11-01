@@ -103,7 +103,11 @@ class MainController(
 
             model.addAttribute("viewName", request.getView(View.KKUTU))
 
-            logger.info("[${request.getIp()}] ${if (isGuest) "손님으로 " else "회원으로 "}게임에 접속했습니다.$mobileLogText 서버: $server${if (isGuest) "" else "  /  닉네임(아이디): $nickname(${sessionProfile?.id})"}")
+            if (isGuest) {
+                logger.info("[${request.getIp()}] 손님으로 게임에 접속했습니다.$mobileLogText - 서버: $server")
+            } else {
+                logger.info("[${request.getIp()}] $nickname(${sessionProfile?.id}) 님이 게임에 접속했습니다.$mobileLogText - 서버: $server")
+            }
         }
 
         return request.getView(View.LAYOUT)

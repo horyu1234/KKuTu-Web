@@ -52,7 +52,7 @@ class DiscordOAuthService(
             val jsonResponse = objectMapper.readTree(response.body)
 
             val oAuthUser = OAuthUser(VendorType.DISCORD,
-                    jsonResponse["id"].longValue().toString(),
+                    jsonResponse["id"].textValue(),
                     jsonResponse["username"].textValue() + "#" + jsonResponse["discriminator"].textValue(),
                     "https://cdn.discordapp.com/avatars/${jsonResponse["id"].longValue()}/${jsonResponse["avatar"].textValue()}",
                     Gender.OTHER,

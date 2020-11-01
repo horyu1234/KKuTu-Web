@@ -68,7 +68,7 @@ class KakaoOAuthService(
             val oAuthUser = OAuthUser(vendorType = VendorType.KAKAO,
                     vendorId = jsonResponse["id"].longValue().toString(),
                     name = jsonResponse["properties"]["nickname"].textValue(),
-                    profileImage = jsonResponse["properties"]["profile_image"].textValue(),
+                    profileImage = if (jsonResponse["properties"].has("profile_image")) jsonResponse["properties"]["profile_image"].textValue() else null,
                     gender = null,
                     minAge = null,
                     maxAge = null

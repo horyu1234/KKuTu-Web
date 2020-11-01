@@ -50,7 +50,7 @@ class DaldalsoOAuthService(
             val jsonResponse = objectMapper.readTree(response.body)
 
             val oAuthUser = OAuthUser(VendorType.DALDALSO,
-                    jsonResponse["key"].longValue().toString(),
+                    jsonResponse["key"].textValue(),
                     jsonResponse["name"].textValue(),
                     jsonResponse["profile"]["image"].textValue(),
                     Gender.OTHER,

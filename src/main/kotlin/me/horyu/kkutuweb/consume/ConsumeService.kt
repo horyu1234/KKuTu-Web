@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb.consume
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
@@ -34,6 +35,7 @@ import kotlin.math.sqrt
 
 @Service
 class ConsumeService(
+        @Autowired private val objectMapper: ObjectMapper,
         @Autowired private val userDao: UserDao,
         @Autowired private val shopDao: ShopDao,
         @Autowired private val shopService: ShopService
@@ -55,11 +57,11 @@ class ConsumeService(
 
         val userKKuTuJsonObj = PGobject()
         userKKuTuJsonObj.type = "json"
-        userKKuTuJsonObj.value = user.kkutu.toPrettyString()
+        userKKuTuJsonObj.value = objectMapper.writeValueAsString(user.kkutu)
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = user.box.toPrettyString()
+        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
 
         userDao.updateUser(user.id, mapOf(
                 "\"lastLogin\"" to System.currentTimeMillis(),
@@ -68,9 +70,9 @@ class ConsumeService(
         ))
 
         return if (useItemResult.exp == 0) {
-            "{\"result\":200,\"box\":${user.box.toPrettyString()},\"data\":${user.kkutu},\"gain\":[{\"key\":\"${useItemResult.gain.keys.toList()[0]}\",\"value\":${useItemResult.gain.values.toList()[0]}}]}"
+            "{\"result\":200,\"box\":${objectMapper.writeValueAsString(user.box)},\"data\":${user.kkutu},\"gain\":[{\"key\":\"${useItemResult.gain.keys.toList()[0]}\",\"value\":${useItemResult.gain.values.toList()[0]}}]}"
         } else {
-            "{\"result\":200,\"box\":${user.box.toPrettyString()},\"data\":${user.kkutu},\"gain\":[],\"exp\":${useItemResult.exp}}"
+            "{\"result\":200,\"box\":${objectMapper.writeValueAsString(user.box)},\"data\":${user.kkutu},\"gain\":[],\"exp\":${useItemResult.exp}}"
         }
     }
 

@@ -67,7 +67,7 @@ class ShopService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = user.box.toPrettyString()
+        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
 
         userDao.updateUser(user.id, mapOf(
                 "money" to afterBuyMoney,
@@ -78,7 +78,7 @@ class ShopService(
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
         logger.info("$userName 님이 $id 상품을 구매했습니다.")
 
-        return "{\"result\": 200, \"money\": $afterBuyMoney, \"box\": ${user.box.toPrettyString()}}"
+        return "{\"result\": 200, \"money\": $afterBuyMoney, \"box\": ${objectMapper.writeValueAsString(user.box)}}"
     }
 
     fun paybackGood(id: String, session: HttpSession): String {
@@ -98,7 +98,7 @@ class ShopService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = user.box.toPrettyString()
+        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
 
         val afterPaybackMoney = user.money + (0.2 * good.cost).roundToInt()
         userDao.updateUser(user.id, mapOf(
@@ -109,7 +109,7 @@ class ShopService(
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
         logger.info("$userName 님이 $id 상품을 환불했습니다.")
 
-        return "{\"result\": 200, \"money\": $afterPaybackMoney, \"box\": ${user.box.toPrettyString()}}"
+        return "{\"result\": 200, \"money\": $afterPaybackMoney, \"box\": ${objectMapper.writeValueAsString(user.box)}}"
     }
 
     fun obtainGood(box: JsonNode, goodId: String, value: Int, term: Int?, addValue: Boolean = false) {

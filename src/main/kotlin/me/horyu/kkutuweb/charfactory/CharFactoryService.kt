@@ -106,13 +106,13 @@ class CharFactoryService(
 
         val userBoxJsonObj = PGobject()
         userBoxJsonObj.type = "json"
-        userBoxJsonObj.value = user.box.toPrettyString()
+        userBoxJsonObj.value = objectMapper.writeValueAsString(user.box)
 
         userDao.updateUser(user.id, mapOf(
                 "money" to afterMoney,
                 "box" to userBoxJsonObj
         ))
-        return "{\"result\":200,\"box\":${user.box.toPrettyString()},\"money\":$afterMoney,\"gain\":${objectMapper.writeValueAsString(gained)}}"
+        return "{\"result\":200,\"box\":${objectMapper.writeValueAsString(user.box)},\"money\":$afterMoney,\"gain\":${objectMapper.writeValueAsString(gained)}}"
     }
 
     fun blendWord(word: String): String {

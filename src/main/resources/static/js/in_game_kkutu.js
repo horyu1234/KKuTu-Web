@@ -3571,7 +3571,7 @@ function updateCommunity() {
         var id = $(e.currentTarget).parent().parent().attr('id').slice(4);
         var memo = $data.friends[id];
 
-        if ($data._friends[id].server) return fail(455);
+        if ($data._friends[id] && $data._friends[id].server) return fail(455);
         if (!confirm(memo + "(#" + id.substr(0, 5) + ")\n" + Messages['kkutu.js.friendSureRemove'])) return;
         send('friendRemove', {id: id}, true);
     }

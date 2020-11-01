@@ -48,10 +48,7 @@ class LoginService(
     }
 
     fun login(request: HttpServletRequest, vendorType: VendorType, code: String, state: String): Boolean {
-        val loginResult = getService(vendorType).login(request, code, state)
-
-        logger.info("${request.session.id} 세션에서 ${vendorType.name} 로그인에 ${if (loginResult) "성공" else "실패"}했습니다.")
-        return loginResult
+        return getService(vendorType).login(request, code, state)
     }
 
     fun getSessionProfile(session: HttpSession): SessionProfile? {

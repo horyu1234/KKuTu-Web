@@ -1,6 +1,7 @@
 package me.horyu.kkutuweb.login
 
 import me.horyu.kkutuweb.extension.getIp
+import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.view.View
@@ -67,10 +68,17 @@ class LoginController(
                       request: HttpServletRequest): String {
         val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
 
-        if (!loginService.login(request, vendorType, code, state)) {
-            return "redirect:/login/fail"
+        val loginSuccess = loginService.login(request, vendorType, code, state)
+        if (loginSuccess) {
+            val session = request.session
+            val oAuthUser = session.getOAuthUser()
+
+            logger.info("${oAuthUser.name}(${oAuthUser.vendorId}) 님이 ${vendorType.name} 로그인에 성공했습니다.")
+        } else {
+            logger.info("${request.session.id} 세션에서 ${vendorType.name} 로그인에 실패했습니다.")
         }
 
-        return "redirect:/"
+        return if (!loginSuccess) "redirect:/login/fail"
+        else "redirect:/"
     }
 }

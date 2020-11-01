@@ -1,11 +1,13 @@
 package me.horyu.kkutuweb
 
+import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.setting.KKuTuSetting
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -25,17 +27,24 @@ class MainController(
         @Autowired private val aeS256: AES256,
         @Autowired private val localePropertyLoader: LocalePropertyLoader
 ) {
+    private val logger = LoggerFactory.getLogger(MainController::class.java)
+
     @GetMapping
     fun main(@RequestParam(required = false) server: Short?,
              model: Model, session: HttpSession, request: HttpServletRequest): String {
+        val isMobile = model.getAttribute("mobile") as Boolean
+        val mobileLogText = if (isMobile) " (모바일)" else ""
+
         if (server == null) {
             model.addAttribute("viewName", request.getView(View.PORTAL))
+            logger.info("[${request.getIp()}] 포털 화면을 요청했습니다.$mobileLogText")
         } else {
-            val randomSid = generateRandomSid()
-
             val sessionProfile = loginService.getSessionProfile(session)
-            if (sessionProfile != null) {
-                sessionDao.insert(sessionProfile, randomSid)
+            val isGuest = sessionProfile == null
+
+            val randomSid = generateRandomSid()
+            if (!isGuest) {
+                sessionDao.insert(sessionProfile!!, randomSid)
             }
 
             val locale = RequestContextUtils.getLocale(request)
@@ -45,9 +54,12 @@ class MainController(
             val gameServer = gameServers[if (gameServers.size <= server) 0 else server.toInt()]
             val webSocketUrl = (if (gameServer.isSecure) "wss" else "ws") + "://" + gameServer.publicHost + ":" + gameServer.port
 
+            val nickname: String = sessionProfile?.title ?: (messages["kkutu.dialog.room.room-title.guest"]
+                    ?: error("kkutu.dialog.room.room-title.guest 언어 설정을 찾을 수 없습니다."))
+
             model.addAttribute("version", kKuTuSetting.getVersion())
             model.addAttribute("websocketUrl", webSocketUrl + "/" + aeS256.encrypt(randomSid))
-            model.addAttribute("nickname", sessionProfile?.title ?: messages["kkutu.dialog.room.room-title.guest"])
+            model.addAttribute("nickname", nickname)
             model.addAttribute("moremiParts", kKuTuSetting.getMoremiParts().joinToString(","))
             model.addAttribute("moremiCategories", kKuTuSetting.getMoremiCategories())
             model.addAttribute("moremiEquips", kKuTuSetting.getMoremiEquips().joinToString(","))
@@ -72,6 +84,8 @@ class MainController(
             model.addAttribute("enThemes", enThemes)
 
             model.addAttribute("viewName", request.getView(View.KKUTU))
+
+            logger.info("[${request.getIp()}] ${if (isGuest) "손님으로 " else "회원으로 "}게임에 접속했습니다.$mobileLogText 서버: $server${if (isGuest) "" else "  /  닉네임(아이디): $nickname(${sessionProfile?.id})"}")
         }
 
         return request.getView(View.LAYOUT)

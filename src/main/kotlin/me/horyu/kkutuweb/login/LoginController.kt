@@ -1,9 +1,11 @@
 package me.horyu.kkutuweb.login
 
+import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -20,9 +22,15 @@ class LoginController(
         @Autowired private val oAuthSetting: OAuthSetting,
         @Autowired private val loginService: LoginService
 ) {
+    private val logger = LoggerFactory.getLogger(LoginController::class.java)
+
     @GetMapping
     fun login(model: Model,
               request: HttpServletRequest): String {
+        val isMobile = model.getAttribute("mobile") as Boolean
+        val mobileLogText = if (isMobile) " (모바일)" else ""
+        logger.info("[${request.getIp()}] 로그인 화면을 요청했습니다.$mobileLogText")
+
         model.addAttribute("oAuthSetting", oAuthSetting.getSetting())
         model.addAttribute("viewName", "view/login")
         return request.getView(View.LAYOUT)

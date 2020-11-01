@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- @formatter:off -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PBFPQKD');</script>
+    <!-- End Google Tag Manager -->
+    <!-- @formatter:on -->
     <title th:text="#{title}"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -37,7 +46,12 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 </head>
 <body style="min-width: 640px;">
-
+<!-- @formatter:off -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0"
+                  src="https://www.googletagmanager.com/ns.html?id=GTM-PBFPQKD" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- @formatter:on -->
 <div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
     <div th:include="menu" th:remove="tag"></div>
     <div id="global-notice">

@@ -142,9 +142,9 @@
         <th:block layout:fragment="content">
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.room.room-title}"></h4>
-                <input id="room-title" maxlength="20"
-                       th:placeholder="${nickname + pHolder}"
-                       th:with="pHolder=#{kkutu.dialog.room.room-title.placeholder}">
+                <input id="room-title" maxlength="20" autocomplete="off"
+                       th:with="pHolder=#{kkutu.dialog.room.room-title.placeholder}"
+                       th:placeholder="${nickname + pHolder}">
             </div>
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.room.password}"></h4>
@@ -591,15 +591,15 @@
             </div>
             <div class="game-body"></div>
             <div class="game-input">
-                <input id="game-input" th:placeholder="#{kkutu.product.game.yourTurn}">
+                <input id="game-input" autocomplete="off" th:placeholder="#{kkutu.product.game.yourTurn}">
             </div>
         </th:block>
     </th:block>
     <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title=#{kkutu.product.chat.title})}">
         <th:block layout:fragment="content">
             <div id="Chat"></div>
-            <input id="Talk" maxlength="180" style="display:none;visibility:hidden;">
-            <input autocomplete="off" id="MessageInput" maxlength="180">
+            <input id="Talk" maxlength="180" autocomplete="off" style="display:none;visibility:hidden;">
+            <input id="MessageInput" maxlength="180" autocomplete="off">
             <button id="ChatBtn" th:text="#{kkutu.product.chat.sendBtn}"></button>
         </th:block>
     </th:block>

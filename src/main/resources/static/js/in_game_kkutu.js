@@ -1076,7 +1076,13 @@ $(document).ready(function () {
         ws.onopen = function (e) {
             loading();
 
-            ws.send(JSON.stringify({type: 'fingerprint2', value: 'a'}));
+            var fp = new Fingerprint2({
+                excludeWebGL: true
+            });
+
+            fp.get(function(result, components) {
+                ws.send(JSON.stringify({type: 'fingerprint2', value: result}));
+            });
         };
         ws.onmessage = _onMessage = function (e) {
             var data = JSON.parse(e.data);

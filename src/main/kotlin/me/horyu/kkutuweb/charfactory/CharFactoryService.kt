@@ -143,7 +143,7 @@ class CharFactoryService(
     }
 
     fun findLanguage(word: String): String {
-        return if ("[a-zA-Z]".toRegex().containsMatchIn(word)) "en" else "ko";
+        return if ("[a-zA-Z]".toRegex().containsMatchIn(word)) "en" else "ko"
     }
 
     fun getCfRewards(word: String, level: Int, blend: Boolean): CFResult {

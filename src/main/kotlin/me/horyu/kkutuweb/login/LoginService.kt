@@ -32,7 +32,6 @@ import me.horyu.kkutuweb.oauth.naver.NaverOAuthService
 import me.horyu.kkutuweb.session.SessionProfile
 import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.user.UserDao
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
@@ -51,8 +50,6 @@ class LoginService(
         @Autowired private val kakaoOAuthService: KakaoOAuthService,
         @Autowired private val userDao: UserDao
 ) {
-    private val logger = LoggerFactory.getLogger(LoginService::class.java)
-
     @PostConstruct
     fun initOAuthServices() {
         for (entry in oAuthSetting.getSetting().entries) {

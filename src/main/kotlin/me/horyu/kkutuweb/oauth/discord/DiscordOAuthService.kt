@@ -68,13 +68,14 @@ class DiscordOAuthService(
             val response = oAuth20Service.execute(request)
             val jsonResponse = objectMapper.readTree(response.body)
 
-            val oAuthUser = OAuthUser(VendorType.DISCORD,
-                    jsonResponse["id"].textValue(),
-                    jsonResponse["username"].textValue() + "#" + jsonResponse["discriminator"].textValue(),
-                    "https://cdn.discordapp.com/avatars/${jsonResponse["id"].longValue()}/${jsonResponse["avatar"].textValue()}",
-                    null,
-                    null,
-                    null)
+            val oAuthUser = OAuthUser(vendorType = VendorType.DISCORD,
+                    vendorId = jsonResponse["id"].textValue(),
+                    name = jsonResponse["username"].textValue() + "#" + jsonResponse["discriminator"].textValue(),
+                    profileImage = "https://cdn.discordapp.com/avatars/${jsonResponse["id"].longValue()}/${jsonResponse["avatar"].textValue()}",
+                    gender = null,
+                    minAge = null,
+                    maxAge = null
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

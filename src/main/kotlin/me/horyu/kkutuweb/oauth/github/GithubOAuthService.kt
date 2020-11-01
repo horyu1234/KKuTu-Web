@@ -25,7 +25,6 @@ import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import me.horyu.kkutuweb.SessionAttribute
-import me.horyu.kkutuweb.oauth.Gender
 import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
@@ -66,13 +65,14 @@ class GithubOAuthService(
             val response = oAuth20Service.execute(request)
             val jsonResponse = objectMapper.readTree(response.body)
 
-            val oAuthUser = OAuthUser(VendorType.GITHUB,
-                    jsonResponse["id"].intValue().toString(),
-                    jsonResponse["name"].textValue(),
-                    jsonResponse["avatar_url"].textValue(),
-                    null,
-                    null,
-                    null)
+            val oAuthUser = OAuthUser(vendorType = VendorType.GITHUB,
+                    vendorId = jsonResponse["id"].intValue().toString(),
+                    name = jsonResponse["name"].textValue(),
+                    profileImage = jsonResponse["avatar_url"].textValue(),
+                    gender = null,
+                    minAge = null,
+                    maxAge = null
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

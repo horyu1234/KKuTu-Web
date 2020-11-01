@@ -58,7 +58,6 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.neovisionaries:nv-websocket-client:2.10")
-    implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.github.scribejava:scribejava-apis:7.1.1")
     implementation("org.postgresql:postgresql:42.2.16")
     implementation("com.googlecode.htmlcompressor:htmlcompressor:1.5.2")

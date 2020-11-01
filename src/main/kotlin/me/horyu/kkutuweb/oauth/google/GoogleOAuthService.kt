@@ -18,12 +18,12 @@
 
 package me.horyu.kkutuweb.oauth.google
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.apis.GoogleApi20
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
-import com.google.gson.Gson
 import me.horyu.kkutuweb.SessionAttribute
 import me.horyu.kkutuweb.oauth.Gender
 import me.horyu.kkutuweb.oauth.OAuthService
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession
 
 @Service
 class GoogleOAuthService(
-        @Autowired private val gson: Gson
+        @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(GoogleOAuthService::class.java)
     private val protectedResourceUrl = "https://www.googleapis.com/plus/v1/people/me"
@@ -72,15 +72,16 @@ class GoogleOAuthService(
             oAuth20Service.signRequest(accessToken, request)
 
             val response = oAuth20Service.execute(request)
+            val jsonResponse = objectMapper.readTree(response.body)
 
-            val googleResponse = gson.fromJson(response.body, GoogleResponse::class.java)
-            val oAuthUser = OAuthUser(VendorType.GOOGLE,
-                    googleResponse.id,
-                    googleResponse.displayName,
-                    googleResponse.image.url,
-                    if (googleResponse.gender == null) null else Gender.fromName(googleResponse.gender),
-                    if (googleResponse.ageRange == null) -1 else googleResponse.ageRange.min,
-                    if (googleResponse.ageRange == null) -1 else googleResponse.ageRange.max)
+            val oAuthUser = OAuthUser(vendorType = VendorType.GOOGLE,
+                    vendorId = jsonResponse["id"].textValue(),
+                    name = jsonResponse["displayName"].textValue(),
+                    profileImage = jsonResponse["image"]["url"].textValue(),
+                    gender = if (jsonResponse.has("gender")) Gender.fromName(jsonResponse["gender"].textValue()) else null,
+                    minAge = if (jsonResponse.has("ageRange") && jsonResponse["ageRange"].has("min")) jsonResponse["ageRange"]["min"].intValue() else null,
+                    maxAge = if (jsonResponse.has("ageRange") && jsonResponse["ageRange"].has("max")) jsonResponse["ageRange"]["max"].intValue() else null
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

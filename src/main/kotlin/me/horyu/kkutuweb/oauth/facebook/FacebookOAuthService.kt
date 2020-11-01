@@ -18,12 +18,12 @@
 
 package me.horyu.kkutuweb.oauth.facebook
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.apis.FacebookApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
-import com.google.gson.Gson
 import me.horyu.kkutuweb.SessionAttribute
 import me.horyu.kkutuweb.oauth.Gender
 import me.horyu.kkutuweb.oauth.OAuthService
@@ -36,10 +36,10 @@ import javax.servlet.http.HttpSession
 
 @Service
 class FacebookOAuthService(
-        @Autowired private val gson: Gson
+        @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(FacebookOAuthService::class.java)
-    private val protectedResourceUrl = "https://graph.facebook.com/v2.11/me?fields=id,name,gender,age_range"
+    private val protectedResourceUrl = "https://graph.facebook.com/v8.0/me?fields=id,name,gender,age_range"
 
     override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
         oAuth20Service = ServiceBuilder(apiKey)
@@ -64,15 +64,17 @@ class FacebookOAuthService(
             oAuth20Service.signRequest(accessToken, request)
 
             val response = oAuth20Service.execute(request)
+            val jsonResponse = objectMapper.readTree(response.body)
 
-            val facebookResponse = gson.fromJson(response.body, FacebookResponse::class.java)
-            val oAuthUser = OAuthUser(VendorType.FACEBOOK,
-                    facebookResponse.id,
-                    facebookResponse.name,
-                    facebookResponse.getProfileImage(),
-                    Gender.fromName(facebookResponse.gender),
-                    facebookResponse.ageRange.min,
-                    facebookResponse.ageRange.max)
+            val vendorId = jsonResponse["id"].textValue()
+            val oAuthUser = OAuthUser(vendorType = VendorType.FACEBOOK,
+                    vendorId = vendorId,
+                    name = jsonResponse["name"].textValue(),
+                    profileImage = "http://graph.facebook.com/$vendorId/picture?type=square",
+                    gender = if (jsonResponse.has("gender")) Gender.fromName(jsonResponse["gender"].textValue()) else null,
+                    minAge = if (jsonResponse.has("age_range") && jsonResponse["age_range"].has("min")) jsonResponse["age_range"]["min"].intValue() else null,
+                    maxAge = if (jsonResponse.has("age_range") && jsonResponse["age_range"].has("max")) jsonResponse["age_range"]["max"].intValue() else null
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

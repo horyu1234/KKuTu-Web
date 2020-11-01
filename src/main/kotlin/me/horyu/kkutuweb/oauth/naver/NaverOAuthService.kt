@@ -18,12 +18,12 @@
 
 package me.horyu.kkutuweb.oauth.naver
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.apis.NaverApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
-import com.google.gson.Gson
 import me.horyu.kkutuweb.SessionAttribute
 import me.horyu.kkutuweb.oauth.Gender
 import me.horyu.kkutuweb.oauth.OAuthService
@@ -36,7 +36,7 @@ import javax.servlet.http.HttpSession
 
 @Service
 class NaverOAuthService(
-        @Autowired private val gson: Gson
+        @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
     private val logger = LoggerFactory.getLogger(NaverOAuthService::class.java)
     private val protectedResourceUrl = "https://openapi.naver.com/v1/nid/me"
@@ -64,17 +64,18 @@ class NaverOAuthService(
             oAuth20Service.signRequest(accessToken, request)
 
             val response = oAuth20Service.execute(request)
+            val jsonResponse = objectMapper.readTree(response.body)
 
-            val naverResponse = gson.fromJson(response.body, NaverResponse::class.java)
-
-            val splitAge = naverResponse.realResponse.age.split("-")
-            val oAuthUser = OAuthUser(VendorType.NAVER,
-                    naverResponse.realResponse.id,
-                    naverResponse.realResponse.nickname,
-                    naverResponse.realResponse.profileImage,
-                    Gender.fromName(naverResponse.realResponse.gender),
-                    splitAge[0].toInt(),
-                    splitAge[1].toInt())
+            val responseNode = jsonResponse["response"]
+            val splitAge = responseNode["age"].textValue().split("-")
+            val oAuthUser = OAuthUser(vendorType = VendorType.NAVER,
+                    vendorId = responseNode["id"].textValue(),
+                    name = responseNode["nickname"].textValue(),
+                    profileImage = responseNode["profile_image"].textValue(),
+                    gender = Gender.fromName(responseNode["gender"].textValue()),
+                    minAge = splitAge[0].toInt(),
+                    maxAge = splitAge[1].toInt()
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

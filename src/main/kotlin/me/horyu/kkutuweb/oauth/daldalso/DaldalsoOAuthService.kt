@@ -66,13 +66,14 @@ class DaldalsoOAuthService(
             val response = oAuth20Service.execute(request)
             val jsonResponse = objectMapper.readTree(response.body)
 
-            val oAuthUser = OAuthUser(VendorType.DALDALSO,
-                    jsonResponse["key"].textValue(),
-                    jsonResponse["name"].textValue(),
-                    jsonResponse["profile"]["image"].textValue(),
-                    null,
-                    null,
-                    null)
+            val oAuthUser = OAuthUser(vendorType = VendorType.DALDALSO,
+                    vendorId = jsonResponse["key"].textValue(),
+                    name = jsonResponse["name"].textValue(),
+                    profileImage = jsonResponse["profile"]["image"].textValue(),
+                    gender = null,
+                    minAge = null,
+                    maxAge = null
+            )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

@@ -73,7 +73,7 @@
 <div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
     <div th:include="menu" th:remove="tag"></div>
     <div id="global-notice">
-        <div id="gn-content"></div>
+        <div id="gn-content" th:include="../static/global_notice"></div>
         <div class="expl" style="width: initial;">
             <h5 th:text="#{global-notice.close}"></h5>
         </div>

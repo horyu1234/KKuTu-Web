@@ -2,27 +2,38 @@ package me.horyu.kkutuweb.setting
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.core.io.ClassPathResource
+import org.springframework.boot.ApplicationArguments
 import org.springframework.stereotype.Component
+import java.nio.file.Files
+import java.nio.file.Paths
 import javax.annotation.PostConstruct
 
 @Component
 class KKuTuSetting(
+        @Autowired private val applicationArguments: ApplicationArguments,
         @Autowired private val objectMapper: ObjectMapper
 ) {
+    private val logger = LoggerFactory.getLogger(KKuTuSetting::class.java)
     private lateinit var settingNode: JsonNode
 
     @PostConstruct
     fun init() {
-        val resource = ClassPathResource("kkutu.json")
+        val optionValues = applicationArguments.getOptionValues("SETTING_DIR")
+        if (optionValues.isNullOrEmpty()) {
+            logger.error("프로그램 실행 인수에 SETTING_DIR 값이 누락되었습니다.")
+        }
 
-        val br = resource.inputStream.bufferedReader()
-        br.use { reader ->
-            val jsonText = reader.readText()
-            val jsonNode = objectMapper.readTree(jsonText)
+        val settingDir = optionValues[0]
+        Files.newInputStream(Paths.get(settingDir, "kkutu.json")).use {
+            val br = it.bufferedReader()
+            br.use { reader ->
+                val jsonText = reader.readText()
+                val jsonNode = objectMapper.readTree(jsonText)
 
-            settingNode = jsonNode
+                settingNode = jsonNode
+            }
         }
     }
 

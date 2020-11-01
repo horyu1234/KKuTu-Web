@@ -6,6 +6,8 @@ server:
       timeout: 12h
       cookie:
         name: KKUTU-WEB-SESSION
+      persistent: true
+      store-dir: <Your Session Dir>
 
 spring:
   thymeleaf:

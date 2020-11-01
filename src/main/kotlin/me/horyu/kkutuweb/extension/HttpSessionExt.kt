@@ -18,9 +18,14 @@
 
 package me.horyu.kkutuweb.extension
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import me.horyu.kkutuweb.SessionAttribute
 import me.horyu.kkutuweb.oauth.OAuthUser
 import javax.servlet.http.HttpSession
 
+private val objectMapper = ObjectMapper().registerModule(KotlinModule())
+
 fun HttpSession.isGuest(): Boolean = (this.getAttribute(SessionAttribute.IS_GUEST.attributeName) ?: true) as Boolean
-fun HttpSession.getOAuthUser(): OAuthUser = this.getAttribute(SessionAttribute.OAUTH_USER.attributeName) as OAuthUser
+fun HttpSession.getOAuthUser(): OAuthUser = objectMapper.readValue(this.getAttribute(SessionAttribute.OAUTH_USER.attributeName) as String, OAuthUser::class.java)
+fun HttpSession.setOAuthUser(oAuthUser: OAuthUser) = this.setAttribute(SessionAttribute.OAUTH_USER.attributeName, objectMapper.writeValueAsString(oAuthUser))

@@ -24,6 +24,7 @@ import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import me.horyu.kkutuweb.SessionAttribute
+import me.horyu.kkutuweb.extension.setOAuthUser
 import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
@@ -75,7 +76,7 @@ class KakaoOAuthService(
             )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
-            httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)
+            httpSession.setOAuthUser(oAuthUser)
             return true
         } catch (e: Exception) {
             logger.error("${httpSession.id} 세션에서 로그인 중 오류가 발생했습니다.", e)

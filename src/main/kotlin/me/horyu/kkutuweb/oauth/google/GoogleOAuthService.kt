@@ -78,7 +78,7 @@ class GoogleOAuthService(
                     googleResponse.id,
                     googleResponse.displayName,
                     googleResponse.image.url,
-                    Gender.fromName(googleResponse.gender ?: ""),
+                    if (googleResponse.gender == null) null else Gender.fromName(googleResponse.gender),
                     if (googleResponse.ageRange == null) -1 else googleResponse.ageRange.min,
                     if (googleResponse.ageRange == null) -1 else googleResponse.ageRange.max)
 

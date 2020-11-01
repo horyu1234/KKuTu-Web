@@ -24,7 +24,6 @@ import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import me.horyu.kkutuweb.SessionAttribute
-import me.horyu.kkutuweb.oauth.Gender
 import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.OAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
@@ -71,9 +70,9 @@ class DaldalsoOAuthService(
                     jsonResponse["key"].textValue(),
                     jsonResponse["name"].textValue(),
                     jsonResponse["profile"]["image"].textValue(),
-                    Gender.OTHER,
-                    0,
-                    0)
+                    null,
+                    null,
+                    null)
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

@@ -84,7 +84,7 @@ class LoginService(
                 id = authType + "-" + oAuthUser.vendorId,
                 name = oAuthUser.name,
                 title = title,
-                image = oAuthUser.profileImage
+                image = oAuthUser.profileImage ?: ""
         )
     }
 

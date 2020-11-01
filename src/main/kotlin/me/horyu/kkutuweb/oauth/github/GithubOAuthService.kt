@@ -70,9 +70,9 @@ class GithubOAuthService(
                     jsonResponse["id"].intValue().toString(),
                     jsonResponse["name"].textValue(),
                     jsonResponse["avatar_url"].textValue(),
-                    Gender.OTHER,
-                    0,
-                    0)
+                    null,
+                    null,
+                    null)
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)

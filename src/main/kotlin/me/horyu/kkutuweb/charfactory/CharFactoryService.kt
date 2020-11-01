@@ -62,7 +62,7 @@ class CharFactoryService(
             wordString += char
             level += 68 - charItem[3].toInt()
             charCountMap[charItem] = if (charCountMap.containsKey(charItem)) charCountMap[charItem]!! + 1 else 1
-            if (user.box.get(charItem).intValue() < charCountMap[charItem]!!) return "{\"error\":434}"
+            if (!user.box.has(charItem) || user.box.get(charItem).intValue() < charCountMap[charItem]!!) return "{\"error\":434}"
         }
 
         val word = when (findLanguage(wordString)) {

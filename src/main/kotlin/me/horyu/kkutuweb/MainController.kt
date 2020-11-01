@@ -71,7 +71,7 @@ class MainController(
             model.addAttribute("koThemes", koThemes)
             model.addAttribute("enThemes", enThemes)
 
-            model.addAttribute("viewName", "view/kkutu/kkutu")
+            model.addAttribute("viewName", request.getView(View.KKUTU))
         }
 
         return request.getView(View.LAYOUT)

@@ -78,9 +78,8 @@ class DaldalsoOAuthService(
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
             httpSession.setAttribute(SessionAttribute.OAUTH_USER.attributeName, oAuthUser)
             return true
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-            logger.warn("${httpSession.id} 세션에서 로그인에 실패하였습니다. ${exception.message}")
+        } catch (e: Exception) {
+            logger.error("${httpSession.id} 세션에서 로그인 중 오류가 발생했습니다.", e)
             return false
         }
     }

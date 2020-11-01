@@ -24,7 +24,8 @@ enum class VendorType {
     GOOGLE,
     NAVER,
     GITHUB,
-    DISCORD;
+    DISCORD,
+    KAKAO;
 
     companion object {
         fun fromName(vendorName: String): VendorType? {

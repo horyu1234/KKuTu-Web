@@ -40,5 +40,12 @@
     "client-id": "",
     "client-secret": "",
     "callback-url": ""
+  },
+  "kakao": {
+    "enable": false,
+    "order": 7,
+    "client-id": "",
+    "client-secret": "<Empty>",
+    "callback-url": ""
   }
 }

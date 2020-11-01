@@ -27,6 +27,7 @@ import me.horyu.kkutuweb.oauth.discord.DiscordOAuthService
 import me.horyu.kkutuweb.oauth.facebook.FacebookOAuthService
 import me.horyu.kkutuweb.oauth.github.GithubOAuthService
 import me.horyu.kkutuweb.oauth.google.GoogleOAuthService
+import me.horyu.kkutuweb.oauth.kakao.KakaoOAuthService
 import me.horyu.kkutuweb.oauth.naver.NaverOAuthService
 import me.horyu.kkutuweb.session.SessionProfile
 import me.horyu.kkutuweb.setting.OAuthSetting
@@ -47,6 +48,7 @@ class LoginService(
         @Autowired private val naverOAuthService: NaverOAuthService,
         @Autowired private val githubOAuthService: GithubOAuthService,
         @Autowired private val discordOAuthService: DiscordOAuthService,
+        @Autowired private val kakaoOAuthService: KakaoOAuthService,
         @Autowired private val userDao: UserDao
 ) {
     private val logger = LoggerFactory.getLogger(LoginService::class.java)
@@ -96,6 +98,7 @@ class LoginService(
             VendorType.NAVER -> naverOAuthService
             VendorType.GITHUB -> githubOAuthService
             VendorType.DISCORD -> discordOAuthService
+            VendorType.KAKAO -> kakaoOAuthService
         }
     }
 }

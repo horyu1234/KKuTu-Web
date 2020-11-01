@@ -66,10 +66,13 @@ class DaldalsoOAuthService(
             val response = oAuth20Service.execute(request)
             val jsonResponse = objectMapper.readTree(response.body)
 
+            val profileImage = jsonResponse["profile"]["image"].textValue()
+            val fixedProfileImage = if (profileImage == "https://daldal.so/anonymous.png") "https://daldal.so/media/images/anonymous.png" else profileImage
+
             val oAuthUser = OAuthUser(vendorType = VendorType.DALDALSO,
                     vendorId = jsonResponse["key"].textValue(),
                     name = jsonResponse["name"].textValue(),
-                    profileImage = jsonResponse["profile"]["image"].textValue(),
+                    profileImage = fixedProfileImage,
                     gender = null,
                     minAge = null,
                     maxAge = null

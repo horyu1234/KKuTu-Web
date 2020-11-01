@@ -1,24 +1,216 @@
 <html>
 <head>
-    <title>공지사항</title>
+    <title>끄투리오 공지사항</title>
     <style>
         body {
             font-family: 나눔바른고딕, 맑은 고딕, 돋움, sans-serif;
         }
 
+        h3 {
+            font-size: 14px;
+        }
+
         li {
+            font-size: 12px;
+        }
+
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            max-width: 500px;
+        }
+
+        .collapsible:after {
+            content: '\02795';
             font-size: 13px;
+            color: white;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2796";
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .new {
+            color: #03A9F4;
+            font-weight: bold;
+            font-size: 16pt;
         }
     </style>
 </head>
 <body style='height: 100%;'>
-<h3>v2.6.0 [2020-10-04]</h3>
+<a href="https://www.evernote.com/shard/s708/sh/5c694ab4-7b32-720c-cd07-4e18750b196b/e9e0a3cfa9653fb64c4634ce3458c0c8"
+   style="font-size: 20pt;color:#2962FF;text-decoration: none;"
+   target="_blank">
+    끄투리오 사용자 규정 확인 (클릭)
+</a>
+
+<h3 class="new">v1.0.2 [2020-11-01] (현재버전)</h3>
 <ul>
-    <li>끄투 웹서버 재개발 프로젝트가 진행 중입니다</li>
+    <li>
+        끄투 웹서버를 새로 개발했습니다. <a href="https://github.com/horyu1234/KKuTu-Web/tree/kkutuio" target="_blank">https://github.com/horyu1234/KKuTu-Web/tree/kkutuio</a>
+    </li>
+    <li>로그인 화면의 디자인을 개선했습니다.</li>
+    <li>달달소 아이디로 로그인이 추가되었습니다.</li>
+    <li style="color: #EF5350; font-weight: bold; font-size: 14px">끄투 웹서버를 새로 개발하며, 여기에 적지 못하는 많은 사항들이 바뀌었을 수 있습니다.</li>
 </ul>
-<h3>v2.5.0 [2017-02-14]</h3>
+
+<h3>v1.0.1 [2017-12-31 ~ 2020-10-23]</h3>
+<ul>
+    <li>2020년 11월 1일 이전 변경 기록의 버전을 초기화하고, 신규 1.0.1 버전으로 통합했습니다.</li>
+    <li>
+        <button class="collapsible" type="button">이전 변경 기록</button>
+        <div class="content">
+            <h3>OLD v4.6.2 [2020-10-23]</h3>
+            <ul>
+                <li>친구 삭제가 불가능했던 문제를 수정했습니다.</li>
+                <li>이제 해외에서는 로그인을 하지 않으면 게임 이용이 불가능합니다.</li>
+            </ul>
+            <h3>OLD v4.6.1 [2020-08-17]</h3>
+            <ul>
+                <li>ID 복사 기능이 추가되었습니다.</li>
+                <li>프로필 이미지가 로그인 수단 이미지로 변경되었습니다.</li>
+            </ul>
+            <h3>OLD v4.6.0 [2020-08-15]</h3>
+            <ul>
+                <li>XSS 취약점이 수정되었습니다.</li>
+                <li>안드로이드 앱 버튼이 제거되었습니다.</li>
+                <li>기타 서버 최적화가 진행되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.9 [2020-08-12]</h3>
+            <ul>
+                <li>기능이 추가되었습니다.</li>
+                <li>게임을 정상적으로 이용할 수 없었던 문제가 해결되었습니다.</li>
+                <li>관련 문제가 수정되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.8 [2020-06-23]</h3>
+            <ul>
+                <li>명령어가 추가되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.7 [2020-06-19]</h3>
+            <ul>
+                <li>서버 최적화가 진행되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.6 [2020-06-18]</h3>
+            <ul>
+                <li>로드 속도 향상을 위하여 CDN 주소가 변경되었습니다.</li>
+                <li>포워딩된 요청을 차단되도록 수정하였습니다.</li>
+                <li>보안 향상을 위한 헤더가 설정되었습니다.</li>
+                <li>기타 서버 최적화가 진행되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.5 [2020-06-17]</h3>
+            <ul>
+                <li>보안 솔루션 도입을 위한 준비 작업이 진행되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.4 [2020-06-16]</h3>
+            <ul>
+                <li>CDN 적용을 위한 소스 코드 정리가 진행되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.3 [2020-06-10]</h3>
+            <ul>
+                <li>인 게임 신고 기능이 추가되었습니다.</li>
+                <li>Kakao 아이디로 로그인 시 발생하던 오류를 수정하였습니다.</li>
+                <li>최대 레벨이 720으로 확장되었습니다.</li>
+                <li>레벨별 요구 경험치 계산 방식이 변경되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.2 [2019-09-15]</h3>
+            <ul>
+                <li>게스트 차단 방 특별 규칙이 추가되었습니다.</li>
+                <li>50레벨 이하만 입장 가능한 방 특별 규칙이 추가되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.1 [2019-09-11]</h3>
+            <ul>
+                <li>Discord 아이디로 로그인이 추가되었습니다.</li>
+                <li>Kakao 아이디로 로그인이 추가되었습니다.</li>
+                <li>Github 아이디로 로그인이 추가되었습니다.</li>
+            </ul>
+            <h3>OLD v4.5.0 [2019-09-08]</h3>
+            <ul>
+                <li>서버의 이름이 끄투리오로 변경되었습니다.</li>
+                <li>서버의 도메인이 https://kkutu.io 로 변경되었습니다.</li>
+                <li>서버가 DDOS 방어존에 입주하였습니다.</li>
+            </ul>
+            <h3>OLD v4.4.0 [2018-10-14]</h3>
+            <ul>
+                <li>서버 통신에 보안 프로토콜(SSL) 이 적용되었습니다.</li>
+            </ul>
+            <h3>OLD v4.3.0 [2018-02-24]</h3>
+            <ul>
+                <li>끄투 단어 데이터가 표준국어대사전을 기반으로 재생성되었습니다. <strong>이제 단어에 뜻이 추가되었으며, 십자말풀이 게임도 정상 이용 가능합니다.</strong></li>
+            </ul>
+            <h3>OLD v4.2.0 [2018-02-13]</h3>
+            <ul>
+                <li>서버의 도메인이 https://kkutu.cc 로 변경되었습니다.</li>
+                <li>악성 파일 등의 공유를 막기 위하여 채팅창에 URL 이 자동으로 제거됩니다.</li>
+                <li>채팅창에 띄어쓰기만 전송할 수 있는 문제를 수정하였습니다.</li>
+                <li>Passport 가 적용되었습니다.</li>
+                <li>유저 관리(처벌) 기능이 개선되었습니다.</li>
+                <li>채널 접속 로깅 기능이 추가되었습니다.</li>
+            </ul>
+            <h3>OLD v4.0.1_2 [2018-01-25]</h3>
+            <ul>
+                <li>최적화를 위하여 CDN 에서 받아오는 데이터에 gzip 압축이 적용되었습니다.</li>
+            </ul>
+            <h3>OLD v4.0.1 [2018-01-15]</h3>
+            <ul>
+                <li>유저 고유번호 충돌 관련된 서버 취약점이 패치되었습니다.</li>
+            </ul>
+            <h3>OLD v4.0 [2017-12-31]</h3>
+            <ul>
+                <li>서버의 기능들이 끄투리오와 통합되었으며, 단어 데이터베이스는 끄투리오로 변경되었습니다.</li>
+                <li>끄투리오로 부터 데이터를 이전할 수 있는 시스템이 추가되었습니다.</li>
+                <li>모든 게임 내 리소스가 CDN 서버로 분리되었습니다.</li>
+                <li>페이스북 아이디로 로그인이 추가되었습니다.</li>
+                <li>이후 생략...</li>
+            </ul>
+            <h3>OLD v2.5.0 [2017-02-14]</h3>
+            <ul>
+                <li>글자로 놀자! 끄투 온라인 프리 서버가 공개되었습니다.</li>
+            </ul>
+        </div>
+    </li>
+</ul>
+<h3>v1.0.0 [2017-02-14]</h3>
 <ul>
     <li>글자로 놀자! 끄투 온라인 프리 서버가 공개되었습니다.</li>
 </ul>
+
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>
 </body>
 </html>

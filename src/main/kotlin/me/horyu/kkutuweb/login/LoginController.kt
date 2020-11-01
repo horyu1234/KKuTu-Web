@@ -46,10 +46,6 @@ class LoginController(
     @GetMapping
     fun login(model: Model,
               request: HttpServletRequest): String {
-        val isMobile = model.getAttribute("mobile") as Boolean
-        val mobileLogText = if (isMobile) " (모바일)" else ""
-        logger.info("[${request.getIp()}] 로그인 화면을 요청했습니다.$mobileLogText")
-
         model.addAttribute("oAuthSetting", oAuthSetting.getSetting())
         model.addAttribute("viewName", "view/login")
         return request.getView(View.LAYOUT)
@@ -91,9 +87,9 @@ class LoginController(
             val session = request.session
             val oAuthUser = session.getOAuthUser()
 
-            logger.info("${oAuthUser.name}(${oAuthUser.vendorId}) 님이 ${vendorType.name} 로그인에 성공했습니다.")
+            logger.info("[${request.getIp()}] ${oAuthUser.name}(${oAuthUser.vendorId}) 님이 ${vendorType.name} 로그인에 성공했습니다.")
         } else {
-            logger.info("${request.session.id} 세션에서 ${vendorType.name} 로그인에 실패했습니다.")
+            logger.info("[${request.getIp()}] ${request.session.id} 세션에서 ${vendorType.name} 로그인에 실패했습니다.")
         }
 
         return if (!loginSuccess) "redirect:/login/fail"

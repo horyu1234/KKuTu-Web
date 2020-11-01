@@ -55,7 +55,6 @@ class MainController(
 
         if (server == null) {
             model.addAttribute("viewName", request.getView(View.PORTAL))
-            logger.info("[${request.getIp()}] 포털 화면을 요청했습니다.$mobileLogText")
         } else {
             val sessionProfile = loginService.getSessionProfile(session)
             val isGuest = sessionProfile == null

@@ -68,7 +68,7 @@ class GithubOAuthService(
 
             val oAuthUser = OAuthUser(vendorType = VendorType.GITHUB,
                     vendorId = jsonResponse["id"].intValue().toString(),
-                    name = jsonResponse["name"].textValue(),
+                    name = if (jsonResponse.has("name")) jsonResponse["name"].textValue() else jsonResponse["login"].textValue(),
                     profileImage = jsonResponse["avatar_url"].textValue(),
                     gender = null,
                     minAge = null,

@@ -41,6 +41,16 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+sourceSets {
+    main {
+        resources {
+            exclude("application-dev.yml")
+            exclude("kkutu.json", "kkutu.default.json")
+            exclude("oauth.json", "oauth.default.json")
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }

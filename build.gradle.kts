@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.moowork.gradle.node.npm.NpmTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -23,6 +24,8 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
+
+    id("com.github.node-gradle.node") version "2.2.4"
 }
 
 group = "me.horyu"
@@ -39,6 +42,23 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
+}
+
+tasks.withType<ProcessResources> {
+    dependsOn("appNpmBuild")
+}
+
+tasks.register<NpmTask>("appNpmInstall") {
+    description = "Installs all dependencies from package.json"
+    setWorkingDir(file(project.projectDir))
+    setArgs(listOf("install"))
+}
+
+tasks.register<NpmTask>("appNpmBuild") {
+    dependsOn("appNpmInstall")
+    description = "Builds project"
+    setWorkingDir(file(project.projectDir))
+    setArgs(listOf("run", "build"))
 }
 
 sourceSets {

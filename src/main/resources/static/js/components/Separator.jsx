@@ -17,11 +17,12 @@
  */
 
 import React from "react";
+import styled from "styled-components";
 
-const Separator = (props) => {
-    return (
-        <div style={{float: 'left', width: '100%', margin: `${props.size}px 0`}}/>
-    );
-}
+const Separator = styled.div`
+    float: left;
+    width: 100%;
+    margin: ${props => props.height}px 0
+`;
 
 export default Separator;

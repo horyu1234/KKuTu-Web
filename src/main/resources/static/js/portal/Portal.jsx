@@ -16,58 +16,83 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, {useEffect} from "react";
+import $ from 'jquery';
 import Separator from "../components/Separator";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSyncAlt} from "@fortawesome/free-solid-svg-icons"
 import '../../css/in_portal.css';
+import {
+    GameStartButton,
+    JJoDisplayBar,
+    JJoEyeL,
+    JJoEyeR,
+    JJoNose,
+    JJoriping,
+    LogoArea,
+    LogoImg,
+    LogoText,
+    MenuBar,
+    MenuBarText,
+    MiddlePanel,
+    ServerListBox,
+    ServerListTitle,
+    ServerRefresh,
+    ServerTotal,
+    TopLeftPanel,
+    TopRightPanel,
+    UpdateLog
+} from "./PortalStyle";
 
 const Portal = () => {
+    useEffect(() => {
+        $("#Background").removeAttr('src').addClass("jt-image").css({
+            'background-image': "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/gamebg.png')",
+            'background-size': "200px 200px"
+        });
+    }, [])
+
     return (
         <>
-            <Separator size={5}/>
-            <div style={{float: 'left', width: '100%'}}>
-                <div style={{float: 'left', paddingLeft: '70px'}}>
-                    <h3 id="holder">끄투리오 - 글자로 놀자!</h3>
-                    <img id="logo" src="/img/kkutu/short_logo.png" alt="끄투리오"/>
-                </div>
-                <div id="menu-bar" style={{float: 'right', marginTop: '25px'}}>
-                    <a style={{backgroundColor: '#7289DA'}} target="_blank" href="//discord.gg/hzZa2YsfZQ}">공식 디스코드</a>
-                </div>
-                <div className="jjoriping" style={{marginTop: '40px'}}>
-                    <img className="jjoObj jjoEyeL" style={{left: '-270px'}} src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/><img
-                    className="jjoObj jjoNose" style={{left: '-170px'}} src="/img/jjonose.png" alt="캐릭터 코"/><img
-                    className="jjoObj jjoEyeR" style={{left: '-70px'}} src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
-                    <div className="jjoDisplayBar" style={{width: '325px', height: '85px'}}>
-                        <button className="jjo-display" id="game-start">게임시작</button>
-                    </div>
-                </div>
-            </div>
+            <Separator height={5}/>
+            <TopLeftPanel>
+                <LogoArea>
+                    <LogoText>끄투리오 - 글자로 놀자!</LogoText>
+                    <LogoImg src="/img/kkutu/short_logo.png" alt="끄투리오"/>
+                </LogoArea>
+                <MenuBar>
+                    <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
+                </MenuBar>
+                <JJoriping>
+                    <JJoEyeL src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/><JJoNose
+                    src="/img/jjonose.png" alt="캐릭터 코"/><JJoEyeR
+                    src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
+                    <JJoDisplayBar>
+                        <GameStartButton>게임시작</GameStartButton>
+                    </JJoDisplayBar>
+                </JJoriping>
+            </TopLeftPanel>
 
-            <div style={{float: 'right', marginTop: '-125px', width: '50%'}}>
-                <div className="server-list-box">
-                    <h3 className="server-list-title">
-                        <a id="server-refresh">
-                            <i className="fa fa-refresh"/>
+            <TopRightPanel>
+                <ServerListBox>
+                    <ServerListTitle>
+                        <ServerRefresh>
+                            <FontAwesomeIcon icon={faSyncAlt} size="sm"/>
                             <div className="expl" style={{width: 'initial'}}>
                                 <h5>채널 상태를 새로고침합니다.</h5>
                             </div>
-                        </a>
+                        </ServerRefresh>
                         <label>채널 목록</label>
-                        <label id="server-total" style={{color: '#AAA', fontSize: '13px'}}/>
-                    </h3>
-                    <div id="server-list"/>
-                </div>
-            </div>
+                        <ServerTotal>총 N명</ServerTotal>
+                    </ServerListTitle>
+                    <div/>
+                </ServerListBox>
+            </TopRightPanel>
 
-            <div style={{
-                float: 'left',
-                width: 'calc(100% - 4px)',
-                border: '2px solid #CCC',
-                marginTop: '10px',
-                backgroundColor: '#EEE'
-            }}>
-                <iframe id="kkutu-bulletin" width="100%" height="400px" src="/kkutu_bulletin.html"/>
-            </div>
-            <Separator size={5}/>
+            <MiddlePanel>
+                <UpdateLog width="100%" height="400px" src="/kkutu_bulletin.html"/>
+            </MiddlePanel>
+            <Separator height={5}/>
 
             {/*<th:block*/}
             {/*    layout:replace="~{view/kkutu/product::product(id='TLXFQZ',title=#{portal.ad.title},createWithShown=true)}">*/}
@@ -79,7 +104,7 @@ const Portal = () => {
             {/*        <script async src="//t1.daumcdn.net/kas/static/ba.min.js" type="text/javascript"></script>*/}
             {/*    </th:block>*/}
             {/*</th:block>*/}
-            <Separator size={10}/>
+            <Separator height={10}/>
         </>
     );
 }

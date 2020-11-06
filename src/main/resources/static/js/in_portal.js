@@ -24,26 +24,7 @@ export default class Portal {
     _serverList = [];
 
     constructor() {
-        this._initStage();
-        this._initBackground();
         this._bindEvents();
-    }
-
-    _initStage = () => {
-        this._$stage = {
-            list: $("#server-list"),
-            total: $("#server-total"),
-            start: $("#game-start"),
-            ref: $("#server-refresh"),
-            refi: $("#server-refresh>i")
-        };
-    }
-
-    _initBackground = () => {
-        $("#Background").removeAttr('src').addClass("jt-image").css({
-            'background-image': "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/gamebg.png')",
-            'background-size': "200px 200px"
-        });
     }
 
     _bindEvents = () => {

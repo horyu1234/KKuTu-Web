@@ -64,7 +64,6 @@ tasks.register<NpmTask>("appNpmBuild") {
 sourceSets {
     main {
         resources {
-            exclude("application-dev.yml")
             exclude("kkutu.json", "kkutu.default.json")
             exclude("oauth.json", "oauth.default.json")
             exclude("**/in_game_kkutu_help.js", "**/in_login.js", "**/in_portal.js", "**/oauth-buttons.js")

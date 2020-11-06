@@ -28,6 +28,7 @@ module.exports = {
         vendor: ['@babel/polyfill'],
         in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
         in_portal: path.resolve(devPath, 'in_portal.js'),
+        portalEntry: path.resolve(devPath, 'portal/PortalEntry.jsx'),
         in_login: path.resolve(devPath, 'in_login.js')
     },
     output: {
@@ -39,20 +40,28 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 include: [
-                    devPath,
+                    devPath
                 ],
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'],
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
                         plugins: ['@babel/plugin-proposal-class-properties']
                     },
-                },
+                }
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader']
             }
-        ],
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     devtool: 'inline-source-map',
     mode: 'development',

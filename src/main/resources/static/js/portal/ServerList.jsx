@@ -24,7 +24,7 @@ import Axios from "axios";
 import {ServerListBox, ServerListTitle, ServerRefresh, ServerTotal} from "./ServerListStyle";
 import Server from "./Server";
 
-const ServerList = () => {
+const ServerList = ({joinServer, onServerListUpdate}) => {
     const [isInitializing, setInitializing] = useState(true);
     const [messages, setMessages] = useState({});
     const [servers, setServers] = useState([]);
@@ -48,6 +48,8 @@ const ServerList = () => {
             setTotalPlayers(_.sum(data.list));
             setMaxUserPerServer(data.max);
 
+            onServerListUpdate(data.list, data.max);
+
             setTimeout(() => setRefreshing(false), 500);
             setInterval(updateServerList, 60000);
         })
@@ -55,10 +57,6 @@ const ServerList = () => {
 
     const getServerList = () => {
         return Axios.get('/servers');
-    }
-
-    const joinServer = (id) => {
-        location.href = "/?server=" + id;
     }
 
     if (isInitializing) return <h1>Page Initializing...</h1>

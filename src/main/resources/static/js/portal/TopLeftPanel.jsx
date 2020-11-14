@@ -31,7 +31,7 @@ import {
     MenuBarText
 } from "./TopLeftPanelStyle";
 
-const TopLeftPanel = () => {
+const TopLeftPanel = ({onGameStart}) => {
     return (
         <div style={{float: 'left', width: '100%'}}>
             <LogoArea>
@@ -46,7 +46,7 @@ const TopLeftPanel = () => {
                 src="/img/jjonose.png" alt="캐릭터 코"/><JJoEyeR
                 src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
                 <JJoDisplayBar>
-                    <GameStartButton>게임시작</GameStartButton>
+                    <GameStartButton onClick={onGameStart}>게임시작</GameStartButton>
                 </JJoDisplayBar>
             </JJoriping>
         </div>

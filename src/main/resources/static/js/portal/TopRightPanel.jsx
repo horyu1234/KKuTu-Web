@@ -19,10 +19,10 @@
 import React from "react";
 import ServerList from "./ServerList";
 
-const TopRightPanel = () => {
+const TopRightPanel = ({joinServer, onServerListUpdate}) => {
     return (
         <div style={{float: 'right', width: '50%', marginTop: '-125px'}}>
-            <ServerList/>
+            <ServerList joinServer={joinServer} onServerListUpdate={onServerListUpdate}/>
         </div>
     );
 }

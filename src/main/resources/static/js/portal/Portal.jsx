@@ -19,32 +19,12 @@
 import React, {useEffect} from "react";
 import $ from 'jquery';
 import Separator from "../components/Separator";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSyncAlt} from "@fortawesome/free-solid-svg-icons"
 import '../../css/in_portal.css';
-import {
-    GameStartButton,
-    JJoDisplayBar,
-    JJoEyeL,
-    JJoEyeR,
-    JJoNose,
-    JJoriping,
-    LogoArea,
-    LogoImg,
-    LogoText,
-    MenuBar,
-    MenuBarText,
-    MiddlePanel,
-    ServerListBox,
-    ServerListTitle,
-    ServerRefresh,
-    ServerTotal,
-    TopLeftPanel,
-    TopRightPanel,
-    UpdateLog
-} from "./PortalStyle";
+import {MiddlePanel, UpdateLog} from "./PortalStyle";
 import Product from "../components/Product";
 import KakaoAd from "../components/KakaoAd";
+import TopLeftPanel from "./TopLeftPanel";
+import TopRightPanel from "./TopRightPanel";
 
 const Portal = () => {
     useEffect(() => {
@@ -57,39 +37,8 @@ const Portal = () => {
     return (
         <>
             <Separator height={5}/>
-            <TopLeftPanel>
-                <LogoArea>
-                    <LogoText>끄투리오 - 글자로 놀자!</LogoText>
-                    <LogoImg src="/img/kkutu/short_logo.png" alt="끄투리오"/>
-                </LogoArea>
-                <MenuBar>
-                    <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
-                </MenuBar>
-                <JJoriping>
-                    <JJoEyeL src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/><JJoNose
-                    src="/img/jjonose.png" alt="캐릭터 코"/><JJoEyeR
-                    src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
-                    <JJoDisplayBar>
-                        <GameStartButton>게임시작</GameStartButton>
-                    </JJoDisplayBar>
-                </JJoriping>
-            </TopLeftPanel>
-
-            <TopRightPanel>
-                <ServerListBox>
-                    <ServerListTitle>
-                        <ServerRefresh>
-                            <FontAwesomeIcon icon={faSyncAlt} size="sm"/>
-                            <div className="expl" style={{width: 'initial'}}>
-                                <h5>채널 상태를 새로고침합니다.</h5>
-                            </div>
-                        </ServerRefresh>
-                        <label>채널 목록</label>
-                        <ServerTotal>총 N명</ServerTotal>
-                    </ServerListTitle>
-                    <div/>
-                </ServerListBox>
-            </TopRightPanel>
+            <TopLeftPanel/>
+            <TopRightPanel/>
 
             <MiddlePanel>
                 <UpdateLog width="100%" height="400px" src="/kkutu_bulletin.html"/>

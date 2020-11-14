@@ -24,15 +24,24 @@ export const JJoriping = styled.div`
     margin-top: 40px;
 `
 
-export const MiddlePanel = styled.div`
-    float: left;
-    width: calc(100% - 4px);
-    border: 2px solid rgb(204, 204, 204);
-    margin-top: 10px;
-    background-color: rgb(238, 238, 238);
+export const ServerListBox = styled.div`
+    float: right;
+    width: 360px;
+    background-color: rgba(0, 0, 0, 0.4);
 `
 
-export const UpdateLog = styled.iframe`
-    border: 0;
-    margin-bottom: 5px;
+export const ServerListTitle = styled.h3`
+    padding: 2px 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+`
+
+export const ServerRefresh = styled.a`
+    margin: 0 5px;
+    cursor: pointer;
+`
+
+export const ServerTotal = styled.label`
+    color: #AAA;
+    font-size: 13px
 `

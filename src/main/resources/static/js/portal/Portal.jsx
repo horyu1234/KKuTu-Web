@@ -43,6 +43,8 @@ import {
     TopRightPanel,
     UpdateLog
 } from "./PortalStyle";
+import Product from "../components/Product";
+import KakaoAd from "../components/KakaoAd";
 
 const Portal = () => {
     useEffect(() => {
@@ -94,16 +96,9 @@ const Portal = () => {
             </MiddlePanel>
             <Separator height={5}/>
 
-            {/*<th:block*/}
-            {/*    layout:replace="~{view/kkutu/product::product(id='TLXFQZ',title=#{portal.ad.title},createWithShown=true)}">*/}
-            {/*    <th:block layout:fragment="content">*/}
-            {/*        <ins className="kakao_ad_area" data-ad-height="90"*/}
-            {/*             data-ad-unit="DAN-1jyd80fuvhwmb"*/}
-            {/*             data-ad-width="728"*/}
-            {/*             style="display:none;"></ins>*/}
-            {/*        <script async src="//t1.daumcdn.net/kas/static/ba.min.js" type="text/javascript"></script>*/}
-            {/*    </th:block>*/}
-            {/*</th:block>*/}
+            <Product id="qwShKF" title="광고" createWithShown={true}>
+                <KakaoAd width={728} height={90} unit="DAN-1jyd80fuvhwmb"/>
+            </Product>
             <Separator height={10}/>
         </>
     );

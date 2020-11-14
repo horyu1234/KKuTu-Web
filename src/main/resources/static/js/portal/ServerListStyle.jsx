@@ -17,14 +17,27 @@
  */
 
 import React from "react";
-import ServerList from "./ServerList";
+import styled from "styled-components"
 
-const TopRightPanel = () => {
-    return (
-        <div style={{float: 'right', width: '50%', marginTop: '-125px'}}>
-            <ServerList/>
-        </div>
-    );
-}
+export const ServerListBox = styled.div`
+    float: right;
+    width: 360px;
+    background-color: rgba(0, 0, 0, 0.4);
+`
 
-export default TopRightPanel
+export const ServerListTitle = styled.h3`
+    padding: 2px 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+`
+
+export const ServerRefresh = styled.a`
+    margin: 0 5px;
+    cursor: pointer;
+`
+
+export const ServerTotal = styled.label`
+    color: #AAA;
+    font-size: 13px;
+    margin-left: 10px;
+`

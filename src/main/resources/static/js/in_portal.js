@@ -28,16 +28,6 @@ export default class Portal {
     }
 
     _bindEvents = () => {
-        $(document).on('click', '#server-list div.server', (e) => {
-            const $target = $(e.currentTarget);
-
-            const serverId = $target.attr('data-server-id');
-            const serverStatus = $target.attr('data-server-status');
-            if (serverStatus === 'x') return;
-
-            this._joinServer(serverId)
-        })
-
         this._$stage.start.prop('disabled', true).on('click', () => {
             if ($("#account-info").html() === Messages['portal.js.login']) {
                 this._joinServer(0);
@@ -53,65 +43,5 @@ export default class Portal {
                 }
             }
         });
-
-        this._$stage.ref.on('click', (e) => {
-            if (this._$stage.refi.hasClass("fa-spin")) {
-                return alert(Messages['portal.js.serverWait']);
-            }
-
-            this._$stage.refi.addClass("fa-spin");
-            setTimeout(this._updateServers, 1000);
-        });
-
-        setInterval(() => {
-            this._updateServers();
-        }, 60000);
-
-        this._updateServers();
-    }
-
-    _updateServers = () => {
-        $.get("/servers", (data) => {
-            this._serverList = data.list;
-            this._$stage.list.empty();
-
-            let totalPlayers = 0;
-            this._serverList.forEach((server, idx) => {
-                let status = (server === null) ? "x" : "o";
-                const peopleText = (status === "x") ? "-" : (server + " / " + this._serverMax);
-                const limp = server / this._serverMax * 100;
-
-                totalPlayers += server || 0;
-                if (status === "o") {
-                    if (limp >= 99) status = "q";
-                    else if (limp >= 90) status = "p";
-                }
-
-                this._$stage.list.append(
-                    $("<div>")
-                        .addClass("server")
-                        .attr({
-                            'id': `server-${idx}`,
-                            'data-server-id': idx,
-                            'data-server-status': status
-                        })
-                        .append($("<div>").addClass(`server-status ss-${status}`))
-                        .append($("<div>").addClass("server-name").html(Messages[`server.${idx}`]))
-                        .append($("<div>").addClass("server-people graph")
-                            .append($("<div>").addClass("graph-bar").width(limp + "%"))
-                            .append($("<label>").html(peopleText))
-                        )
-                        .append($("<div>").addClass("server-enter").html(status === 'x' ? '-' : Messages['portal.js.serverEnter']))
-                );
-            });
-
-            this._$stage.total.html("&nbsp;" + Messages['portal.js.totalMember'].replace('{totalPlayers}', totalPlayers));
-            this._$stage.refi.removeClass("fa-spin");
-            this._$stage.start.prop('disabled', false);
-        });
-    }
-
-    _joinServer = (id) => {
-        location.href = "/?server=" + id;
     }
 }

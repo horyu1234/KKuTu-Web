@@ -17,39 +17,29 @@
  */
 
 import React from "react";
-import {
-    GameStartButton,
-    JJoDisplayBar,
-    JJoEyeL,
-    JJoEyeR,
-    JJoNose,
-    JJoriping,
-    LogoArea,
-    LogoImg,
-    LogoText,
-    MenuBar,
-    MenuBarText
-} from "./TopLeftPanelStyle";
+import {LogoArea, LogoImg, LogoText, MenuBar, MenuBarText, TopLeftPanelContainer} from "./TopLeftPanelStyle";
+import {BrowserView, MobileView} from 'react-device-detect';
+import JJoriping from "./JJoriping";
 
 const TopLeftPanel = ({onGameStart}) => {
     return (
-        <div style={{float: 'left', width: '100%'}}>
+        <TopLeftPanelContainer>
             <LogoArea>
                 <LogoText>끄투리오 - 글자로 놀자!</LogoText>
                 <LogoImg src="/img/kkutu/short_logo.png" alt="끄투리오"/>
             </LogoArea>
-            <MenuBar>
-                <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
-            </MenuBar>
-            <JJoriping>
-                <JJoEyeL src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/><JJoNose
-                src="/img/jjonose.png" alt="캐릭터 코"/><JJoEyeR
-                src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
-                <JJoDisplayBar>
-                    <GameStartButton onClick={onGameStart}>게임시작</GameStartButton>
-                </JJoDisplayBar>
-            </JJoriping>
-        </div>
+            <BrowserView>
+                <MenuBar>
+                    <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
+                </MenuBar>
+            </BrowserView>
+            <JJoriping onGameStart={onGameStart}/>
+            <MobileView>
+                <MenuBar>
+                    <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
+                </MenuBar>
+            </MobileView>
+        </TopLeftPanelContainer>
     );
 }
 

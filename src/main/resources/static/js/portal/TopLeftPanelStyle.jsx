@@ -18,10 +18,29 @@
 
 import React from "react";
 import styled from "styled-components";
+import {isBrowser, isMobile} from 'react-device-detect'
+
+export const TopLeftPanelContainer = styled.div`
+   ${isBrowser && `
+      float: left;
+      width: 100%;
+   `}
+   ${isMobile && `
+      margin-left: calc(50% - 170px);
+   `}
+`
 
 export const LogoArea = styled.div`
-    float: left;
-    padding-left: 70px;
+    ${isBrowser && `
+      float: left;
+      padding-left: 70px;
+   `}
+    ${isMobile && `
+      position:absolute;
+      left:50%;
+      top:70px;
+      transform:translateX(-50%);
+   `}
 `
 
 export const LogoText = styled.h3`
@@ -33,11 +52,20 @@ export const LogoText = styled.h3`
 
 export const LogoImg = styled.img`
     margin-top: -20px;
+    user-select: none;
+    pointer-events: none;
 `
 
 export const MenuBar = styled.div`
-    float: right;
-    margin-top: 25px;
+    ${isBrowser && `
+      float: right;
+      margin-top: 25px;
+   `}
+   ${isMobile && `
+      float: left;
+      width: 200px;
+      margin: 10px 0px 10px 105px;
+   `}
 `
 
 export const MenuBarText = styled.a`
@@ -51,61 +79,4 @@ export const MenuBarText = styled.a`
     text-align: center;
     box-shadow: 0 1px 1px #333;
     background-color: ${props => props.color};
-`
-
-export const JJoriping = styled.div`
-    width: 500px;
-    margin-top: 40px;
-`
-
-export const JJoEyeL = styled.img`
-    position: relative;
-    top: 11px;
-    left: -270px;
-`
-
-export const JJoNose = styled.img`
-    position: relative;
-    top: 9px;
-    left: -170px;
-`
-
-export const JJoEyeR = styled.img`
-    position: relative;
-    top: 11px;
-    left: -70px;
-`
-
-export const JJoDisplayBar = styled.div`
-    padding: 20px 5px 5px 5px;
-    border: 2px solid #000000;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin-top: -10px;
-    width: 325px;
-    height: 85px;
-    background-color: #DEAF56;
-`
-
-export const GameStartButton = styled.button`
-    float: left;
-    width: 315px;
-    height: 70px;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    padding: 8px 5px;
-    border-radius: 10px;
-    text-align: center;
-    color: #EEEEEE;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: block;
-    box-sizing: inherit;
-    font-family: inherit;
-    transition: all 200ms ease;
-    
-    &:hover {
-        font-size: 24px;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
 `

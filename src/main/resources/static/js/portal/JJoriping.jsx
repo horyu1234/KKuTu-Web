@@ -17,30 +17,30 @@
  */
 
 import React from "react";
-import styled from "styled-components";
-import {isBrowser, isMobile} from 'react-device-detect'
+import {
+    JJoDisplay,
+    JJoDisplayBar,
+    JJoEyeL,
+    JJoEyeR,
+    JJoNose,
+    JJoripingContainer,
+    JJoripingGlobalStyle
+} from "./JJoripingStyle";
 
-export const JJoriping = styled.div`
-    width: 500px;
-    margin-top: 40px;
-`
+const JJoriping = ({onGameStart}) => {
+    return (
+        <>
+            <JJoripingGlobalStyle/>
+            <JJoripingContainer>
+                <JJoEyeL src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/>
+                <JJoNose src="/img/jjonose.png" alt="캐릭터 코"/>
+                <JJoEyeR src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
+                <JJoDisplayBar>
+                    <JJoDisplay onClick={onGameStart}>게임 시작</JJoDisplay>
+                </JJoDisplayBar>
+            </JJoripingContainer>
+        </>
+    );
+}
 
-export const MiddlePanel = styled.div`
-    float: left;
-    border: 2px solid rgb(204, 204, 204);
-    margin-top: 10px;
-    background-color: rgb(238, 238, 238);
-    
-    ${isBrowser && `
-       width: 100%;
-    `}
-    ${isMobile && `
-       width: calc(100% - 20px);
-       margin-left: 10px;
-    `}
-`
-
-export const UpdateLog = styled.iframe`
-    border: 0;
-    margin-bottom: 5px;
-`
+export default JJoriping

@@ -25,6 +25,7 @@ import Product from "../components/Product";
 import KakaoAd from "../components/KakaoAd";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
+import {BrowserView} from "react-device-detect";
 
 const Portal = () => {
     const [isInitializing, setInitializing] = useState(true);
@@ -81,10 +82,12 @@ const Portal = () => {
             </MiddlePanel>
             <Separator height={5}/>
 
-            <Product id="qwShKF" title="광고" createWithShown={true}>
-                <KakaoAd width={728} height={90} unit="DAN-1jyd80fuvhwmb"/>
-            </Product>
-            <Separator height={10}/>
+            <BrowserView>
+                <Product id="qwShKF" title="광고" createWithShown={true}>
+                    <KakaoAd width={728} height={90} unit="DAN-1jyd80fuvhwmb"/>
+                </Product>
+                <Separator height={10}/>
+            </BrowserView>
         </>
     );
 }

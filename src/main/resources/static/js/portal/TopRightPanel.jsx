@@ -18,12 +18,13 @@
 
 import React from "react";
 import ServerList from "./ServerList";
+import {TopRightPanelStyleContainer} from "./TopRightPanelStyle";
 
 const TopRightPanel = ({joinServer, onServerListUpdate}) => {
     return (
-        <div style={{float: 'right', width: '50%', marginTop: '-125px'}}>
+        <TopRightPanelStyleContainer>
             <ServerList joinServer={joinServer} onServerListUpdate={onServerListUpdate}/>
-        </div>
+        </TopRightPanelStyleContainer>
     );
 }
 

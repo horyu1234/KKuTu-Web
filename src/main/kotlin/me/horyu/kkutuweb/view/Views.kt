@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest
 object Views {
     private val viewMap = mapOf(
             View.LAYOUT to DesktopAndMobile("layout", "m_layout"),
-            View.PORTAL to DesktopAndMobile("view/portal", "view/m_portal"),
+            View.PORTAL to DesktopAndMobile("view/portal", "view/portal"),
             View.KKUTU to DesktopAndMobile("view/kkutu/kkutu", "view/kkutu/m_kkutu")
     )
 

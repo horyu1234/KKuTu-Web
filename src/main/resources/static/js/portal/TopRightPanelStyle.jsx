@@ -18,30 +18,16 @@
 
 import React from "react";
 import styled from "styled-components";
+import {isBrowser, isMobile} from 'react-device-detect'
 
-export const JJoriping = styled.div`
-    width: 500px;
-    margin-top: 40px;
-`
-
-export const ServerListBox = styled.div`
-    float: right;
-    width: 360px;
-    background-color: rgba(0, 0, 0, 0.4);
-`
-
-export const ServerListTitle = styled.h3`
-    padding: 2px 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-`
-
-export const ServerRefresh = styled.a`
-    margin: 0 5px;
-    cursor: pointer;
-`
-
-export const ServerTotal = styled.label`
-    color: #AAA;
-    font-size: 13px
+export const TopRightPanelStyleContainer = styled.div`
+    ${isBrowser && `
+      float: right;
+      width: 50%;
+      margin-top: -125px;
+   `}
+   ${isMobile && `
+      float: left;
+      margin-left: calc(50% - 180px);
+   `}
 `

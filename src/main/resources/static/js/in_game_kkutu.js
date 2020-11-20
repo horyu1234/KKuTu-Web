@@ -2614,8 +2614,14 @@ function runCommand(cmd) {
 function sendWhisper(target, text) {
     if (text.length) {
         $data._whisper = target;
+        for(u in $data.users){
+            if($data.users[u].profile.title == target){
+                actualUser = $data.users[u].profile;
+                break;
+            }
+        }
         send('talk', {whisper: target, value: text}, true);
-        chat({title: "→" + target}, text, true);
+        chat({title: "→" + target, id: actualUser.id}, text, true);
     }
 }
 
@@ -3621,7 +3627,7 @@ function requestRoomInfo(id) {
 }
 
 function requestProfile(id) {
-    var o = $data.users[id] || $data.robots[id];
+    var o = $data.users[id] || $data.robots[id] || $data.users["guest__"+id];
     var $rec = $("#profile-record").empty();
     var $pi, $ex;
     var i;

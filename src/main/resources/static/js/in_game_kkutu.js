@@ -351,7 +351,7 @@ $(document).ready(function () {
             alert("손님 계정은 인 게임 신고 기능을 이용하실 수 없습니다. 우측 상단 로그인 버튼을 클릭하여 로그인해 주세요.");
             return;
         }
-        var user = $data.users[$data._profiled];
+        var user = $data.users[$data._profiled] || $data.users["guest__"+$data._profiled];
         var jsonObj = { id: user.id, reason: "" };
         if(showDialog($stage.dialog.report)){
             $data._report = jsonObj;
@@ -3688,7 +3688,7 @@ function requestProfile(id) {
         }
         renderMoremi($pi, o.equip);
     }
-    $data._profiled = id;
+    $data._profiled = (o.guest && !$data.users[id]) ? "guest__"+id : id;
     $stage.dialog.profileKick.hide();
     $stage.dialog.profileShut.hide();
     $stage.dialog.profileDress.hide();

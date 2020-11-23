@@ -867,7 +867,7 @@ $(document).ready(function () {
         tryJoin($data._roominfo);
     });
     $stage.dialog.roomInfoMaster.on('click', function (e) {
-        requestProfile($data.rooms[$data._roominfo].master)
+        requestProfile($data.rooms[$data._roominfo].master);
     });
     $stage.dialog.profileHandover.on('click', function (e) {
         if (!confirm(Messages['kkutu.js.confirmHandover'])) return;

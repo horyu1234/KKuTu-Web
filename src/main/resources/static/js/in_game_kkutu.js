@@ -152,6 +152,7 @@ $(document).ready(function () {
             inviteRobot: $("#invite-robot"),
             roomInfo: $("#RoomInfoDiag"),
             roomInfoJoin: $("#room-info-join"),
+            roomInfoMaster: $("#room-info-master"),
             profile: $("#ProfileDiag"),
             profileShut: $("#profile-shut"),
             profileHandover: $("#profile-handover"),
@@ -864,6 +865,9 @@ $(document).ready(function () {
     $stage.dialog.roomInfoJoin.on('click', function (e) {
         $stage.dialog.roomInfo.hide();
         tryJoin($data._roominfo);
+    });
+    $stage.dialog.roomInfoMaster.on('click', function (e) {
+        requestProfile($data.rooms[$data._roominfo].master)
     });
     $stage.dialog.profileHandover.on('click', function (e) {
         if (!confirm(Messages['kkutu.js.confirmHandover'])) return;

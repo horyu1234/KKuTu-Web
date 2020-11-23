@@ -3618,6 +3618,10 @@ function requestRoomInfo(id) {
             .append($p = $("<div>").addClass("ellipse rip-title").html(p.profile.title || p.profile.name))
             .append($("<div>").addClass("rip-team team-" + rd.t).html($("#team-" + rd.t).html()))
             .append($("<div>").addClass("rip-form").html(Messages['kkutu.js.pform.' + rd.f]))
+            .on("click", (e) => {
+                if(!p.profile.id) return;
+                requestProfile(p.profile.id);
+            })
         );
         if (p.id == o.master) $p.prepend($("<label>").addClass("rip-master").html("[" + Messages['kkutu.js.master'] + "]&nbsp;"));
         $p.prepend(getLevelImage(p.data.score).addClass("profile-level rip-level"));

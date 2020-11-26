@@ -2619,7 +2619,7 @@ function sendWhisper(target, text) {
     if (text.length) {
         $data._whisper = target;
         for(u in $data.users){
-            if($data.users[u].profile.title == target){
+            if($data.users[u].profile.title.replaceAll(" ","") == target){
                 actualUser = $data.users[u].profile;
                 break;
             }

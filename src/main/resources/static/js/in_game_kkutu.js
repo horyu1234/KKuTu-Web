@@ -1051,7 +1051,7 @@ $(document).ready(function () {
                     var $p;
 
                     $players.append($p = $("<div>").addClass("replay-player-bar ellipse")
-                        .html(u.title)
+                        .text(u.title)
                         .prepend(getLevelImage(u.data.score).addClass("users-level"))
                     );
                     if (u.id == data.me) $p.css('font-weight', "bold");
@@ -2002,9 +2002,9 @@ function send(type, data, toMaster) {
     for (i in data) r[i] = data[i];
 
     /*if($data._talkValue == r.value){
-		if(++$data._sameTalk >= 3) return fail();
-	}else $data._sameTalk = 0;
-	$data._talkValue = r.value;*/
+        if(++$data._sameTalk >= 3) return fail();
+    }else $data._sameTalk = 0;
+    $data._talkValue = r.value;*/
 
     if (type !== "test") if (spamCount++ > 10) {
         if (++spamWarning >= 3) return subj.close();
@@ -2065,17 +2065,17 @@ function applyOptions(opt) {
 
 function checkInput() {
     /*var v = $stage.talk.val();
-	var len = v.length;
+    var len = v.length;
 
-	if($data.room) if($data.room.gaming){
-		if(len - $data._kd.length > 3) $stage.talk.val($data._kd);
-		if($stage.talk.is(':focus')){
-			$data._kd = v;
-		}else{
-			$stage.talk.val($data._kd);
-		}
-	}
-	$data._kd = v;*/
+    if($data.room) if($data.room.gaming){
+        if(len - $data._kd.length > 3) $stage.talk.val($data._kd);
+        if($stage.talk.is(':focus')){
+            $data._kd = v;
+        }else{
+            $stage.talk.val($data._kd);
+        }
+    }
+    $data._kd = v;*/
 }
 
 function addInterval(cb, v, a1, a2, a3, a4, a5) {
@@ -2372,9 +2372,9 @@ function onMessage(data) {
                 $data.setUser(i, data.users[i]);
             }
             /*if($data.guest){
-				$stage.menu.exit.trigger('click');
-				alert(Messages['guestExit']);
-			}*/
+                $stage.menu.exit.trigger('click');
+                alert(Messages['guestExit']);
+            }*/
             $data._resultRank = data.ranks;
             roundEnd(data.result, data.data);
             break;
@@ -2441,8 +2441,8 @@ function onMessage(data) {
             i = data.message || "";
             if (data.code == 401) {
                 /* 로그인
-				$.cookie('preprev', location.href);
-				location.href = "/login?desc=login_kkutu"; */
+                $.cookie('preprev', location.href);
+                location.href = "/login?desc=login_kkutu"; */
             } else if (data.code == 403) {
                 loading();
             } else if (data.code == 406) {
@@ -2771,8 +2771,8 @@ function getOnly() {
 
 function updateUI(myRoom, refresh) {
     /*
-	myRoom이 undefined인 경우: 상점/결과 확인
-	myRoom이 true/false인 경우: 그 외
+    myRoom이 undefined인 경우: 상점/결과 확인
+    myRoom이 true/false인 경우: 그 외
 */
     var only = getOnly();
     var i;
@@ -2912,7 +2912,7 @@ function updateMe() {
     renderMoremi(".my-image", my.equip);
     // $(".my-image").css('background-image', "url('"+my.profile.image+"')");
     $(".my-stat-level").replaceWith(getLevelImage(my.data.score).addClass("my-stat-level"));
-    $(".my-stat-name").html(my.profile.title || my.profile.name);
+    $(".my-stat-name").text(my.profile.title || my.profile.name);
     $(".my-stat-record").html(Messages['kkutu.js.globalWin'] + " " + gw + Messages['kkutu.js.w']);
     $(".my-stat-ping").html(commify(my.money) + Messages['kkutu.js.ping']);
     $(".my-okg .graph-bar").width(($data._playTime % 600000) / 6000 + "%");
@@ -2980,7 +2980,7 @@ function userListBar(o, forInvite) {
         $R = $("<div>").attr('id', "invite-item-" + o.id).addClass("invite-item users-item")
             .append(getLevelImage(o.data.score).addClass("users-level"))
             // .append($("<div>").addClass("jt-image users-from").css('background-image', "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/"+o.profile.type+".png')"))
-            .append($("<div>").addClass("users-name").html(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("users-name").text(o.profile.title || o.profile.name))
             .on('click', function (e) {
                 requestInvite($(e.currentTarget).attr('id').slice(12));
             });
@@ -2988,7 +2988,7 @@ function userListBar(o, forInvite) {
         $R = $("<div>").attr('id', "users-item-" + o.id).addClass("users-item")
             .append(getLevelImage(o.data.score).addClass("users-level"))
             // .append($("<div>").addClass("jt-image users-from").css('background-image', "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/"+o.profile.type+".png')"))
-            .append($("<div>").addClass("users-name ellipse").html(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("users-name ellipse").text(o.profile.title || o.profile.name))
             .on('click', function (e) {
                 requestProfile($(e.currentTarget).attr('id').slice(11));
             });
@@ -3085,7 +3085,7 @@ function normalGameUserBar(o) {
         .append($m = $("<div>").addClass("moremi game-user-image"))
         .append($("<div>").addClass("game-user-title")
             .append(getLevelImage(o.data.score).addClass("game-user-level"))
-            .append($bar = $("<div>").addClass("game-user-name ellipse").html(o.profile.title || o.profile.name))
+            .append($bar = $("<div>").addClass("game-user-name ellipse").text(o.profile.title || o.profile.name))
             .append($("<div>").addClass("expl").html(Messages['kkutu.js.level'] + " " + getLevel(o.data.score)))
         )
         .append($n = $("<div>").addClass("game-user-score"));
@@ -3102,7 +3102,7 @@ function miniGameUserBar(o) {
     var $R = $("<div>").attr('id', "game-user-" + o.id).addClass("game-user")
         .append($("<div>").addClass("game-user-title")
             .append(getLevelImage(o.data.score).addClass("game-user-level"))
-            .append($bar = $("<div>").addClass("game-user-name ellipse").html(o.profile.title || o.profile.name))
+            .append($bar = $("<div>").addClass("game-user-name ellipse").text(o.profile.title || o.profile.name))
         )
         .append($n = $("<div>").addClass("game-user-score"));
     if (o.id == $data.id) $bar.addClass("game-user-my-name");
@@ -3172,7 +3172,7 @@ function updateRoom(gaming) {
                 )
                 .append($("<div>").addClass("room-user-title")
                     .append(getLevelImage(o.data.score).addClass("room-user-level"))
-                    .append($bar = $("<div>").addClass("room-user-name").html(o.profile.title || o.profile.name))
+                    .append($bar = $("<div>").addClass("room-user-name").text(o.profile.title || o.profile.name))
                 ).on('click', function (e) {
                     requestProfile($(e.currentTarget).attr('id').slice(10));
                 })
@@ -3231,47 +3231,47 @@ function updateScore(id, score) {
     }
     animateScore(o);
     /*if(id === true){
-		// 팀 정보 초기화
-		$data.teams = [];
-		for(i=0; i<5; i++) $data.teams.push({ list: [], score: 0 });
-		for(i in $data.room.game.seq){
-			t = $data.room.game.seq[i];
-			o = $data.users[t] || $data.robots[t] || t;
-			if(o){
-				$data.teams[o.game.team].list.push(t.id ? t.id : t);
-				$data.teams[o.game.team].score += o.game.score;
-			}
-		}
-		for(i in $data.room.game.seq){
-			t = $data.room.game.seq[i];
-			o = $data.users[t] || $data.robots[t] || t;
-			updateScore(t.id || t, o.game.score);
-		}
-	}else{
-		o = $data.users[id] || $data.robots[id];
-		if(o.game.team){
-			t = $data.teams[o.game.team];
-			i = $data["_s"+id];
-			t.score += score - (i ? i.goal : 0);
-		}else{
-			t = { list: [ id ], score: score };
-		}
-		for(i in t.list){
-			if(o = $data["_s"+t.list[i]]){
-				clearTimeout(o.timer);
-				o.$obj = $("#game-user-"+t.list[i]+" .game-user-score");
-				o.goal = t.score;
-			}else{
-				o = $data["_s"+t.list[i]] = {
-					$obj: $("#game-user-"+t.list[i]+" .game-user-score"),
-					goal: t.score,
-					now: 0
-				};
-			}
-			animateScore(o);
-		}
-		return $("#game-user-" + id);
-	}*/
+        // 팀 정보 초기화
+        $data.teams = [];
+        for(i=0; i<5; i++) $data.teams.push({ list: [], score: 0 });
+        for(i in $data.room.game.seq){
+            t = $data.room.game.seq[i];
+            o = $data.users[t] || $data.robots[t] || t;
+            if(o){
+                $data.teams[o.game.team].list.push(t.id ? t.id : t);
+                $data.teams[o.game.team].score += o.game.score;
+            }
+        }
+        for(i in $data.room.game.seq){
+            t = $data.room.game.seq[i];
+            o = $data.users[t] || $data.robots[t] || t;
+            updateScore(t.id || t, o.game.score);
+        }
+    }else{
+        o = $data.users[id] || $data.robots[id];
+        if(o.game.team){
+            t = $data.teams[o.game.team];
+            i = $data["_s"+id];
+            t.score += score - (i ? i.goal : 0);
+        }else{
+            t = { list: [ id ], score: score };
+        }
+        for(i in t.list){
+            if(o = $data["_s"+t.list[i]]){
+                clearTimeout(o.timer);
+                o.$obj = $("#game-user-"+t.list[i]+" .game-user-score");
+                o.goal = t.score;
+            }else{
+                o = $data["_s"+t.list[i]] = {
+                    $obj: $("#game-user-"+t.list[i]+" .game-user-score"),
+                    goal: t.score,
+                    now: 0
+                };
+            }
+            animateScore(o);
+        }
+        return $("#game-user-" + id);
+    }*/
     return $("#game-user-" + id);
 }
 
@@ -3567,7 +3567,7 @@ function updateCommunity() {
         $stage.dialog.commFriends.append($("<div>").addClass("cf-item").attr('id', "cfi-" + i)
             .append($("<div>").addClass("cfi-status cfi-stat-" + (o.server ? 'on' : 'off')))
             .append($("<div>").addClass("cfi-server").html(o.server ? Messages[`server.${o.server}`] : "-"))
-            .append($("<div>").addClass("cfi-name ellipse").html(p ? (p.title || p.name) : Messages['kkutu.js.hidden']))
+            .append($("<div>").addClass("cfi-name ellipse").text(p ? (p.title || p.name) : Messages['kkutu.js.hidden']))
             .append($("<div>").addClass("cfi-memo ellipse").text(memo))
             .append($("<div>").addClass("cfi-menu")
                 .append($("<i>").addClass("fa fa-pencil").on('click', requestEditMemo))
@@ -3619,7 +3619,7 @@ function requestRoomInfo(id) {
 
         $pls.append($("<div>").addClass("ri-player")
             .append($moremi = $("<div>").addClass("moremi rip-moremi"))
-            .append($p = $("<div>").addClass("ellipse rip-title").html(p.profile.title || p.profile.name))
+            .append($p = $("<div>").addClass("ellipse rip-title").text(p.profile.title || p.profile.name))
             .append($("<div>").addClass("rip-team team-" + rd.t).html($("#team-" + rd.t).html()))
             .append($("<div>").addClass("rip-form").html(Messages['kkutu.js.pform.' + rd.f]))
             .on("click", (e) => {
@@ -3646,7 +3646,7 @@ function requestProfile(id) {
         notice(Messages['kkutu.js.error.405']);
         return;
     }
-    $("#ProfileDiag .dialog-title").html((o.profile.title || o.profile.name) + Messages['kkutu.js.sProfile']);
+    $("#ProfileDiag .dialog-title").text((o.profile.title || o.profile.name) + Messages['kkutu.js.sProfile']);
 
     var idString = o.id.toString() || "robot__robot";
     var profileImageUrl = "https://cdn.jsdelivr.net/npm/kkutuio@latest/img/auth/" + ((o.robot || o.guest) ? "guest.png" : idString.split("-")[0] + ".png");
@@ -3654,7 +3654,7 @@ function requestProfile(id) {
     $(".profile-head").empty().append($pi = $("<div>").addClass("moremi profile-moremi"))
         .append($("<div>").addClass("profile-head-item")
             .append(getImage(profileImageUrl).addClass("profile-image"))
-            .append($("<div>").addClass("profile-title ellipse").html(o.profile.title || o.profile.name)
+            .append($("<div>").addClass("profile-title ellipse").text(o.profile.title || o.profile.name)
                 .append($("<label>").addClass("profile-tag").html(" #" + displayId))
             )
         )
@@ -3877,31 +3877,31 @@ function replayPrev(e) {
     $data.muteEff = c;
     replayTick();
     /*var pev, ev = $data.room.events[--$data._rf];
-	var c;
+    var c;
 
-	if(!ev) return;
+    if(!ev) return;
 
-	c = ev.time;
-	clearTimeout($data._rt);
-	do{
-		if(ev.data.type == 'turnStart'){
-			$(".game-user-current").removeClass("game-user-current");
-			if((pev = $data.room.events[$data._rf - 1]).data.profile) $("#game-user-" + pev.data.profile.id).addClass("game-user-current");
-		}
-		if(ev.data.type == 'turnEnd'){
-			$stage.game.chain.html(--$data.chain);
-			if(ev.data.profile){
-				addScore(ev.data.profile.id, -(ev.data.score + ev.data.bonus));
-				updateScore(ev.data.profile.id, getScore(ev.data.profile.id));
-			}
-		}
-		if(!(ev = $data.room.events[--$data._rf])) break;
-	}while(c - ev.time < 1000);
-	if($data._rf < 0) $data._rf = 0;
-	if(ev) if(ev.data.type == 'roundReady'){
-		$(".game-user-current").removeClass("game-user-current");
-	}
-	replayTick(true);*/
+    c = ev.time;
+    clearTimeout($data._rt);
+    do{
+        if(ev.data.type == 'turnStart'){
+            $(".game-user-current").removeClass("game-user-current");
+            if((pev = $data.room.events[$data._rf - 1]).data.profile) $("#game-user-" + pev.data.profile.id).addClass("game-user-current");
+        }
+        if(ev.data.type == 'turnEnd'){
+            $stage.game.chain.html(--$data.chain);
+            if(ev.data.profile){
+                addScore(ev.data.profile.id, -(ev.data.score + ev.data.bonus));
+                updateScore(ev.data.profile.id, getScore(ev.data.profile.id));
+            }
+        }
+        if(!(ev = $data.room.events[--$data._rf])) break;
+    }while(c - ev.time < 1000);
+    if($data._rf < 0) $data._rf = 0;
+    if(ev) if(ev.data.type == 'roundReady'){
+        $(".game-user-current").removeClass("game-user-current");
+    }
+    replayTick(true);*/
 }
 
 function replayPause(e) {
@@ -4053,7 +4053,7 @@ function drawRound(round) {
 
     $stage.game.round.empty();
     for (i = 0; i < $data.room.round; i++) {
-        $stage.game.round.append($l = $("<label>").html($data.room.game.title[i]));
+        $stage.game.round.append($l = $("<label>").text($data.room.game.title[i]));
         if ((i + 1) == round) $l.addClass("rounds-current");
     }
 }
@@ -4131,7 +4131,7 @@ function roundEnd(result, data) {
         $b.append($o = $("<div>").addClass("result-board-item")
             .append($p = $("<div>").addClass("result-board-rank").html(r.rank + 1))
             .append(getLevelImage(sc).addClass("result-board-level"))
-            .append($("<div>").addClass("result-board-name").html(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("result-board-name").text(o.profile.title || o.profile.name))
             .append($("<div>").addClass("result-board-score")
                 .html(data.scores ? (Messages['kkutu.js.avg'] + " " + commify(data.scores[r.id]) + Messages['kkutu.js.kpm']) : (commify(r.score || 0) + Messages['kkutu.js.pts']))
             )
@@ -4183,8 +4183,8 @@ function roundEnd(result, data) {
         $data._result.goal = EXP[$data._result.level - 1];
         $data._result.before = EXP[$data._result.level - 2] || 0;
         /*if(first){
-			$data._result._before = $data._result.before;
-		}*/
+            $data._result._before = $data._result.before;
+        }*/
         if ($data._result.reward.score > 0) {
             v = $data._result.reward.score * $data._coef;
             if (v < 0.05 && $data._coef) v = $data._result.reward.score;
@@ -4276,7 +4276,7 @@ function drawRanking(ranks) {
         $b.append($o = $("<div>").addClass("result-board-item")
             .append($("<div>").addClass("result-board-rank").html(r.rank + 1))
             .append(getLevelImage(r.score).addClass("result-board-level"))
-            .append($("<div>").addClass("result-board-name").html(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("result-board-name").text(o.profile.title || o.profile.name))
             .append($("<div>").addClass("result-board-score").html(commify(r.score) + Messages['kkutu.js.pts']))
             .append($("<div>").addClass("result-board-reward").html(""))
             .append($v = $("<div>").addClass("result-board-lvup").css('display', me ? "block" : "none")
@@ -4295,7 +4295,7 @@ function drawRanking(ranks) {
 function kickVoting(target) {
     var op = $data.users[target].profile;
 
-    $("#kick-vote-text").html((op.title || op.name) + Messages['kkutu.js.kickVoteText']);
+    $("#kick-vote-text").text((op.title || op.name) + Messages['kkutu.js.kickVoteText']);
     $data.kickTime = 10;
     $data._kickTime = 10;
     $data._kickTimer = addTimeout(kickVoteTick, 1000);
@@ -4558,7 +4558,7 @@ function pushHistory(text, mean, theme, wc) {
     }
     val = processWord(text, mean, theme, wcs);
     /*val = mean;
-	if(theme) val = "<label class='history-theme-c'>&lt;" + theme + "&gt;</label> " + val;*/
+    if(theme) val = "<label class='history-theme-c'>&lt;" + theme + "&gt;</label> " + val;*/
 
     wcs.forEach(function (item) {
         if (wd[item]) return;
@@ -4815,9 +4815,9 @@ function playSound(key, loop) {
     src.key = key;
     src.start();
     /*if(sound.readyState) sound.currentTime = 0;
-	sound.loop = loop || false;
-	sound.volume = ((loop && $data.muteBGM) || (!loop && $data.muteEff)) ? 0 : 1;
-	sound.play();*/
+    sound.loop = loop || false;
+    sound.volume = ((loop && $data.muteBGM) || (!loop && $data.muteEff)) ? 0 : 1;
+    sound.play();*/
 
     return src;
 }

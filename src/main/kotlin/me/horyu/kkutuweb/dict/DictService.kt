@@ -38,6 +38,6 @@ class DictService(
             }
         }
 
-        return "{\"word\":\"$word\",\"mean\":\"${word.mean}\",\"theme\":\"${word.theme}\",\"type\":\"${word.type}\"}"
+        return "{\"word\":\"${word.id}\",\"mean\":\"${word.mean.replace("\"", "\\\""))}\",\"theme\":\"${word.theme}\",\"type\":\"${word.type}\"}"
     }
 }

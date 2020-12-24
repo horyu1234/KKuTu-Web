@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class DictService(
-        @Autowired private val wordDao: WordDao
+    @Autowired private val wordDao: WordDao
 ) {
     fun getWord(id: String, lang: String): String {
         val word = when (lang) {
@@ -38,6 +38,11 @@ class DictService(
             }
         }
 
-        return "{\"word\":\"${word.id}\",\"mean\":\"${word.mean.replace("\"", "\\\""))}\",\"theme\":\"${word.theme}\",\"type\":\"${word.type}\"}"
+        return "{\"word\":\"${word.id}\",\"mean\":\"${
+            word.mean.replace(
+                "\"",
+                "\\\""
+            )
+        }\",\"theme\":\"${word.theme}\",\"type\":\"${word.type}\"}"
     }
 }

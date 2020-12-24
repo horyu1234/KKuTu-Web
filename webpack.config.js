@@ -18,63 +18,68 @@
 
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const devPath = path.resolve(__dirname, 'src/main/resources/static/js/');
 const deployPath = path.resolve(__dirname, 'build/resources/main/static/js/');
 
-module.exports = {
-    entry: {
-        vendor: ['@babel/polyfill'],
-        in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
-        portalEntry: path.resolve(devPath, 'portal/PortalEntry.jsx'),
-        in_login: path.resolve(devPath, 'in_login.js')
-    },
-    output: {
-        path: deployPath,
-        filename: '[name].min.js',
-        library: ['KKuTu', '[name]'],
-        libraryTarget: "umd"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                include: [
-                    devPath
-                ],
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react'],
-                        plugins: ['@babel/plugin-proposal-class-properties']
-                    },
+module.exports = (env, options) => {
+    const mode = options.mode || 'development';
+    console.log(`Build in ${mode} mode.`);
+
+    return {
+        entry: {
+            vendor: ['@babel/polyfill'],
+            in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
+            portalEntry: path.resolve(devPath, 'portal/PortalEntry.jsx'),
+            in_login: path.resolve(devPath, 'in_login.js')
+        },
+        output: {
+            path: deployPath,
+            filename: '[name].min.js',
+            library: ['KKuTu', '[name]'],
+            libraryTarget: "umd"
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    include: [
+                        devPath
+                    ],
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
+                            plugins: ['@babel/plugin-proposal-class-properties']
+                        },
+                    }
+                },
+                {
+                    test: /\.css$/,
+                    exclude: /node_modules/,
+                    use: ['style-loader', 'css-loader']
                 }
-            },
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: ['style-loader', 'css-loader']
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
-    devtool: 'inline-source-map',
-    mode: 'development',
-    plugins: [
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            openAnalyzer: false,
-            reportFilename: 'bundle-analyze-report.html'
-        })
-    ],
-    optimization: {
-        minimizer: [new UglifyJsPlugin()]
-    },
-    externals: {
-        jquery: 'jQuery'
+            ]
+        },
+        resolve: {
+            extensions: ['.js', '.jsx']
+        },
+        devtool: mode === 'development' ? 'inline-source-map' : false,
+        mode: mode,
+        plugins: [
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                openAnalyzer: false,
+                reportFilename: 'bundle-analyze-report.html'
+            })
+        ],
+        optimization: {
+            minimizer: [new TerserPlugin()]
+        },
+        externals: {
+            jquery: 'jQuery'
+        }
     }
-};
+}

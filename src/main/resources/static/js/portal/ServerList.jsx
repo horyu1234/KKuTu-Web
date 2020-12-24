@@ -17,9 +17,9 @@
  */
 
 import React, {useEffect, useState} from "react";
-import _ from "lodash";
+import sum from "lodash/sum";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSyncAlt} from "@fortawesome/free-solid-svg-icons";
+import {faSyncAlt} from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 import Axios from "axios";
 import {ServerListBox, ServerListTitle, ServerRefresh, ServerTotal} from "./ServerListStyle";
 import Server from "./Server";
@@ -45,7 +45,7 @@ const ServerList = ({joinServer, onServerListUpdate}) => {
         getServerList().then(res => {
             const data = res.data;
             setServers(data.list);
-            setTotalPlayers(_.sum(data.list));
+            setTotalPlayers(sum(data.list));
             setMaxUserPerServer(data.max);
 
             onServerListUpdate(data.list, data.max);

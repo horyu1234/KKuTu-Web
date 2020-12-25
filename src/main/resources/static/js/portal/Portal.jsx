@@ -83,7 +83,7 @@ const Portal = () => {
             <Separator height={5}/>
 
             <BrowserView>
-                <Product id="qwShKF" title="광고" createWithShown={true}>
+                <Product id="qwShKF" title={Messages['portal.ad.title']} createWithShown={true}>
                     <KakaoAd width={728} height={90} unit="DAN-1jyd80fuvhwmb"/>
                 </Product>
                 <Separator height={10}/>

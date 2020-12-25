@@ -25,8 +25,8 @@ const TopLeftPanel = ({onGameStart}) => {
     return (
         <TopLeftPanelContainer>
             <LogoArea>
-                <LogoText>끄투리오 - 글자로 놀자!</LogoText>
-                <LogoImg src="/img/kkutu/short_logo.png" alt="끄투리오"/>
+                <LogoText>{Messages['portal.logo.text']}</LogoText>
+                <LogoImg src="/img/kkutu/short_logo.png" alt={Messages['portal.logo.alt']}/>
             </LogoArea>
             <BrowserView>
                 <MenuBar>

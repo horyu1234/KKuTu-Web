@@ -44,23 +44,6 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<ProcessResources> {
-    dependsOn("appNpmBuild")
-}
-
-tasks.register<NpmTask>("appNpmInstall") {
-    description = "Installs all dependencies from package.json"
-    setWorkingDir(file(project.projectDir))
-    setArgs(listOf("install"))
-}
-
-tasks.register<NpmTask>("appNpmBuild") {
-    dependsOn("appNpmInstall")
-    description = "Builds project"
-    setWorkingDir(file(project.projectDir))
-    setArgs(listOf("run", "build"))
-}
-
 sourceSets {
     main {
         resources {

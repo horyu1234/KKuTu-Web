@@ -32,7 +32,7 @@ module.exports = (env, options) => {
             vendor: ['@babel/polyfill'],
             in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
             portalEntry: path.resolve(devPath, 'portal/PortalEntry.jsx'),
-            in_login: path.resolve(devPath, 'in_login.js')
+            loginEntry: path.resolve(devPath, 'login/LoginEntry.jsx')
         },
         output: {
             path: deployPath,
@@ -60,6 +60,11 @@ module.exports = (env, options) => {
                     test: /\.css$/,
                     exclude: /node_modules/,
                     use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    exclude: /node_modules/,
+                    use: ['file-loader']
                 }
             ]
         },

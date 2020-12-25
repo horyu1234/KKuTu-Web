@@ -21,7 +21,6 @@ package me.horyu.kkutuweb.login
 import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.oauth.VendorType
-import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
 import org.slf4j.LoggerFactory
@@ -38,22 +37,24 @@ import javax.servlet.http.HttpSession
 @Controller
 @RequestMapping("/login")
 class LoginController(
-        @Autowired private val oAuthSetting: OAuthSetting,
-        @Autowired private val loginService: LoginService
+    @Autowired private val loginService: LoginService
 ) {
     private val logger = LoggerFactory.getLogger(LoginController::class.java)
 
     @GetMapping
-    fun login(model: Model,
-              request: HttpServletRequest): String {
-        model.addAttribute("oAuthSetting", oAuthSetting.getSetting())
+    fun login(
+        model: Model,
+        request: HttpServletRequest
+    ): String {
         model.addAttribute("viewName", "view/login")
         return request.getView(View.LAYOUT)
     }
 
     @GetMapping("/fail")
-    fun loginFailed(model: Model,
-                    request: HttpServletRequest): String {
+    fun loginFailed(
+        model: Model,
+        request: HttpServletRequest
+    ): String {
         model.addAttribute("viewName", "view/loginFailed")
         return request.getView(View.LAYOUT)
     }
@@ -68,18 +69,22 @@ class LoginController(
     }
 
     @GetMapping("/{vendorName}")
-    fun loginRequest(@PathVariable vendorName: String,
-                     session: HttpSession): String {
+    fun loginRequest(
+        @PathVariable vendorName: String,
+        session: HttpSession
+    ): String {
         val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
 
         return "redirect:" + loginService.getAuthorizationUrl(session, vendorType)
     }
 
     @GetMapping("/{vendorName}/callback")
-    fun loginCallback(@PathVariable vendorName: String,
-                      @RequestParam("code") code: String,
-                      @RequestParam("state") state: String,
-                      request: HttpServletRequest): String {
+    fun loginCallback(
+        @PathVariable vendorName: String,
+        @RequestParam("code") code: String,
+        @RequestParam("state") state: String,
+        request: HttpServletRequest
+    ): String {
         val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
 
         val loginSuccess = loginService.login(request, vendorType, code, state)

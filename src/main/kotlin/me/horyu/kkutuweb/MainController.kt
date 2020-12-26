@@ -54,7 +54,7 @@ class MainController(
         val mobileLogText = if (isMobile) " (모바일)" else ""
 
         if (server == null) {
-            model.addAttribute("viewName", request.getView(View.PORTAL))
+            model.addAttribute("viewName", request.getView(View.REACT))
         } else {
             val sessionProfile = loginService.getSessionProfile(session)
             val isGuest = sessionProfile == null

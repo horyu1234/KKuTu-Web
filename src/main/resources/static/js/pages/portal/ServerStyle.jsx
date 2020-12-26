@@ -20,16 +20,16 @@ import React from "react";
 import styled from "styled-components"
 
 export const ServerContainer = styled.div`
-    float: left;
-    margin: 2px 0;
-    width: 360px;
-    height: 16px;
-    font-size: 13px;
-    cursor: pointer;
-    
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+  float: left;
+  margin: 2px 0;
+  width: 360px;
+  height: 16px;
+  font-size: 13px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `
 
 export const handleStatusColor = status => {
@@ -48,43 +48,43 @@ export const handleStatusColor = status => {
 };
 
 export const ServerStatus = styled.div`
-    float: left;
-    border-radius: 6px;
-    margin: 2px;
-    width: 12px;
-    height: 12px;
-    background-color: ${props => handleStatusColor(props.status)};
+  float: left;
+  border-radius: 6px;
+  margin: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: ${props => handleStatusColor(props.status)};
 `
 
 export const ServerName = styled.div`
-    float: left;
-    width: 100px;
+  float: left;
+  width: 100px;
 `
 
 export const ServerPeople = styled.div`
-    float: left;
-    width: 190px;
-    height: 100%;
-    box-shadow: 0 1px 1px #141414;
+  float: left;
+  width: 190px;
+  height: 100%;
+  box-shadow: 0 1px 1px #141414;
 `
 
 export const GraphBar = styled.div`
-    background-image: url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/blue_gauge.png');
-    width: ${props => props.percent}%;
-    height: 100%;
+  background-image: url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/blue_gauge.png');
+  width: ${props => props.percent}%;
+  height: 100%;
 `
 
 export const GraphLabel = styled.label`
-    position: relative;
-    display: block;
-    top: -14px;
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
+  position: relative;
+  display: block;
+  top: -14px;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
 `
 
 export const ServerEnter = styled.div`
-    float: left;
-    width: 50px;
-    text-align: center;
+  float: left;
+  width: 50px;
+  text-align: center;
 `

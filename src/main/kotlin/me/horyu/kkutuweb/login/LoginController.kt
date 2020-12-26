@@ -46,7 +46,7 @@ class LoginController(
         model: Model,
         request: HttpServletRequest
     ): String {
-        model.addAttribute("viewName", "view/login")
+        model.addAttribute("viewName", request.getView(View.REACT))
         return request.getView(View.LAYOUT)
     }
 

@@ -20,14 +20,26 @@ import React from "react";
 import styled from "styled-components";
 import {isBrowser, isMobile} from 'react-device-detect'
 
-export const TopRightPanelStyleContainer = styled.div`
-    ${isBrowser && `
-      float: right;
-      width: 50%;
-      margin-top: -125px;
-   `}
-   ${isMobile && `
-      float: left;
-      margin-left: calc(50% - 180px);
-   `}
+export const JJoriping = styled.div`
+  width: 500px;
+  margin-top: 40px;
+`
+
+export const MiddlePanel = styled.div`
+  float: left;
+  border: 2px solid rgb(204, 204, 204);
+  margin-top: 10px;
+  background-color: rgb(238, 238, 238);
+
+  ${isBrowser && `
+       width: 100%;
+    `} ${isMobile && `
+       width: calc(100% - 20px);
+       margin-left: 10px;
+    `}
+`
+
+export const UpdateLog = styled.iframe`
+  border: 0;
+  margin-bottom: 5px;
 `

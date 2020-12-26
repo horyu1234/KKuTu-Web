@@ -18,11 +18,11 @@
 
 import React, {useEffect, useState} from "react";
 import $ from 'jquery';
-import Separator from "../components/Separator";
-import '../../css/in_portal.css';
+import Separator from "../../components/Separator";
+import '../../../css/in_portal.css';
 import {MiddlePanel, UpdateLog} from "./PortalStyle";
-import Product from "../components/Product";
-import KakaoAd from "../components/KakaoAd";
+import Product from "../../components/Product";
+import KakaoAd from "../../components/KakaoAd";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
 import {BrowserView} from "react-device-detect";

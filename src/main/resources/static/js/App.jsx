@@ -16,14 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import '../reportWebVitals';
-import Login from "./Login";
+import React, {Component, Suspense} from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Login, Portal} from './pages';
+import Loading from "./components/loading/Loading";
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Login/>
-    </React.StrictMode>,
-    document.getElementById('react')
-);
+class App extends Component {
+    render() {
+        return (
+            <>
+                <BrowserRouter>
+                    <Suspense fallback={<Loading/>}>
+                        <Route exact path="/" component={Portal}/>
+                        <Route path="/login" component={Login}/>
+                    </Suspense>
+                </BrowserRouter>
+            </>
+        );
+    }
+}
+
+export default App;

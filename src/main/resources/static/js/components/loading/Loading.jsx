@@ -17,27 +17,39 @@
  */
 
 import React from "react";
-import styled from "styled-components"
+import styled from 'styled-components';
+import './index.css';
 
-export const ServerListBox = styled.div`
-    float: right;
-    width: 360px;
-    background-color: rgba(0, 0, 0, 0.4);
+const Backdrop = styled.div`
+  background-color: white;
+  position: fixed;
+  z-index: 100;
+  margin: auto;
+  border-radius: 10px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 350px;
+  height: 150px;
+  opacity: 0.7;
 `
 
-export const ServerListTitle = styled.h3`
-    padding: 2px 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-`
+const Loading = () => {
+    return (
+        <>
+            <Backdrop/>
+            <div className='loader'>
+                <div className='loader--dot'/>
+                <div className='loader--dot'/>
+                <div className='loader--dot'/>
+                <div className='loader--dot'/>
+                <div className='loader--dot'/>
+                <div className='loader--dot'/>
+                <div className='loader--text'/>
+            </div>
+        </>
+    )
+}
 
-export const ServerRefresh = styled.a`
-    margin: 0 5px;
-    cursor: pointer;
-`
-
-export const ServerTotal = styled.label`
-    color: #AAA;
-    font-size: 13px;
-    margin-left: 10px;
-`
+export default Loading;

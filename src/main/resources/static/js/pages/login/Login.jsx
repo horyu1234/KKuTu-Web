@@ -19,10 +19,11 @@
 import React, {useEffect, useState} from "react";
 import Axios from "axios";
 
-import '../../js/oauth-buttons.min'
+import '../../oauth-buttons.min'
 
-import '../../css/oauth-buttons.min.css';
-import '../../css/in_login.css';
+import '../../../css/oauth-buttons.min.css';
+import '../../../css/in_login.css';
+import Loading from "../../components/loading/Loading";
 
 const Login = () => {
     const [vendors, setVendors] = useState([]);
@@ -41,7 +42,7 @@ const Login = () => {
         location.href = `/login/${vendor}`;
     }
 
-    if (vendors.length === 0) return <h1>Please wait...</h1>;
+    if (vendors.length === 0) return <Loading/>;
     return (
         <>
             <div className="login-with">{Messages['login.title']}</div>

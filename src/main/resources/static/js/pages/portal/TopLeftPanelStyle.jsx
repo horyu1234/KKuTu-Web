@@ -21,21 +21,19 @@ import styled from "styled-components";
 import {isBrowser, isMobile} from 'react-device-detect'
 
 export const TopLeftPanelContainer = styled.div`
-   ${isBrowser && `
+  ${isBrowser && `
       float: left;
       width: 100%;
-   `}
-   ${isMobile && `
+   `} ${isMobile && `
       margin-left: calc(50% - 170px);
    `}
 `
 
 export const LogoArea = styled.div`
-    ${isBrowser && `
+  ${isBrowser && `
       float: left;
       padding-left: 70px;
-   `}
-    ${isMobile && `
+   `} ${isMobile && `
       position:absolute;
       left:50%;
       top:70px;
@@ -44,24 +42,23 @@ export const LogoArea = styled.div`
 `
 
 export const LogoText = styled.h3`
-    width: 200px;
-    text-align: center;
-    text-shadow: 0 0 4px #333;
-    font-weight: bold;
+  width: 200px;
+  text-align: center;
+  text-shadow: 0 0 4px #333;
+  font-weight: bold;
 `
 
 export const LogoImg = styled.img`
-    margin-top: -20px;
-    user-select: none;
-    pointer-events: none;
+  margin-top: -20px;
+  user-select: none;
+  pointer-events: none;
 `
 
 export const MenuBar = styled.div`
-    ${isBrowser && `
+  ${isBrowser && `
       float: right;
       margin-top: 25px;
-   `}
-   ${isMobile && `
+   `} ${isMobile && `
       float: left;
       width: 200px;
       margin: 10px 0px 10px 105px;
@@ -69,14 +66,14 @@ export const MenuBar = styled.div`
 `
 
 export const MenuBarText = styled.a`
-    display: block;
-    float: left;
-    padding: 10px 5px;
-    border-radius: 5px;
-    margin: 0 3px;
-    width: 120px;
-    font-size: 15px;
-    text-align: center;
-    box-shadow: 0 1px 1px #333;
-    background-color: ${props => props.color};
+  display: block;
+  float: left;
+  padding: 10px 5px;
+  border-radius: 5px;
+  margin: 0 3px;
+  width: 120px;
+  font-size: 15px;
+  text-align: center;
+  box-shadow: 0 1px 1px #333;
+  background-color: ${props => props.color};
 `

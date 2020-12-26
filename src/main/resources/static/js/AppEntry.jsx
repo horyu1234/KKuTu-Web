@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.view
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './reportWebVitals';
+import App from './App'
 
-enum class View {
-    LAYOUT,
-    PORTAL,
-    KKUTU,
-    REACT
-}
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('react')
+);

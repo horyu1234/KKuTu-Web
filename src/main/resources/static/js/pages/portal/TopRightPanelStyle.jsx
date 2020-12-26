@@ -16,11 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.view
+import React from "react";
+import styled from "styled-components";
+import {isBrowser, isMobile} from 'react-device-detect'
 
-enum class View {
-    LAYOUT,
-    PORTAL,
-    KKUTU,
-    REACT
-}
+export const TopRightPanelStyleContainer = styled.div`
+  ${isBrowser && `
+      float: right;
+      width: 50%;
+      margin-top: -125px;
+   `} ${isMobile && `
+      float: left;
+      margin-left: calc(50% - 180px);
+   `}
+`

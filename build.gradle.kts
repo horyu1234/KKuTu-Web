@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.moowork.gradle.node.npm.NpmTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -29,7 +28,7 @@ plugins {
 }
 
 group = "me.horyu"
-version = "1.0.3"
+version = "1.0.4"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -49,7 +48,7 @@ sourceSets {
         resources {
             exclude("kkutu.json", "kkutu.default.json")
             exclude("oauth.json", "oauth.default.json")
-            exclude("**/in_game_kkutu_help.js", "**/in_login.js", "**/in_portal.js", "**/oauth-buttons.js")
+            exclude("**/*.jsx", "**/in_game_kkutu_help.js", "**/in_login.js", "**/in_portal.js", "**/oauth-buttons.js")
         }
     }
 }

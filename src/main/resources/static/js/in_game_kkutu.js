@@ -4705,6 +4705,12 @@ function setRoomHead($obj, room) {
     var $rm;
 
     $obj.empty()
+        .append($("<h5>").css({
+            'position': 'absolute',
+            'left': '50%',
+            'transform': 'translateX(-50%)',
+            'font-weight': 'bold'
+        }).text('끄투리오 (kkutu.io)'))
         .append($("<h5>").addClass("room-head-number").html("[" + (room.practice ? Messages['kkutu.js.practice'] : room.id) + "]"))
         .append($("<h5>").addClass("room-head-title").text(badWords(room.title)))
         .append($rm = $("<h5>").addClass("room-head-mode").html(opts.join(" / ")))

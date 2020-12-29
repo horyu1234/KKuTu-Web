@@ -38,7 +38,7 @@ var OPTIONS;
 var MAX_LEVEL = 720;
 var TICK = 30;
 var EXP = [];
-var BAD = new RegExp(["느으*[^가-힣]*금마?", "니[^가-힣]*(엄|앰|엠)", "(ㅄ|ㅅㅂ|ㅂㅅ)", "미친(년|놈)?", "(병|븅|빙)[^가-힣]*신", "보[^가-힣]*지", "(새|섀|쌔|썌)[^가-힣]*(기|끼)", "섹[^가-힣]*스", "(시|씨|쉬|쒸)이*입?[^가-힣]*(발|빨|벌|뻘|팔|펄)", "십[^가-힣]*새", "씹", "(애|에)[^가-힣]*미", "자[^가-힣]*지", "존[^가-힣]*나", "좆|죶", "지랄", "창[^가-힣]*(녀|년|놈)", "fuck", "sex", ":kd active"].join('|'), "g");
+var BAD = new RegExp('(느으*[^가-힣]*금마?|니[^가-힣]*([엄앰엠])|(ㅄ|ㅅㅂ|ㅂㅅ)|미친([년놈])?|([병븅빙])[^가-힣]*신|보[^가-힣]*지|([새섀쌔썌])[^가-힣]*([기끼])|섹[^가-힣]*스|([시씨쉬쒸])이*입?[^가-힣]*([발빨벌뻘팔펄])|십[^가-힣]*새|씹|([애에])[^가-힣]*미|자[^가-힣]*지|존[^가-힣]*나|창[^가-힣]*([녀년놈])|:kd active|느으?금마?|니([엄앰엠])|미친([년놈])|([병븅빙])신|([새섀쌔썌])([기끼])|섹스|([시씨쉬쒸])이*입?([발빨벌뻘팔펄])|십새|([애에])미|존나|좆|죶|지랄|창([녀년놈])|fuck|sex|엉덩이|노무현|응디|운지|노알라|부엉이바위|뇌물현|응딩이|이기야|응기잇|\\^\\^ㅣ|조([가까])|멍([충청])이)', "g");
 
 var ws, rws;
 var $stage;
@@ -2980,7 +2980,7 @@ function userListBar(o, forInvite) {
         $R = $("<div>").attr('id', "invite-item-" + o.id).addClass("invite-item users-item")
             .append(getLevelImage(o.data.score).addClass("users-level"))
             // .append($("<div>").addClass("jt-image users-from").css('background-image', "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/"+o.profile.type+".png')"))
-            .append($("<div>").addClass("users-name").text(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("users-name").text(badWords(o.profile.title || o.profile.name)))
             .on('click', function (e) {
                 requestInvite($(e.currentTarget).attr('id').slice(12));
             });
@@ -2988,7 +2988,7 @@ function userListBar(o, forInvite) {
         $R = $("<div>").attr('id', "users-item-" + o.id).addClass("users-item")
             .append(getLevelImage(o.data.score).addClass("users-level"))
             // .append($("<div>").addClass("jt-image users-from").css('background-image', "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/"+o.profile.type+".png')"))
-            .append($("<div>").addClass("users-name ellipse").text(o.profile.title || o.profile.name))
+            .append($("<div>").addClass("users-name ellipse").text(badWords(o.profile.title || o.profile.name)))
             .on('click', function (e) {
                 requestProfile($(e.currentTarget).attr('id').slice(11));
             });
@@ -3603,7 +3603,7 @@ function requestRoomInfo(id) {
 
     $data._roominfo = id;
     $("#RoomInfoDiag .dialog-title").html(id + Messages['kkutu.js.sRoomInfo']);
-    $("#ri-title").html((o.password ? "<i class='fa fa-lock'></i>&nbsp;" : "") + o.title.replace(/<.*?>/gi, ''));
+    $("#ri-title").html((o.password ? "<i class='fa fa-lock'></i>&nbsp;" : "") + badWords(o.title).replace(/<.*?>/gi, ''));
     $("#ri-mode").html(Messages[`game.mode.${MODE[o.mode]}.name`]);
     $("#ri-round").html(o.round + ", " + o.time + Messages['kkutu.js.second']);
     $("#ri-limit").html(o.players.length + " / " + o.limit);
@@ -3646,7 +3646,7 @@ function requestProfile(id) {
         notice(Messages['kkutu.js.error.405']);
         return;
     }
-    $("#ProfileDiag .dialog-title").text((o.profile.title || o.profile.name) + Messages['kkutu.js.sProfile']);
+    $("#ProfileDiag .dialog-title").text(badWords(o.profile.title || o.profile.name) + Messages['kkutu.js.sProfile']);
 
     var idString = o.id.toString() || "robot__robot";
     var profileImageUrl = "https://cdn.jsdelivr.net/npm/kkutuio@latest/img/auth/" + ((o.robot || o.guest) ? "guest.png" : idString.split("-")[0] + ".png");
@@ -3663,12 +3663,12 @@ function requestProfile(id) {
             .append($("<div>").addClass("profile-level-text").html(Messages['kkutu.js.level'] + " " + (i = getLevel(o.data.score))))
             .append($("<div>").addClass("profile-score-text").html(commify(o.data.score) + " / " + commify(EXP[i - 1]) + Messages['kkutu.js.pts']))
         )
-        .append($ex = $("<div>").addClass("profile-head-item profile-exordial ellipse").text(badWords(o.exordial || ""))
+        .append($ex = $("<div>").addClass("profile-head-item profile-exordial ellipse").text(badWords(badWords(o.exordial || "")))
             .append($("<div>").addClass("expl").css({
                 'white-space': "normal",
                 'width': 300,
                 'font-size': "11px"
-            }).text(o.exordial))
+            }).text(badWords(o.exordial || "")))
         );
     if (o.robot) {
         $stage.dialog.profileLevel.show();
@@ -4901,7 +4901,7 @@ function chat(profile, msg, from, timestamp) {
     }
     $stage.chat.append($item = $("<div>").addClass("chat-item")
         .append($bar = $("<div>").addClass("chat-head ellipse").text(profile.title || profile.name))
-        .append($msg = $("<div>").addClass("chat-body").text(msg))
+        .append($msg = $("<div>").addClass("chat-body").text(badWords(msg)))
         .append($("<div>").addClass("chat-stamp").text(time.toLocaleTimeString()))
     );
     if (timestamp) $bar.prepend($("<i>").addClass("fa fa-video-camera"));

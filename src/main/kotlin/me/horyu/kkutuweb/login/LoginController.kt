@@ -81,10 +81,11 @@ class LoginController(
     @GetMapping("/{vendorName}/callback")
     fun loginCallback(
         @PathVariable vendorName: String,
-        @RequestParam("code") code: String,
-        @RequestParam("state") state: String,
+        @RequestParam("code", required = false, defaultValue = "") code: String,
+        @RequestParam("state", required = false, defaultValue = "") state: String,
         request: HttpServletRequest
     ): String {
+        if (code.isEmpty() || state.isEmpty()) return "redirect:/login/fail"
         val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
 
         val loginSuccess = loginService.login(request, vendorType, code, state)

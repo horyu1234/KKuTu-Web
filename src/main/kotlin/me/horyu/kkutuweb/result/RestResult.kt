@@ -16,25 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {Component, Suspense} from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
-import {Login, Portal, Setup} from './pages';
-import Loading from "./components/loading/Loading";
+package me.horyu.kkutuweb.result
 
-class App extends Component {
-    render() {
-        return (
-            <>
-                <BrowserRouter>
-                    <Suspense fallback={<Loading/>}>
-                        <Route exact path="/" component={Portal}/>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/setup" component={Setup}/>
-                    </Suspense>
-                </BrowserRouter>
-            </>
-        );
-    }
+enum class RestResult(val message: String) {
+    SUCCESS("성공"),
+    BAD_REQUEST("잘못된 요청")
 }
-
-export default App;

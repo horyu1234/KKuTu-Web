@@ -23,6 +23,7 @@ import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.setting.KKuTuSetting
+import me.horyu.kkutuweb.setup.SetupService
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
 import org.slf4j.LoggerFactory
@@ -39,26 +40,33 @@ import kotlin.streams.asSequence
 
 @Controller
 class MainController(
-        @Autowired private val kKuTuSetting: KKuTuSetting,
-        @Autowired private val loginService: LoginService,
-        @Autowired private val sessionDao: SessionDao,
-        @Autowired private val aeS256: AES256,
-        @Autowired private val localePropertyLoader: LocalePropertyLoader
+    @Autowired private val kKuTuSetting: KKuTuSetting,
+    @Autowired private val loginService: LoginService,
+    @Autowired private val setupService: SetupService,
+    @Autowired private val sessionDao: SessionDao,
+    @Autowired private val aeS256: AES256,
+    @Autowired private val localePropertyLoader: LocalePropertyLoader
 ) {
     private val logger = LoggerFactory.getLogger(MainController::class.java)
 
     @GetMapping
-    fun main(@RequestParam(required = false) server: Short?,
-             model: Model, session: HttpSession, request: HttpServletRequest): String {
+    fun main(
+        @RequestParam(required = false) server: Short?,
+        model: Model, session: HttpSession, request: HttpServletRequest
+    ): String {
         val isMobile = model.getAttribute("mobile") as Boolean
         val mobileLogText = if (isMobile) " (모바일)" else ""
+
+        val sessionProfile = loginService.getSessionProfile(session)
+        val isGuest = sessionProfile == null
+
+        if (!isGuest && setupService.needSetup(sessionProfile!!)) {
+            return "redirect:/setup"
+        }
 
         if (server == null) {
             model.addAttribute("viewName", request.getView(View.REACT))
         } else {
-            val sessionProfile = loginService.getSessionProfile(session)
-            val isGuest = sessionProfile == null
-
             val randomSid = generateRandomSid()
             if (!isGuest) {
                 sessionDao.insert(sessionProfile!!, randomSid)
@@ -69,10 +77,11 @@ class MainController(
 
             val gameServers = kKuTuSetting.getGameServers()
             val gameServer = gameServers[if (gameServers.size <= server) 0 else server.toInt()]
-            val webSocketUrl = (if (gameServer.isSecure) "wss" else "ws") + "://" + gameServer.publicHost + ":" + gameServer.port
+            val webSocketUrl =
+                (if (gameServer.isSecure) "wss" else "ws") + "://" + gameServer.publicHost + ":" + gameServer.port
 
             val nickname: String = sessionProfile?.title ?: (messages["kkutu.dialog.room.room-title.guest"]
-                    ?: error("kkutu.dialog.room.room-title.guest 언어 설정을 찾을 수 없습니다."))
+                ?: error("kkutu.dialog.room.room-title.guest 언어 설정을 찾을 수 없습니다."))
 
             model.addAttribute("version", kKuTuSetting.getVersion())
             model.addAttribute("websocketUrl", webSocketUrl + "/" + aeS256.encrypt(randomSid))
@@ -115,8 +124,8 @@ class MainController(
     fun generateRandomSid(): String {
         val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return Random().ints(32, 0, source.length)
-                .asSequence()
-                .map(source::get)
-                .joinToString("")
+            .asSequence()
+            .map(source::get)
+            .joinToString("")
     }
 }

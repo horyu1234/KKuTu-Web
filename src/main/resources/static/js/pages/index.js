@@ -20,5 +20,6 @@ import React from "react";
 
 const Portal = React.lazy(() => import('./portal/Portal'));
 const Login = React.lazy(() => import('./login/Login'));
+const Setup = React.lazy(() => import('./setup/Setup'));
 
-export {Portal, Login};
+export {Portal, Login, Setup};

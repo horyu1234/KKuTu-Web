@@ -18,20 +18,38 @@
 
 package me.horyu.kkutuweb.user
 
+import org.postgresql.util.PGobject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.SingleColumnRowMapper
 import org.springframework.stereotype.Component
 
 @Component
 class UserDao(
-        @Autowired private val jdbcTemplate: JdbcTemplate,
-        @Autowired private val userMapper: UserMapper
+    @Autowired private val jdbcTemplate: JdbcTemplate,
+    @Autowired private val userMapper: UserMapper
 ) {
     fun getUser(id: String): User? {
         val sql = "SELECT * FROM users WHERE _id = ?"
 
         val users = jdbcTemplate.query(sql, arrayOf(id), userMapper)
         return if (users.isEmpty()) null else users.first()
+    }
+
+    fun getSimilarityNicks(): List<String> {
+        val sql = "SELECT \"meanableNick\" FROM users"
+        return jdbcTemplate.query(sql, SingleColumnRowMapper())
+    }
+
+    fun newUser(id: String, nick: String, similarityNick: String) {
+        val sql = "INSERT INTO users(_id, nickname, money, kkutu, \"meanableNick\") VALUES(?, ?, ?, ?, ?)"
+
+        val kkutuJsonObj = PGobject()
+        kkutuJsonObj.type = "json"
+        kkutuJsonObj.value =
+            "{\"score\":0,\"playTime\":0,\"connectDate\":0,\"record\":{\"EKT\":[0,0,0,0],\"ESH\":[0,0,0,0],\"KKT\":[0,0,0,0],\"KSH\":[0,0,0,0],\"CSQ\":[0,0,0,0],\"KCW\":[0,0,0,0],\"KTY\":[0,0,0,0],\"ETY\":[0,0,0,0],\"KAP\":[0,0,0,0],\"HUN\":[0,0,0,0],\"KDA\":[0,0,0,0],\"EDA\":[0,0,0,0],\"KSS\":[0,0,0,0],\"ESS\":[0,0,0,0]}}"
+
+        jdbcTemplate.update(sql, id, nick, 0, kkutuJsonObj, similarityNick)
     }
 
     fun updateUser(id: String, values: Map<String, Any?>) {

@@ -2235,6 +2235,7 @@ function onMessage(data) {
             if ($data.id === data.user.id) {
                 updateMe();
                 $("#room-title").attr('placeholder', data.user.profile.title + Messages['kkutu.dialog.room.room-title.placeholder']);
+                $("#account-info").text(data.user.profile.title)
             }
             break;
         case 'connRoom':

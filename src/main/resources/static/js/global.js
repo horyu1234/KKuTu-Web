@@ -112,7 +112,7 @@ var L;
         if ($.cookie('lc') == "") $.cookie('lc', "ko_KR");
 
         if (global.profile.id) {
-            $("#account-info").html(global.profile.title || global.profile.name).on('click', function (e) {
+            $("#account-info").text(global.profile.title || global.profile.name).on('click', function (e) {
                 if (confirm(Messages['portal.js.askLogout'])) requestLogout(e);
             });
         } else {

@@ -898,21 +898,21 @@ $(document).ready(function () {
             drawMyDress();
         });
     });
-    $stage.dialog.dressOK.on('click', function (e) {
-        $(e.currentTarget).attr('disabled', true);
-        if($("#dress-nickname").val().match(BAD)) {
-            alert("닉네임에 사용 불가능한 문자가 포함되어 있습니다.");
-            return;
+    $stage.dialog.dressOK.on('click', function(e) {
+        var nickInput = $("#dress-nickname").val();
+        if (nickInput != $data.users[$data.id].profile.title && nickInput != $data.users[$data.id].profile.name) {
+            send('nickChange', {"value": nickInput}, true);
+            $stage.dialog.profile.hide();
         }
-        $.post("/exordial", {data: $("#dress-exordial").val(), nick: $("#dress-nickname").val()}, function (res) {
-            $stage.dialog.dressOK.attr('disabled', false);
-            if (res.error) return fail(res.error);
-            if (($("#dress-nickname").val() != $data.users[$data.id].profile.title && $("#dress-nickname").val() != $data.users[$data.id].profile.name) || $("#dress-exordial").val() != $data.users[$data.id].exordial) {
-                alert(Messages['kkutu.js.profileChanged']);
-            }
 
-            $stage.dialog.dress.hide();
-        });
+        if ($("#dress-exordial").val() != $data.users[$data.id].exordial) {
+            $.post("/exordial", {data: $("#dress-exordial").val()}, function(res) {
+                if (res.error) return fail(res.error);
+                alert(Messages['kkutu.js.profileChanged']);
+            });
+        }
+
+        $stage.dialog.dress.hide();
     });
     $("#DressDiag .dress-type").on('click', function (e) {
         var $target = $(e.currentTarget);
@@ -2228,6 +2228,14 @@ function onMessage(data) {
         case 'disconn':
             $data.setUser(data.id, null);
             updateUserList();
+            break;
+        case 'nickUpdate':
+            $data.setUser(data.user.id, data.user);
+            updateUserList(true);
+            if ($data.id === data.user.id) {
+                updateMe();
+                $("#room-title").attr('placeholder', data.user.profile.title + Messages['kkutu.dialog.room.room-title.placeholder']);
+            }
             break;
         case 'connRoom':
             if ($data._preQuick) {

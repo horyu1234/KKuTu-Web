@@ -34,9 +34,8 @@ class UserApi(
 
     @PostMapping("/exordial", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun exordial(@RequestParam data: String,
-                 @RequestParam nick: String,
                  session: HttpSession): String {
-        return userService.exordial(data, nick, session)
+        return userService.exordial(data, session)
     }
 
     @PostMapping("/equip/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])

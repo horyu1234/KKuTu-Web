@@ -59,27 +59,20 @@ class UserService(
         return user.box.toJson()
     }
 
-    fun exordial(data: String, nick: String, session: HttpSession): String {
+    fun exordial(data: String, session: HttpSession): String {
         val maxExordialLength = 100
-        val nickRegex = "^[ㄱ-ㅎㅏ-ㅣ가-힣A-Za-z0-9-_\\s]{1,20}$".toRegex()
-
         if (session.isGuest()) return "{\"error\":400}"
 
         val oAuthUser = session.getOAuthUser()
         val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
 
         val resultData = data.substring(0, if (data.length > maxExordialLength) maxExordialLength else data.length).trim()
-        val resultNick = nick.trim()
-
-        if (!nickRegex.matches(resultNick)) return "{\"error\":400}"
 
         userDao.updateUser(userId, mapOf(
-                "exordial" to if (resultData.isEmpty()) null else resultData,
-                "nickname" to resultNick
+                "exordial" to if (resultData.isEmpty()) null else resultData
         ))
-        sessionDao.updateNickname(userId, resultNick)
 
-        logger.info("$userId 님이 프로필을 수정했습니다. 별명: $resultNick  /  소개 한마디: $resultData")
+        logger.info("$userId 님이 프로필을 수정했습니다. 소개 한마디: $resultData")
         return "{\"text\":\"$resultData\"}"
     }
 

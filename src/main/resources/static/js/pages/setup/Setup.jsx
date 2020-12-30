@@ -56,7 +56,7 @@ const Setup = () => {
             <SetupTitle>끄투리오에서 사용하실 닉네임을 입력해주세요.</SetupTitle>
 
             <HelpTitle>안내</HelpTitle>
-            <HelpText>1. 운영진 사칭, 비속어 사용 시 닉네임 변경이 제한되실 수 있습니다.</HelpText>
+            <HelpText>1. 운영진 사칭/비속어 등의 악성 닉네임 사용 시 강제 변경 및 관련 기능이 제한되실 수 있습니다.</HelpText>
             <HelpText>2. 닉네임은 7일마다 변경하실 수 있습니다.</HelpText>
 
             <NickInput placeholder={Messages['kkutu.dialog.dress.nickname.placeHolder']} name="nickname"

@@ -74,8 +74,8 @@ class NaverOAuthService(
                     name = responseNode["nickname"].textValue(),
                     profileImage = responseNode["profile_image"].textValue(),
                     gender = Gender.fromName(responseNode["gender"].textValue()),
-                    minAge = splitAge[0].toInt(),
-                    maxAge = splitAge[1].toInt()
+                    minAge = splitAge[0].toIntOrNull(),
+                    maxAge = splitAge[1].toIntOrNull()
             )
 
             httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)

@@ -2627,13 +2627,15 @@
 
     function sendWhisper(target, text) {
         if (text.length) {
+            var actualUser = '';
             $data._whisper = target;
             for (u in $data.users) {
-                if ($data.users[u].profile.title.replaceAll(" ", "") == target) {
+                if ($data.users[u].profile.title.replace(" ", "") === target) {
                     actualUser = $data.users[u].profile;
                     break;
                 }
             }
+
             send('talk', {whisper: target, value: text}, true);
             chat({title: "→" + target, id: actualUser.id}, text, true);
         }

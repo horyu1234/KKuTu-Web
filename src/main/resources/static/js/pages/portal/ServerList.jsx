@@ -23,6 +23,7 @@ import {faSyncAlt} from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 import Axios from "axios";
 import {ServerListBox, ServerListTitle, ServerRefresh, ServerTotal} from "./ServerListStyle";
 import Server from "./Server";
+import Loading from "../../components/loading/Loading";
 
 const ServerList = ({joinServer, onServerListUpdate}) => {
     const [isInitializing, setInitializing] = useState(true);
@@ -35,6 +36,7 @@ const ServerList = ({joinServer, onServerListUpdate}) => {
     useEffect(() => {
         setMessages(Messages);
         updateServerList();
+        setInterval(updateServerList, 30 * 1000);
         setInitializing(false);
     }, [])
 
@@ -51,7 +53,6 @@ const ServerList = ({joinServer, onServerListUpdate}) => {
             onServerListUpdate(data.list, data.max);
 
             setTimeout(() => setRefreshing(false), 500);
-            setInterval(updateServerList, 60000);
         })
     }
 
@@ -59,7 +60,7 @@ const ServerList = ({joinServer, onServerListUpdate}) => {
         return Axios.get('/servers');
     }
 
-    if (isInitializing) return <h1>Page Initializing...</h1>
+    if (isInitializing) return <Loading/>
     return (
         <ServerListBox>
             <ServerListTitle>

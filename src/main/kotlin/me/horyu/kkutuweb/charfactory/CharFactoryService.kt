@@ -51,7 +51,7 @@ class CharFactoryService(
         if (session.isGuest()) return "{\"error\":400}"
         val oAuthUser = session.getOAuthUser()
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
         var wordString = ""

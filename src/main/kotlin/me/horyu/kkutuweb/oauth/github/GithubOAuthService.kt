@@ -23,64 +23,42 @@ import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
-import com.github.scribejava.core.oauth.OAuth20Service
-import me.horyu.kkutuweb.SessionAttribute
-import me.horyu.kkutuweb.extension.setOAuthUser
+import me.horyu.kkutuweb.oauth.AuthVendor
 import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.OAuthUser
-import me.horyu.kkutuweb.oauth.VendorType
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import javax.servlet.http.HttpSession
 
 @Service
 class GithubOAuthService(
-        @Autowired private val objectMapper: ObjectMapper
+    @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
-    private val logger = LoggerFactory.getLogger(GithubOAuthService::class.java)
     private val protectedResourceUrl = "https://api.github.com/user"
 
     override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
         oAuth20Service = ServiceBuilder(apiKey)
-                .apiSecret(apiSecret)
-                .callback(callbackUrl)
-                .build(GitHubApi.instance())
+            .apiSecret(apiSecret)
+            .callback(callbackUrl)
+            .build(GitHubApi.instance())
     }
 
-    override fun getAuthorizationUrl(httpSession: HttpSession): String {
-        val randomState = getRandomState()
-        httpSession.setAttribute(SessionAttribute.OAUTH_STATE.attributeName, randomState)
-        httpSession.setAttribute(SessionAttribute.OAUTH_20_SERVICE.attributeName, oAuth20Service)
+    override fun login(code: String): OAuthUser {
+        val accessToken = oAuth20Service.getAccessToken(code)
 
-        return oAuth20Service.getAuthorizationUrl(randomState)
-    }
+        val request = OAuthRequest(Verb.GET, protectedResourceUrl)
+        oAuth20Service.signRequest(accessToken, request)
 
-    override fun abstractLogin(httpSession: HttpSession, oAuth20Service: OAuth20Service, code: String): Boolean {
-        try {
-            val accessToken = oAuth20Service.getAccessToken(code)
+        val response = oAuth20Service.execute(request)
+        val jsonResponse = objectMapper.readTree(response.body)
 
-            val request = OAuthRequest(Verb.GET, protectedResourceUrl)
-            oAuth20Service.signRequest(accessToken, request)
-
-            val response = oAuth20Service.execute(request)
-            val jsonResponse = objectMapper.readTree(response.body)
-
-            val oAuthUser = OAuthUser(vendorType = VendorType.GITHUB,
-                    vendorId = jsonResponse["id"].intValue().toString(),
-                    name = if (jsonResponse.has("name")) jsonResponse["name"].textValue() else jsonResponse["login"].textValue(),
-                    profileImage = jsonResponse["avatar_url"].textValue(),
-                    gender = null,
-                    minAge = null,
-                    maxAge = null
-            )
-
-            httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
-            httpSession.setOAuthUser(oAuthUser)
-            return true
-        } catch (e: Exception) {
-            logger.error("${httpSession.id} 세션에서 로그인 중 오류가 발생했습니다.", e)
-            return false
-        }
+        return OAuthUser(
+            authVendor = AuthVendor.GITHUB,
+            vendorId = jsonResponse["id"].intValue().toString(),
+            name = if (jsonResponse.has("name")) jsonResponse["name"].textValue() else jsonResponse["login"].textValue(),
+            profileImage = jsonResponse["avatar_url"].textValue(),
+            gender = null,
+            minAge = null,
+            maxAge = null
+        )
     }
 }

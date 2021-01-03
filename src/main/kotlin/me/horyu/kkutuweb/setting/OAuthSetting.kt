@@ -20,7 +20,7 @@ package me.horyu.kkutuweb.setting
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import me.horyu.kkutuweb.oauth.VendorType
+import me.horyu.kkutuweb.oauth.AuthVendor
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
@@ -56,18 +56,18 @@ class OAuthSetting(
         }
     }
 
-    fun getSetting(): Map<VendorType, OAuthVendorSetting> {
-        val settings = HashMap<VendorType, OAuthVendorSetting>()
+    fun getSetting(): Map<AuthVendor, OAuthVendorSetting> {
+        val settings = HashMap<AuthVendor, OAuthVendorSetting>()
         for (oAuthVendorName in settingNode.fieldNames()) {
             val isEnable = settingNode[oAuthVendorName]["enable"].booleanValue()
             if (!isEnable) continue
 
-            val vendorType = VendorType.fromName(oAuthVendorName)!!
+            val vendorType = AuthVendor.fromName(oAuthVendorName)!!
             settings[vendorType] = OAuthVendorSetting(
-                    order = settingNode[oAuthVendorName]["order"].shortValue(),
-                    clientId = settingNode[oAuthVendorName]["client-id"].textValue(),
-                    clientSecret = settingNode[oAuthVendorName]["client-secret"].textValue(),
-                    callbackUrl = settingNode[oAuthVendorName]["callback-url"].textValue()
+                order = settingNode[oAuthVendorName]["order"].shortValue(),
+                clientId = settingNode[oAuthVendorName]["client-id"].textValue(),
+                clientSecret = settingNode[oAuthVendorName]["client-secret"].textValue(),
+                callbackUrl = settingNode[oAuthVendorName]["callback-url"].textValue()
             )
         }
 

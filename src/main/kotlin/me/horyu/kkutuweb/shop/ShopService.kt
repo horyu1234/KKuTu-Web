@@ -58,7 +58,7 @@ class ShopService(
         val good = shopDao.getGood(id) ?: return "{\"error\":400}"
         if (good.cost < 0) return "{\"error\":400}"
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
         val afterBuyMoney = user.money - good.cost
@@ -86,7 +86,7 @@ class ShopService(
         if (session.isGuest()) return "{\"error\":400}"
         val oAuthUser = session.getOAuthUser()
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
         val box = user.box

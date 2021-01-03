@@ -20,7 +20,7 @@ package me.horyu.kkutuweb.login
 
 import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.extension.getOAuthUser
-import me.horyu.kkutuweb.oauth.VendorType
+import me.horyu.kkutuweb.oauth.AuthVendor
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
 import org.slf4j.LoggerFactory
@@ -73,7 +73,7 @@ class LoginController(
         @PathVariable vendorName: String,
         session: HttpSession
     ): String {
-        val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
+        val vendorType = AuthVendor.fromName(vendorName) ?: return "redirect:/login/fail"
 
         return "redirect:" + loginService.getAuthorizationUrl(session, vendorType)
     }
@@ -86,7 +86,7 @@ class LoginController(
         request: HttpServletRequest
     ): String {
         if (code.isEmpty() || state.isEmpty()) return "redirect:/login/fail"
-        val vendorType = VendorType.fromName(vendorName) ?: return "redirect:/login/fail"
+        val vendorType = AuthVendor.fromName(vendorName) ?: return "redirect:/login/fail"
 
         val loginSuccess = loginService.login(request, vendorType, code, state)
         if (loginSuccess) {

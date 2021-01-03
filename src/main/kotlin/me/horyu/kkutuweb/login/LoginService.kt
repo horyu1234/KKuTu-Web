@@ -18,10 +18,10 @@
 
 package me.horyu.kkutuweb.login
 
-import me.horyu.kkutuweb.extension.getOAuthUser
-import me.horyu.kkutuweb.extension.isGuest
+import me.horyu.kkutuweb.SessionAttribute
+import me.horyu.kkutuweb.extension.*
+import me.horyu.kkutuweb.oauth.AuthVendor
 import me.horyu.kkutuweb.oauth.OAuthService
-import me.horyu.kkutuweb.oauth.VendorType
 import me.horyu.kkutuweb.oauth.daldalso.DaldalsoOAuthService
 import me.horyu.kkutuweb.oauth.discord.DiscordOAuthService
 import me.horyu.kkutuweb.oauth.facebook.FacebookOAuthService
@@ -34,68 +34,106 @@ import me.horyu.kkutuweb.setting.OAuthSetting
 import me.horyu.kkutuweb.user.UserDao
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession
+import kotlin.streams.asSequence
 
 @Service
 class LoginService(
-        @Autowired private val oAuthSetting: OAuthSetting,
-        @Autowired private val daldalsoOAuthService: DaldalsoOAuthService,
-        @Autowired private val facebookOAuthService: FacebookOAuthService,
-        @Autowired private val googleOAuthService: GoogleOAuthService,
-        @Autowired private val naverOAuthService: NaverOAuthService,
-        @Autowired private val githubOAuthService: GithubOAuthService,
-        @Autowired private val discordOAuthService: DiscordOAuthService,
-        @Autowired private val kakaoOAuthService: KakaoOAuthService,
-        @Autowired private val userDao: UserDao
+    @Autowired private val oAuthSetting: OAuthSetting,
+    @Autowired private val daldalsoOAuthService: DaldalsoOAuthService,
+    @Autowired private val facebookOAuthService: FacebookOAuthService,
+    @Autowired private val googleOAuthService: GoogleOAuthService,
+    @Autowired private val naverOAuthService: NaverOAuthService,
+    @Autowired private val githubOAuthService: GithubOAuthService,
+    @Autowired private val discordOAuthService: DiscordOAuthService,
+    @Autowired private val kakaoOAuthService: KakaoOAuthService,
+    @Autowired private val userDao: UserDao
 ) {
+    private val stateLength = 50L
+
     @PostConstruct
     fun initOAuthServices() {
         for (entry in oAuthSetting.getSetting().entries) {
             val vendorType = entry.key
             val setting = entry.value
 
-            getService(vendorType).init(setting.clientId, setting.clientSecret, setting.callbackUrl)
+            getOAuthService(vendorType).init(setting.clientId, setting.clientSecret, setting.callbackUrl)
         }
     }
 
-    fun getAuthorizationUrl(session: HttpSession, vendorType: VendorType): String? {
-        return getService(vendorType).getAuthorizationUrl(session)
+    fun getAuthorizationUrl(session: HttpSession, authVendor: AuthVendor): String? {
+        val randomState = getRandomState()
+        session.setAttribute(SessionAttribute.OAUTH_STATE.attributeName, randomState)
+
+        return getOAuthService(authVendor).getAuthorizationUrl(randomState)
     }
 
-    fun login(request: HttpServletRequest, vendorType: VendorType, code: String, state: String): Boolean {
-        return getService(vendorType).login(request, code, state)
+    fun login(request: HttpServletRequest, authVendor: AuthVendor, code: String, state: String): Boolean {
+        return try {
+            var session = request.session
+            val oAuthState = session.getAttribute(SessionAttribute.OAUTH_STATE.attributeName)
+                ?: return false
+
+            if (oAuthState != state) {
+                return false
+            }
+
+            try {
+                session.invalidate()
+                session = request.session
+            } catch (e: Exception) {
+            }
+
+            val oAuthUser = getOAuthService(authVendor).login(code)
+
+            session.removeAttribute(SessionAttribute.OAUTH_STATE)
+            session.setAttribute(SessionAttribute.IS_GUEST, false)
+            session.setOAuthUser(oAuthUser)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun getSessionProfile(session: HttpSession): SessionProfile? {
         if (session.isGuest()) return null
         val oAuthUser = session.getOAuthUser()
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId)
 
-        val authType = oAuthUser.vendorType.name.toLowerCase()
+        val authType = oAuthUser.authVendor.name.toLowerCase()
         val title = if (user == null) oAuthUser.name else (user.nickname ?: oAuthUser.name)
 
         return SessionProfile(
-                authType = authType,
-                id = authType + "-" + oAuthUser.vendorId,
-                name = oAuthUser.name,
-                title = title,
-                image = oAuthUser.profileImage ?: ""
+            authType = authType,
+            id = authType + "-" + oAuthUser.vendorId,
+            name = oAuthUser.name,
+            title = title,
+            image = oAuthUser.profileImage ?: ""
         )
     }
 
-    private fun getService(vendorType: VendorType): OAuthService {
-        return when (vendorType) {
-            VendorType.DALDALSO -> daldalsoOAuthService
-            VendorType.FACEBOOK -> facebookOAuthService
-            VendorType.GOOGLE -> googleOAuthService
-            VendorType.NAVER -> naverOAuthService
-            VendorType.GITHUB -> githubOAuthService
-            VendorType.DISCORD -> discordOAuthService
-            VendorType.KAKAO -> kakaoOAuthService
+    private fun getOAuthService(authVendor: AuthVendor): OAuthService {
+        return when (authVendor) {
+            AuthVendor.DALDALSO -> daldalsoOAuthService
+            AuthVendor.FACEBOOK -> facebookOAuthService
+            AuthVendor.GOOGLE -> googleOAuthService
+            AuthVendor.NAVER -> naverOAuthService
+            AuthVendor.GITHUB -> githubOAuthService
+            AuthVendor.DISCORD -> discordOAuthService
+            AuthVendor.KAKAO -> kakaoOAuthService
         }
+    }
+
+    private fun getRandomState(): String {
+        val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        return Random().ints(stateLength, 0, source.length)
+            .asSequence()
+            .map(source::get)
+            .joinToString("")
     }
 }

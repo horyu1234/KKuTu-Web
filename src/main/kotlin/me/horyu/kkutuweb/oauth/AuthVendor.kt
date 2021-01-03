@@ -18,7 +18,7 @@
 
 package me.horyu.kkutuweb.oauth
 
-enum class VendorType {
+enum class AuthVendor {
     DALDALSO,
     FACEBOOK,
     GOOGLE,
@@ -28,7 +28,7 @@ enum class VendorType {
     KAKAO;
 
     companion object {
-        fun fromName(vendorName: String): VendorType? {
+        fun fromName(vendorName: String): AuthVendor? {
             return values().firstOrNull {
                 it.name.equals(vendorName, ignoreCase = true)
             }

@@ -22,65 +22,42 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
-import com.github.scribejava.core.oauth.OAuth20Service
-import me.horyu.kkutuweb.SessionAttribute
-import me.horyu.kkutuweb.extension.setOAuthUser
+import me.horyu.kkutuweb.oauth.AuthVendor
 import me.horyu.kkutuweb.oauth.OAuthService
 import me.horyu.kkutuweb.oauth.OAuthUser
-import me.horyu.kkutuweb.oauth.VendorType
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import javax.servlet.http.HttpSession
-
 
 @Service
 class KakaoOAuthService(
-        @Autowired private val objectMapper: ObjectMapper
+    @Autowired private val objectMapper: ObjectMapper
 ) : OAuthService() {
-    private val logger = LoggerFactory.getLogger(KakaoOAuthService::class.java)
     private val protectedResourceUrl = "https://kapi.kakao.com/v2/user/me"
 
     override fun init(apiKey: String, apiSecret: String, callbackUrl: String) {
         oAuth20Service = ServiceBuilder(apiKey)
-                .callback(callbackUrl)
-                .userAgent("KKuTu-Web (https://github.com/horyu1234/KKuTu-Web)")
-                .build(KakaoApi)
+            .callback(callbackUrl)
+            .userAgent("KKuTu-Web (https://github.com/horyu1234/KKuTu-Web)")
+            .build(KakaoApi)
     }
 
-    override fun getAuthorizationUrl(httpSession: HttpSession): String {
-        val randomState = getRandomState()
-        httpSession.setAttribute(SessionAttribute.OAUTH_STATE.attributeName, randomState)
-        httpSession.setAttribute(SessionAttribute.OAUTH_20_SERVICE.attributeName, oAuth20Service)
+    override fun login(code: String): OAuthUser {
+        val accessToken = oAuth20Service.getAccessToken(code)
 
-        return oAuth20Service.getAuthorizationUrl(randomState)
-    }
+        val request = OAuthRequest(Verb.GET, protectedResourceUrl)
+        oAuth20Service.signRequest(accessToken, request)
 
-    override fun abstractLogin(httpSession: HttpSession, oAuth20Service: OAuth20Service, code: String): Boolean {
-        try {
-            val accessToken = oAuth20Service.getAccessToken(code)
+        val response = oAuth20Service.execute(request)
+        val jsonResponse = objectMapper.readTree(response.body)
 
-            val request = OAuthRequest(Verb.GET, protectedResourceUrl)
-            oAuth20Service.signRequest(accessToken, request)
-
-            val response = oAuth20Service.execute(request)
-            val jsonResponse = objectMapper.readTree(response.body)
-
-            val oAuthUser = OAuthUser(vendorType = VendorType.KAKAO,
-                    vendorId = jsonResponse["id"].longValue().toString(),
-                    name = jsonResponse["properties"]["nickname"].textValue(),
-                    profileImage = if (jsonResponse["properties"].has("profile_image")) jsonResponse["properties"]["profile_image"].textValue() else null,
-                    gender = null,
-                    minAge = null,
-                    maxAge = null
-            )
-
-            httpSession.setAttribute(SessionAttribute.IS_GUEST.attributeName, false)
-            httpSession.setOAuthUser(oAuthUser)
-            return true
-        } catch (e: Exception) {
-            logger.error("${httpSession.id} 세션에서 로그인 중 오류가 발생했습니다.", e)
-            return false
-        }
+        return OAuthUser(
+            authVendor = AuthVendor.KAKAO,
+            vendorId = jsonResponse["id"].longValue().toString(),
+            name = jsonResponse["properties"]["nickname"].textValue(),
+            profileImage = if (jsonResponse["properties"].has("profile_image")) jsonResponse["properties"]["profile_image"].textValue() else null,
+            gender = null,
+            minAge = null,
+            maxAge = null
+        )
     }
 }

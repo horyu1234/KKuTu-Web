@@ -53,7 +53,7 @@ class UserService(
         if (session.isGuest()) return "{\"error\":400}"
         val oAuthUser = session.getOAuthUser()
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
         return user.box.toJson()
@@ -64,7 +64,7 @@ class UserService(
         if (session.isGuest()) return "{\"error\":400}"
 
         val oAuthUser = session.getOAuthUser()
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
 
         val resultData = data.substring(0, if (data.length > maxExordialLength) maxExordialLength else data.length).trim()
 
@@ -80,7 +80,7 @@ class UserService(
         if (session.isGuest()) return "{\"error\":400}"
         val oAuthUser = session.getOAuthUser()
 
-        val userId = "${oAuthUser.vendorType.name.toLowerCase()}-${oAuthUser.vendorId}"
+        val userId = oAuthUser.getUserId()
         val user = userDao.getUser(userId) ?: return "{\"error\":400}"
 
         val good = shopDao.getGood(id) ?: return "{\"error\":430}"

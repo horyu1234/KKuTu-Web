@@ -33,15 +33,11 @@ private const val IV_LENGTH = 16
 class AES256(
     @Autowired private val kKuTuSetting: KKuTuSetting
 ) {
-    private val secretKeySpec: SecretKeySpec?
-
-    init {
-        secretKeySpec = try {
-            SecretKeySpec(kKuTuSetting.getCryptoKey().toByteArray(), "AES")
-        } catch (e: Exception) {
-            println("Error while generating key: $e")
-            null
-        }
+    private val secretKeySpec: SecretKeySpec? = try {
+        SecretKeySpec(kKuTuSetting.getCryptoKey().toByteArray(), "AES")
+    } catch (e: Exception) {
+        println("Error while generating key: $e")
+        null
     }
 
     fun encrypt(data: String): String {

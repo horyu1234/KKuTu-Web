@@ -129,8 +129,8 @@ class ShopService(
             if (boxObjectNode.has(goodId)) {
                 val goodJson = boxObjectNode.get(goodId) as ObjectNode
 
-                if (addValue) goodJson.put("value", goodJson.get("value").intValue() + value)
-                else goodJson.put("expire", goodJson.get("expire").intValue() + term)
+                if (addValue) goodJson.put("value", goodJson["value"].intValue() + value)
+                else goodJson.put("expire", goodJson["expire"].intValue() + term)
             } else {
                 val currentTime = System.currentTimeMillis()
 
@@ -149,11 +149,11 @@ class ShopService(
 
         if (goodJson is ObjectNode) {
             // 기한이 끝날 때까지 box 자체에서 사라지지는 않는다. 기한 만료 여부 확인 시점: 1. 로그인 2. box 조회 3. 게임 결과 반영 직전 4. 해당 항목 사용 직전
-            val afterConsumeValue = goodJson.get("value").intValue() - value
+            val afterConsumeValue = goodJson["value"].intValue() - value
             goodJson.put("value", afterConsumeValue)
 
             if (afterConsumeValue <= 0) {
-                if (force || !goodJson.has("expire") && goodJson.get("expire").intValue() == 0) boxObjectNode.remove(
+                if (force || !goodJson.has("expire") && goodJson["expire"].intValue() == 0) boxObjectNode.remove(
                     goodId
                 )
             }

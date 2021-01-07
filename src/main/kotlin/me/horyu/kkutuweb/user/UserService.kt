@@ -19,12 +19,10 @@
 package me.horyu.kkutuweb.user
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.extension.toJson
-import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.shop.ShopDao
 import me.horyu.kkutuweb.shop.ShopService
 import org.postgresql.util.PGobject
@@ -41,8 +39,6 @@ private val AVAIL_EQUIP = listOf(
 
 @Service
 class UserService(
-    @Autowired private val objectMapper: ObjectMapper,
-    @Autowired private val sessionDao: SessionDao,
     @Autowired private val userDao: UserDao,
     @Autowired private val shopDao: ShopDao,
     @Autowired private val shopService: ShopService
@@ -96,12 +92,12 @@ class UserService(
         val equip: JsonNode = user.equip
         if (equip.has(part)) {
             val equipingGood = user.box.get(id)
-            if (equipingGood != null && (equipingGood.has("expire") && equipingGood.get("expire").intValue() > 0)) {
+            if (equipingGood != null && (equipingGood.has("expire") && equipingGood["expire"].intValue() > 0)) {
                 shopService.obtainGood(
                     user.box,
                     equip.get(part).textValue(),
                     1,
-                    equipingGood.get("expire").intValue(),
+                    equipingGood["expire"].intValue(),
                     true
                 )
             } else {

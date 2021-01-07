@@ -18,7 +18,6 @@
 
 package me.horyu.kkutuweb.consume
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
@@ -36,7 +35,6 @@ import kotlin.math.sqrt
 
 @Service
 class ConsumeService(
-    @Autowired private val objectMapper: ObjectMapper,
     @Autowired private val userDao: UserDao,
     @Autowired private val shopDao: ShopDao,
     @Autowired private val shopService: ShopService
@@ -102,8 +100,8 @@ class ConsumeService(
             "dictPage" -> {
                 val objectNode = user.kkutu as ObjectNode
 
-                val addExp = sqrt(1.0 + 2.0 * objectNode.get("score").intValue()).roundToInt()
-                objectNode.put("score", objectNode.get("score").intValue() + addExp)
+                val addExp = sqrt(1.0 + 2.0 * objectNode["score"].intValue()).roundToInt()
+                objectNode.put("score", objectNode["score"].intValue() + addExp)
 
                 return UseItemResult(exp = addExp)
             }

@@ -36,7 +36,7 @@ class GameClient(
         connectWebSocket()
     }
 
-    fun connectWebSocket() {
+    private fun connectWebSocket() {
         try {
             val protocol = if (isSecure) "wss" else "ws"
             val webSocketUrl = "$protocol://$host:$port/$id"

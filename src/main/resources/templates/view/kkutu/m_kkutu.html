@@ -334,7 +334,7 @@
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ProfileDiag',width=300,height=390)}">
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='ProfileDiag',width=350,height=390)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar profile-head"></div>
             <div class="dialog-bar">
@@ -346,6 +346,7 @@
                 <div class="profile-record-field" style="font-weight: bold; text-align: center;">
                     <div class="profile-field-name" th:text="#{kkutu.dialog.profile.gameMode}"></div>
                     <div class="profile-field-record" th:text="#{kkutu.dialog.profile.record}"></div>
+                    <div class="profile-field-win-rate" th:text="#{kkutu.dialog.profile.winRate}"></div>
                     <div class="profile-field-score" th:text="#{kkutu.dialog.profile.totalExp}"></div>
                 </div>
                 <div id="profile-record"></div>

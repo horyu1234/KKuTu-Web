@@ -3695,6 +3695,7 @@
                 $rec.append($("<div>").addClass("profile-record-field")
                     .append($("<div>").addClass("profile-field-name").html(Messages[`game.mode.${i}.name`]))
                     .append($("<div>").addClass("profile-field-record").html(r[0] + Messages['kkutu.js.p'] + " " + r[1] + Messages['kkutu.js.w']))
+                    .append($("<div>").addClass("profile-field-win-rate").text(calcWinRate(r[1], r[0]) + '%'))
                     .append($("<div>").addClass("profile-field-score").html(commify(r[2]) + Messages['kkutu.js.pts']))
                 );
             }
@@ -3730,6 +3731,12 @@
         showDialog($stage.dialog.profile);
         $stage.dialog.profile.show();
         global.expl($ex);
+    }
+
+    function calcWinRate(win, total) {
+        if (total === 0) return 0;
+        var winRate = win / total * 100;
+        return Math.round(winRate * 10) / 10;
     }
 
     function requestInvite(id) {

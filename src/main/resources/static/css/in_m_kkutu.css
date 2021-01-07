@@ -327,7 +327,7 @@ iframe {
 
 .profile-head-item {
     margin: 3px 2px;
-    width: 213px;
+    width: 263px;
 }
 
 .profile-image {
@@ -366,17 +366,22 @@ iframe {
 }
 
 .profile-field-name {
-    width: 35%;
+    width: 27%;
     text-align: center;
 }
 
 .profile-field-record {
-    width: 32%;
+    width: 26%;
+    text-align: center;
+}
+
+.profile-field-win-rate {
+    width: 15%;
     text-align: center;
 }
 
 .profile-field-score {
-    width: 32%;
+    width: 31%;
     text-align: center;
 }
 

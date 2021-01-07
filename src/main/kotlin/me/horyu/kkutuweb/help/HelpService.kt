@@ -36,11 +36,13 @@ class HelpService {
             val requiredScore = getRequiredExp(lv)
             totalExp += requiredScore
 
-            levels.add(LevelInfo(
+            levels.add(
+                LevelInfo(
                     level = lv,
                     requireExp = if (lv == MAX_LEVEL) null else requiredScore,
                     totalExp = if (lv == MAX_LEVEL) null else totalExp
-            ))
+                )
+            )
         }
     }
 

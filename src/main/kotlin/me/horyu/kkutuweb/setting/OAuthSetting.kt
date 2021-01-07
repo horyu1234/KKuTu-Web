@@ -31,8 +31,8 @@ import javax.annotation.PostConstruct
 
 @Component
 class OAuthSetting(
-        @Autowired private val applicationArguments: ApplicationArguments,
-        @Autowired private val objectMapper: ObjectMapper
+    @Autowired private val applicationArguments: ApplicationArguments,
+    @Autowired private val objectMapper: ObjectMapper
 ) {
     private val logger = LoggerFactory.getLogger(OAuthSetting::class.java)
     private lateinit var settingNode: JsonNode

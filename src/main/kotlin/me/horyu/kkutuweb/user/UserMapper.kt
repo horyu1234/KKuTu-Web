@@ -26,7 +26,7 @@ import java.sql.ResultSet
 
 @Component
 class UserMapper(
-        @Autowired val objectMapper: ObjectMapper
+    @Autowired val objectMapper: ObjectMapper
 ) : RowMapper<User> {
     override fun mapRow(rs: ResultSet, rowNum: Int): User {
         val id = rs.getString("_id")
@@ -47,6 +47,19 @@ class UserMapper(
         val equipJson = objectMapper.readTree(equip ?: "{}")
         val friendsJson = objectMapper.readTree(friends ?: "{}")
 
-        return User(id, nickname, money, kkutuJson, lastLogin, boxJson, equipJson, exordial, black, server, password, friendsJson)
+        return User(
+            id,
+            nickname,
+            money,
+            kkutuJson,
+            lastLogin,
+            boxJson,
+            equipJson,
+            exordial,
+            black,
+            server,
+            password,
+            friendsJson
+        )
     }
 }

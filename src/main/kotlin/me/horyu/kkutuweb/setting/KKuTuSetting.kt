@@ -31,8 +31,8 @@ import javax.annotation.PostConstruct
 
 @Component
 class KKuTuSetting(
-        @Autowired private val applicationArguments: ApplicationArguments,
-        @Autowired private val objectMapper: ObjectMapper
+    @Autowired private val applicationArguments: ApplicationArguments,
+    @Autowired private val objectMapper: ObjectMapper
 ) {
     private val logger = LoggerFactory.getLogger(KKuTuSetting::class.java)
     private lateinit var settingNode: JsonNode
@@ -62,11 +62,11 @@ class KKuTuSetting(
 
     fun getGameServers() = settingNode["game-servers"].toList().map {
         GameServerSetting(
-                it["is-secure"].booleanValue(),
-                it["public-host"].textValue(),
-                it["host"].textValue(),
-                it["port"].intValue(),
-                it["cid"].shortValue()
+            it["is-secure"].booleanValue(),
+            it["public-host"].textValue(),
+            it["host"].textValue(),
+            it["port"].intValue(),
+            it["cid"].shortValue()
         )
     }
 

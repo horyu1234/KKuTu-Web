@@ -26,7 +26,7 @@ import kotlin.math.roundToInt
 
 @Component
 class RankDao(
-        @Autowired val redisTemplate: RedisTemplate<String, Any>
+    @Autowired val redisTemplate: RedisTemplate<String, Any>
 ) {
     fun getPage(pageNum: Long, dataCount: Long): List<Rank> {
         val start = pageNum * dataCount

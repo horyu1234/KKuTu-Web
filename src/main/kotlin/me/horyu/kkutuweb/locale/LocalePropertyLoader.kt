@@ -26,7 +26,7 @@ import java.util.*
 
 @Component
 class LocalePropertyLoader(
-        @Value("\${spring.messages.basename}") private val baseName: String
+    @Value("\${spring.messages.basename}") private val baseName: String
 ) {
     private val messageSource: ExposedResourceBundleMessageSource
 

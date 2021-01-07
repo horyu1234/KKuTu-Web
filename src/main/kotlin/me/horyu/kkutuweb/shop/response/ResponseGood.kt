@@ -23,16 +23,23 @@ import com.fasterxml.jackson.databind.JsonNode
 import me.horyu.kkutuweb.shop.Good
 
 data class ResponseGood(
-        @JsonProperty("_id") val id: String,
-        val cost: String,
-        val term: Int,
-        val group: String,
-        val updatedAt: String,
-        val options: JsonNode
+    @JsonProperty("_id") val id: String,
+    val cost: String,
+    val term: Int,
+    val group: String,
+    val updatedAt: String,
+    val options: JsonNode
 ) {
     companion object {
         fun fromGood(good: Good): ResponseGood {
-            return ResponseGood(good.id, good.cost.toString(), good.term, good.group, good.updatedAt.toString(), good.options)
+            return ResponseGood(
+                good.id,
+                good.cost.toString(),
+                good.term,
+                good.group,
+                good.updatedAt.toString(),
+                good.options
+            )
         }
     }
 }

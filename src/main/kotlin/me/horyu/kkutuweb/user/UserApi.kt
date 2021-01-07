@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession
 
 @RestController
 class UserApi(
-        @Autowired private val userService: UserService
+    @Autowired private val userService: UserService
 ) {
     @GetMapping("/box", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getBox(session: HttpSession): String {
@@ -33,15 +33,19 @@ class UserApi(
     }
 
     @PostMapping("/exordial", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun exordial(@RequestParam data: String,
-                 session: HttpSession): String {
+    fun exordial(
+        @RequestParam data: String,
+        session: HttpSession
+    ): String {
         return userService.exordial(data, session)
     }
 
     @PostMapping("/equip/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun equip(@PathVariable id: String,
-              @RequestParam(required = false, defaultValue = "false") isLeft: Boolean,
-              session: HttpSession): String {
+    fun equip(
+        @PathVariable id: String,
+        @RequestParam(required = false, defaultValue = "false") isLeft: Boolean,
+        session: HttpSession
+    ): String {
         return userService.equip(id, isLeft, session)
     }
 }

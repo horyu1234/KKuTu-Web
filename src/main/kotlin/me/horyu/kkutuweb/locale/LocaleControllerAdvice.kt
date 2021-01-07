@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
 class LocaleControllerAdvice(
-        @Autowired private val localePropertyLoader: LocalePropertyLoader,
-        @Autowired private val shopService: ShopService
+    @Autowired private val localePropertyLoader: LocalePropertyLoader,
+    @Autowired private val shopService: ShopService
 ) {
     @ModelAttribute("language")
     fun getLanguageCode(request: HttpServletRequest): String {

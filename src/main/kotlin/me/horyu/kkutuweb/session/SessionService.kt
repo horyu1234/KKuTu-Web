@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SessionService(
-        @Autowired private val sessionDao: SessionDao
+    @Autowired private val sessionDao: SessionDao
 ) {
     @Scheduled(fixedDelay = 600000)
     fun removeExpiredSessions() {

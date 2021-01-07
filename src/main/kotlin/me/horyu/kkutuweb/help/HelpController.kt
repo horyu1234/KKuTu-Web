@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
 class HelpController(
-        @Autowired private val kKuTuSetting: KKuTuSetting,
-        @Autowired private val helpService: HelpService
+    @Autowired private val kKuTuSetting: KKuTuSetting,
+    @Autowired private val helpService: HelpService
 ) {
     @GetMapping("/help")
     fun help(model: Model): String {

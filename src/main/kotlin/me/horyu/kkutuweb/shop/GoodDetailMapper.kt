@@ -26,7 +26,7 @@ import java.sql.ResultSet
 
 @Component
 class GoodDetailMapper(
-        @Autowired val objectMapper: ObjectMapper
+    @Autowired val objectMapper: ObjectMapper
 ) : RowMapper<GoodDetail> {
     override fun mapRow(rs: ResultSet, rowNum: Int): GoodDetail {
         val id = rs.getString("_id")

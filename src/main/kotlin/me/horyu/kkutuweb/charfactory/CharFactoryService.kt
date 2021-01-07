@@ -36,10 +36,10 @@ import kotlin.random.Random
 
 @Service
 class CharFactoryService(
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val userDao: UserDao,
-        @Autowired private val wordDao: WordDao,
-        @Autowired private val shopService: ShopService
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val userDao: UserDao,
+    @Autowired private val wordDao: WordDao,
+    @Autowired private val shopService: ShopService
 ) {
     fun previewCharFactory(word: String, l: Int, b: String, session: HttpSession): CFResult {
         return getCfRewards(word, l, b == "1")
@@ -63,7 +63,9 @@ class CharFactoryService(
             wordString += char
             level += 68 - charItem[3].toInt()
             charCountMap[charItem] = if (charCountMap.containsKey(charItem)) charCountMap[charItem]!! + 1 else 1
-            if (!user.box.has(charItem) || user.box.get(charItem).intValue() < charCountMap[charItem]!!) return "{\"error\":434}"
+            if (!user.box.has(charItem) || user.box.get(charItem)
+                    .intValue() < charCountMap[charItem]!!
+            ) return "{\"error\":434}"
         }
 
         val word = when (findLanguage(wordString)) {
@@ -96,7 +98,8 @@ class CharFactoryService(
         for (reward in cfRewards.data) {
             if (Random.nextDouble(0.0, 1.0) >= reward.rate) continue
             if (reward.key[4].toString() == "?") {
-                reward.key = reward.key.substring(0, 4) + if (blend) blendWord(wordString) else wordString.random().toString()
+                reward.key =
+                    reward.key.substring(0, 4) + if (blend) blendWord(wordString) else wordString.random().toString()
             }
 
             shopService.obtainGood(user.box, reward.key, reward.value, null)
@@ -109,11 +112,17 @@ class CharFactoryService(
         userBoxJsonObj.type = "json"
         userBoxJsonObj.value = user.box.toJson()
 
-        userDao.updateUser(user.id, mapOf(
+        userDao.updateUser(
+            user.id, mapOf(
                 "money" to afterMoney,
                 "box" to userBoxJsonObj
-        ))
-        return "{\"result\":200,\"box\":${user.box.toJson()},\"money\":$afterMoney,\"gain\":${objectMapper.writeValueAsString(gained)}}"
+            )
+        )
+        return "{\"result\":200,\"box\":${user.box.toJson()},\"money\":$afterMoney,\"gain\":${
+            objectMapper.writeValueAsString(
+                gained
+            )
+        }}"
     }
 
     fun blendWord(word: String): String {
@@ -135,7 +144,8 @@ class CharFactoryService(
                     jongseongList.add(char % 28)
                 }
 
-                (((choseongList.shuffled()[0] * 21) + jungseongList.shuffled()[0]) * 28 + jongseongList.shuffled()[0] + 0xAC00).toChar().toString()
+                (((choseongList.shuffled()[0] * 21) + jungseongList.shuffled()[0]) * 28 + jongseongList.shuffled()[0] + 0xAC00).toChar()
+                    .toString()
             }
             else -> {
                 "ERROR"

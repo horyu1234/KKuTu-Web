@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession
 
 @RestController
 class ShopApi(
-        @Autowired private val shopService: ShopService
+    @Autowired private val shopService: ShopService
 ) {
     @GetMapping("/shop")
     fun getGoods(): ShopResponse {
@@ -37,14 +37,18 @@ class ShopApi(
     }
 
     @PostMapping("/buy/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun buyGood(@PathVariable id: String,
-                session: HttpSession): String {
+    fun buyGood(
+        @PathVariable id: String,
+        session: HttpSession
+    ): String {
         return shopService.buyGood(id, session)
     }
 
     @PostMapping("/payback/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun paybackGood(@PathVariable id: String,
-                    session: HttpSession): String {
+    fun paybackGood(
+        @PathVariable id: String,
+        session: HttpSession
+    ): String {
         return shopService.paybackGood(id, session)
     }
 }

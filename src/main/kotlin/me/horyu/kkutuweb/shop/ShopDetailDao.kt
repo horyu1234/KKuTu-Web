@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ShopDetailDao(
-        @Autowired private val jdbcTemplate: JdbcTemplate,
-        @Autowired private val shopDetailMapper: GoodDetailMapper
+    @Autowired private val jdbcTemplate: JdbcTemplate,
+    @Autowired private val shopDetailMapper: GoodDetailMapper
 ) {
     fun getGoodDetails(): List<GoodDetail> {
         val sql = "SELECT * FROM kkutu_shop_desc"

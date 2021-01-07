@@ -21,9 +21,9 @@ package me.horyu.kkutuweb.ranking.response
 import me.horyu.kkutuweb.ranking.Rank
 
 data class ResponseRank(
-        val id: String,
-        val rank: Int,
-        val score: String
+    val id: String,
+    val rank: Int,
+    val score: String
 ) {
     companion object {
         fun fromRank(rank: Rank): ResponseRank {

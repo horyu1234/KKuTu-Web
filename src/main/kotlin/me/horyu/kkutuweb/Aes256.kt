@@ -31,7 +31,7 @@ private const val IV_LENGTH = 16
 
 @Component
 class AES256(
-        @Autowired private val kKuTuSetting: KKuTuSetting
+    @Autowired private val kKuTuSetting: KKuTuSetting
 ) {
     private val secretKeySpec: SecretKeySpec?
 

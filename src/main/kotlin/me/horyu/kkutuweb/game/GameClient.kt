@@ -23,10 +23,10 @@ import com.neovisionaries.ws.client.*
 import org.slf4j.LoggerFactory
 
 class GameClient(
-        private val isSecure: Boolean,
-        private val host: String,
-        private val port: Int,
-        private val id: Short
+    private val isSecure: Boolean,
+    private val host: String,
+    private val port: Int,
+    private val id: Short
 ) : WebSocketAdapter() {
     private val logger = LoggerFactory.getLogger(GameClient::class.java)
     private var webSocket: WebSocket? = null
@@ -42,9 +42,9 @@ class GameClient(
             val webSocketUrl = "$protocol://$host:$port/$id"
 
             webSocket = WebSocketFactory()
-                    .setConnectionTimeout(5000)
-                    .setVerifyHostname(false)
-                    .createSocket(webSocketUrl, 5000)
+                .setConnectionTimeout(5000)
+                .setVerifyHostname(false)
+                .createSocket(webSocketUrl, 5000)
 
             webSocket!!.addListener(this)
             webSocket!!.connectAsynchronously()
@@ -57,7 +57,12 @@ class GameClient(
         logger.info("$port @ 게임서버#${id} 가 연결되었습니다.")
     }
 
-    override fun onDisconnected(websocket: WebSocket, serverCloseFrame: WebSocketFrame, clientCloseFrame: WebSocketFrame, closedByServer: Boolean) {
+    override fun onDisconnected(
+        websocket: WebSocket,
+        serverCloseFrame: WebSocketFrame,
+        clientCloseFrame: WebSocketFrame,
+        closedByServer: Boolean
+    ) {
         if (closedByServer) logger.info("서버에 의해 $port @ 게임서버#${id} 의 연결이 끊어졌습니다.")
         else logger.info("$port @ 게임서버#${id} 의 연결이 끊어졌습니다.")
     }

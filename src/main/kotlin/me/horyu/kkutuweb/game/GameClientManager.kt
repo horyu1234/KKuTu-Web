@@ -26,7 +26,7 @@ import javax.annotation.PostConstruct
 
 @Component
 class GameClientManager(
-        @Autowired private val kKuTuSetting: KKuTuSetting
+    @Autowired private val kKuTuSetting: KKuTuSetting
 ) {
     private val gameClientList = ArrayList<GameClient>()
 

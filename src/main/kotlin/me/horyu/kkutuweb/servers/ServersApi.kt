@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ServersApi(
-        @Autowired private val kKuTuSetting: KKuTuSetting,
-        @Autowired private val gameClientManager: GameClientManager
+    @Autowired private val kKuTuSetting: KKuTuSetting,
+    @Autowired private val gameClientManager: GameClientManager
 ) {
     @GetMapping("/servers")
     fun getServers(): ServersResponse {

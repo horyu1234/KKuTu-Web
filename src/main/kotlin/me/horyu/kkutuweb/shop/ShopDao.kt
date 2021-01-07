@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ShopDao(
-        @Autowired private val jdbcTemplate: JdbcTemplate,
-        @Autowired private val shopMapper: GoodMapper
+    @Autowired private val jdbcTemplate: JdbcTemplate,
+    @Autowired private val shopMapper: GoodMapper
 ) {
     fun getGood(id: String): Good? {
         val sql = "SELECT * FROM kkutu_shop WHERE _id = ?"

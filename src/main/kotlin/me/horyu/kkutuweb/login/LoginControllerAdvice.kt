@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
 class LoginControllerAdvice(
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val loginService: LoginService
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val loginService: LoginService
 ) {
     @ModelAttribute("profile")
     fun getProfile(request: HttpServletRequest): String {

@@ -27,11 +27,13 @@ import javax.servlet.http.HttpSession
 
 @RestController
 class ConsumeApi(
-        @Autowired private val consumeService: ConsumeService
+    @Autowired private val consumeService: ConsumeService
 ) {
     @PostMapping("/consume/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun consume(@PathVariable id: String,
-                session: HttpSession): String {
+    fun consume(
+        @PathVariable id: String,
+        session: HttpSession
+    ): String {
         return consumeService.consume(id, session)
     }
 }

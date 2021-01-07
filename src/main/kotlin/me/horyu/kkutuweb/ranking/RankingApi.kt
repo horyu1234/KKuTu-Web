@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class RankingApi(
-        @Autowired private val rankingService: RankingService
+    @Autowired private val rankingService: RankingService
 ) {
     @GetMapping("/ranking")
-    fun ranking(@RequestParam(required = false) p: Long?,
-                @RequestParam(required = false) id: String?): RankResponse {
+    fun ranking(
+        @RequestParam(required = false) p: Long?,
+        @RequestParam(required = false) id: String?
+    ): RankResponse {
         return rankingService.getRanking(p, id)
     }
 }

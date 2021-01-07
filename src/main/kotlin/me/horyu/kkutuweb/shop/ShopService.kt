@@ -38,10 +38,10 @@ import kotlin.math.roundToInt
 
 @Service
 class ShopService(
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val shopDao: ShopDao,
-        @Autowired private val shopDetailDao: ShopDetailDao,
-        @Autowired private val userDao: UserDao
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val shopDao: ShopDao,
+    @Autowired private val shopDetailDao: ShopDetailDao,
+    @Autowired private val userDao: UserDao
 ) {
     private val logger = LoggerFactory.getLogger(ShopService::class.java)
 
@@ -70,10 +70,12 @@ class ShopService(
         userBoxJsonObj.type = "json"
         userBoxJsonObj.value = user.box.toJson()
 
-        userDao.updateUser(user.id, mapOf(
+        userDao.updateUser(
+            user.id, mapOf(
                 "money" to afterBuyMoney,
                 "box" to userBoxJsonObj
-        ))
+            )
+        )
         shopDao.increaseHit(id)
 
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
@@ -102,10 +104,12 @@ class ShopService(
         userBoxJsonObj.value = user.box.toJson()
 
         val afterPaybackMoney = user.money + (0.2 * good.cost).roundToInt()
-        userDao.updateUser(user.id, mapOf(
+        userDao.updateUser(
+            user.id, mapOf(
                 "money" to afterPaybackMoney,
                 "box" to userBoxJsonObj
-        ))
+            )
+        )
 
         val userName = if (user.nickname == null) userId else "${user.nickname} ($userId)"
         logger.info("$userName 님이 $id 상품을 환불했습니다.")
@@ -117,7 +121,10 @@ class ShopService(
         val boxObjectNode = box as ObjectNode
 
         if (term == null || term == 0) {
-            boxObjectNode.put(goodId, (if (boxObjectNode.has(goodId)) boxObjectNode.get(goodId).intValue() else 0) + value)
+            boxObjectNode.put(
+                goodId,
+                (if (boxObjectNode.has(goodId)) boxObjectNode.get(goodId).intValue() else 0) + value
+            )
         } else {
             if (boxObjectNode.has(goodId)) {
                 val goodJson = boxObjectNode.get(goodId) as ObjectNode
@@ -146,7 +153,9 @@ class ShopService(
             goodJson.put("value", afterConsumeValue)
 
             if (afterConsumeValue <= 0) {
-                if (force || !goodJson.has("expire") && goodJson.get("expire").intValue() == 0) boxObjectNode.remove(goodId)
+                if (force || !goodJson.has("expire") && goodJson.get("expire").intValue() == 0) boxObjectNode.remove(
+                    goodId
+                )
             }
         } else if (goodJson is IntNode) {
             val afterConsumeCount = goodJson.intValue() - value

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class RankingService(
-        @Autowired private val rankDao: RankDao
+    @Autowired private val rankDao: RankDao
 ) {
     fun getRanking(p: Long?, id: String?): RankResponse {
         return if (id == null) {

@@ -27,11 +27,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class DictApi(
-        @Autowired private val dictService: DictService
+    @Autowired private val dictService: DictService
 ) {
     @GetMapping("/dict/{word}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getWord(@PathVariable word: String,
-                @RequestParam lang: String): String {
+    fun getWord(
+        @PathVariable word: String,
+        @RequestParam lang: String
+    ): String {
         return dictService.getWord(word, lang)
     }
 }

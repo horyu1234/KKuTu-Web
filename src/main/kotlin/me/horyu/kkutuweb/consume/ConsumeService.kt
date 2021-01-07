@@ -36,10 +36,10 @@ import kotlin.math.sqrt
 
 @Service
 class ConsumeService(
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val userDao: UserDao,
-        @Autowired private val shopDao: ShopDao,
-        @Autowired private val shopService: ShopService
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val userDao: UserDao,
+    @Autowired private val shopDao: ShopDao,
+    @Autowired private val shopService: ShopService
 ) {
     fun consume(id: String, session: HttpSession): String {
         if (session.isGuest()) return "{\"error\":400}"
@@ -64,11 +64,13 @@ class ConsumeService(
         userBoxJsonObj.type = "json"
         userBoxJsonObj.value = user.box.toJson()
 
-        userDao.updateUser(user.id, mapOf(
+        userDao.updateUser(
+            user.id, mapOf(
                 "\"lastLogin\"" to System.currentTimeMillis(),
                 "kkutu" to userKKuTuJsonObj,
                 "box" to userBoxJsonObj
-        ))
+            )
+        )
 
         return if (useItemResult.exp == 0) {
             "{\"result\":200,\"box\":${user.box.toJson()},\"data\":${user.kkutu},\"gain\":[{\"key\":\"${useItemResult.gain.keys.toList()[0]}\",\"value\":${useItemResult.gain.values.toList()[0]}}]}"

@@ -26,7 +26,7 @@ import java.sql.ResultSet
 
 @Component
 class SessionMapper(
-        @Autowired val objectMapper: ObjectMapper
+    @Autowired val objectMapper: ObjectMapper
 ) : RowMapper<Session> {
     override fun mapRow(rs: ResultSet, rowNum: Int): Session {
         val profile = rs.getString("profile")

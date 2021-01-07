@@ -35,17 +35,17 @@ import javax.servlet.http.HttpSession
 import kotlin.math.roundToInt
 
 private val AVAIL_EQUIP = listOf(
-        "NIK", "BDG1", "BDG2", "BDG3", "BDG4",
-        "Mhead", "Meye", "Mmouth", "Mhand", "Mclothes", "Mshoes", "Mback"
+    "NIK", "BDG1", "BDG2", "BDG3", "BDG4",
+    "Mhead", "Meye", "Mmouth", "Mhand", "Mclothes", "Mshoes", "Mback"
 )
 
 @Service
 class UserService(
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val sessionDao: SessionDao,
-        @Autowired private val userDao: UserDao,
-        @Autowired private val shopDao: ShopDao,
-        @Autowired private val shopService: ShopService
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val sessionDao: SessionDao,
+    @Autowired private val userDao: UserDao,
+    @Autowired private val shopDao: ShopDao,
+    @Autowired private val shopService: ShopService
 ) {
     private val logger = LoggerFactory.getLogger(UserService::class.java)
 
@@ -66,11 +66,14 @@ class UserService(
         val oAuthUser = session.getOAuthUser()
         val userId = oAuthUser.getUserId()
 
-        val resultData = data.substring(0, if (data.length > maxExordialLength) maxExordialLength else data.length).trim()
+        val resultData =
+            data.substring(0, if (data.length > maxExordialLength) maxExordialLength else data.length).trim()
 
-        userDao.updateUser(userId, mapOf(
+        userDao.updateUser(
+            userId, mapOf(
                 "exordial" to if (resultData.isEmpty()) null else resultData
-        ))
+            )
+        )
 
         logger.info("$userId 님이 프로필을 수정했습니다. 소개 한마디: $resultData")
         return "{\"text\":\"$resultData\"}"
@@ -94,7 +97,13 @@ class UserService(
         if (equip.has(part)) {
             val equipingGood = user.box.get(id)
             if (equipingGood != null && (equipingGood.has("expire") && equipingGood.get("expire").intValue() > 0)) {
-                shopService.obtainGood(user.box, equip.get(part).textValue(), 1, equipingGood.get("expire").intValue(), true)
+                shopService.obtainGood(
+                    user.box,
+                    equip.get(part).textValue(),
+                    1,
+                    equipingGood.get("expire").intValue(),
+                    true
+                )
             } else {
                 val currentTime = (System.currentTimeMillis() * 0.001).roundToInt()
                 shopService.obtainGood(user.box, equip.get(part).textValue(), 1, currentTime + good.term, true)
@@ -118,10 +127,12 @@ class UserService(
         userEquipJsonObj.type = "json"
         userEquipJsonObj.value = user.equip.toJson()
 
-        userDao.updateUser(user.id, mapOf(
+        userDao.updateUser(
+            user.id, mapOf(
                 "box" to userBoxJsonObj,
                 "equip" to userEquipJsonObj
-        ))
+            )
+        )
         return "{\"result\":200,\"box\":${user.box.toJson()},\"equip\":${user.equip.toJson()}}"
     }
 }

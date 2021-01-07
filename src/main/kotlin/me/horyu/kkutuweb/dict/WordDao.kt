@@ -24,20 +24,20 @@ import org.springframework.stereotype.Component
 
 @Component
 class WordDao(
-        @Autowired private val jdbcTemplate: JdbcTemplate,
-        @Autowired private val wordMapper: WordMapper
+    @Autowired private val jdbcTemplate: JdbcTemplate,
+    @Autowired private val wordMapper: WordMapper
 ) {
     fun getKoreanWord(id: String): Word? {
         val sql = "SELECT * FROM kkutu_ko WHERE _id = ?"
 
-        val words = jdbcTemplate.query(sql, arrayOf(id), wordMapper)
+        val words = jdbcTemplate.query(sql, wordMapper, id)
         return if (words.isEmpty()) null else words.first()
     }
 
     fun getEnglishWord(id: String): Word? {
         val sql = "SELECT * FROM kkutu_en WHERE _id = ?"
 
-        val words = jdbcTemplate.query(sql, arrayOf(id), wordMapper)
+        val words = jdbcTemplate.query(sql, wordMapper, id)
         return if (words.isEmpty()) null else words.first()
     }
 }

@@ -32,7 +32,7 @@ class UserDao(
     fun getUser(id: String): User? {
         val sql = "SELECT * FROM users WHERE _id = ?"
 
-        val users = jdbcTemplate.query(sql, arrayOf(id), userMapper)
+        val users = jdbcTemplate.query(sql, userMapper, id)
         return if (users.isEmpty()) null else users.first()
     }
 

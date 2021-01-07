@@ -27,9 +27,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class SessionDao(
-        @Autowired private val jdbcTemplate: JdbcTemplate,
-        @Autowired private val objectMapper: ObjectMapper,
-        @Autowired private val sessionMapper: SessionMapper
+    @Autowired private val jdbcTemplate: JdbcTemplate,
+    @Autowired private val objectMapper: ObjectMapper,
+    @Autowired private val sessionMapper: SessionMapper
 ) {
     fun list(): List<Session> {
         val sql = "SELECT * FROM session"
@@ -40,7 +40,7 @@ class SessionDao(
     fun isExist(id: String): Boolean {
         val sql = "SELECT COUNT(*) FROM session WHERE _id = ?"
 
-        val count = jdbcTemplate.queryForObject(sql, arrayOf(id), Int::class.java)
+        val count = jdbcTemplate.queryForObject(sql, Int::class.java, id)
         return count > 0
     }
 
@@ -56,7 +56,8 @@ class SessionDao(
 
     fun updateNickname(userId: String, nick: String) {
         val safeNick = nick.replace("\"", "").replace("'", "")
-        val sql = "UPDATE session SET profile = profile::jsonb || '{\"title\":\"$safeNick\"}' WHERE profile ->> 'id' = ?"
+        val sql =
+            "UPDATE session SET profile = profile::jsonb || '{\"title\":\"$safeNick\"}' WHERE profile ->> 'id' = ?"
 
         jdbcTemplate.update(sql, userId)
     }

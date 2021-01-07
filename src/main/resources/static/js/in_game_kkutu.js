@@ -3543,7 +3543,7 @@
             var profile = $data.users[item.id];
 
             if (profile) profile = profile.profile.title || profile.profile.name;
-            else profile = Messages['kkutu.js.hidden'];
+            else profile = item.name || Messages['kkutu.js.hidden'];
 
             item.score = Number(item.score);
             $board.append($("<tr>").attr('id', "ranking-" + item.id)
@@ -3551,10 +3551,10 @@
                 .append($("<td>").html(item.rank + 1))
                 .append($("<td>")
                     .append(getLevelImage(item.score).addClass("ranking-image"))
-                    .append($("<label>").css('padding-top', 2).html(getLevel(item.score)))
+                    .append($("<label>").css('padding-top', 2).text(getLevel(item.score)))
                 )
-                .append($("<td>").html(profile))
-                .append($("<td>").html(commify(item.score)))
+                .append($("<td>").text(profile))
+                .append($("<td>").text(commify(item.score)))
             );
         });
         $("#ranking-" + $data.id).addClass("ranking-me");

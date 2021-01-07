@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb
 
+import me.horyu.kkutuweb.block.BlockService
 import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
@@ -43,6 +44,7 @@ class MainController(
     @Autowired private val kKuTuSetting: KKuTuSetting,
     @Autowired private val loginService: LoginService,
     @Autowired private val setupService: SetupService,
+    @Autowired private val blockService: BlockService,
     @Autowired private val sessionDao: SessionDao,
     @Autowired private val aeS256: AES256,
     @Autowired private val localePropertyLoader: LocalePropertyLoader
@@ -67,6 +69,11 @@ class MainController(
         if (server == null) {
             model.addAttribute("viewName", request.getView(View.REACT))
         } else {
+            if (blockService.getBlockStatus(request).blocked) {
+                logger.info("[${request.getIp()}] 정지된 상태로 서버 접속을 시도했습니다.$mobileLogText - 서버: $server")
+                return "redirect:/"
+            }
+
             val randomSid = generateRandomSid()
             if (!isGuest) {
                 sessionDao.insert(sessionProfile!!, randomSid)

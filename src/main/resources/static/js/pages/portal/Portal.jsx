@@ -26,16 +26,24 @@ import KakaoAd from "../../components/KakaoAd";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
 import {BrowserView} from "react-device-detect";
+import Axios from "axios";
+import Blocked from "../../components/blocked/Blocked";
 
 const Portal = () => {
     const [isInitializing, setInitializing] = useState(true);
     const [messages, setMessages] = useState({});
     const [servers, setServers] = useState([]);
     const [maxUserPerServer, setMaxUserPerServer] = useState(400);
+    const [blockStatus, setBlockStatus] = useState({});
 
     useEffect(() => {
         setMessages(Messages);
         setInitializing(false);
+
+        getBlockStatus().then(res => {
+            const data = res.data;
+            setBlockStatus(data);
+        })
 
         $("#Background").removeAttr('src').addClass("jt-image").css({
             'background-image': "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/gamebg.png')",
@@ -70,9 +78,14 @@ const Portal = () => {
         location.href = "/?server=" + id;
     }
 
+    const getBlockStatus = () => {
+        return Axios.get('/api/block');
+    }
+
     if (isInitializing) return <h1>Page Initializing...</h1>
     return (
         <>
+            {blockStatus.blocked && <Blocked blockInfo={blockStatus}/>}
             <Separator height={5}/>
             <TopLeftPanel onGameStart={onGameStart}/>
             <TopRightPanel joinServer={joinServer} onServerListUpdate={onServerListUpdate}/>

@@ -130,11 +130,11 @@ const Blocked = ({blockInfo}) => {
                         <DetailKey>정지 기간</DetailKey>
                         <DetailValue>{blockInfo.duration}</DetailValue>
                     </tr>
-                    <tr style={{fontSize: '18px'}}>
+                    <tr style={{fontSize: '18px', color: '#FF9800'}}>
                         <DetailKey>해제까지 남은 시간</DetailKey>
                         <DetailValue>{blockInfo.remain}</DetailValue>
                     </tr>
-                    <tr style={{fontSize: '18px'}}>
+                    <tr style={{fontSize: '18px', color: '#FF9800'}}>
                         <DetailKey>정지 사유</DetailKey>
                         <DetailValue>{blockInfo.reason}</DetailValue>
                     </tr>

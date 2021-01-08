@@ -44,6 +44,12 @@ class GameClientManager(
         }
     }
 
+    fun kick(userId: String, ip: String) {
+        for (gameClient in gameClientList) {
+            gameClient.send("{\"type\":\"kick\",\"userId\":\"$userId\",\"ip\": \"$ip\"}")
+        }
+    }
+
     fun getPlayers(): List<Int?> {
         return gameClientList.map {
             if (it.isConnected()) it.players else null

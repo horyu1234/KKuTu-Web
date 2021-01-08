@@ -70,6 +70,8 @@ class KKuTuSetting(
         )
     }
 
+    fun getApiKey() = settingNode["api-key"].textValue()!!
+
     fun getCryptoKey() = settingNode["crypto-key"].textValue()!!
 
     fun getKoThemes() = settingNode["word"]["themes"]["normal"]["ko"].toList().map(JsonNode::textValue)

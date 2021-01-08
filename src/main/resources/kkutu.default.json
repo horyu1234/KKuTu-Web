@@ -10,6 +10,7 @@
       "cid": 1
     }
   ],
+  "api-key": "<API Key>",
   "crypto-key": "<32 Length Secret Key>",
   "moremi": {
     "parts": [

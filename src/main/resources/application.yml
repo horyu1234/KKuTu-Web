@@ -23,6 +23,8 @@ spring:
     password: <Password>
   jpa:
     open-in-view: false
+  cache:
+    type: simple
   redis:
     lettuce:
       pool:

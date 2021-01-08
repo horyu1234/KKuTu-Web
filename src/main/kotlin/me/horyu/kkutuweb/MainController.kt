@@ -22,6 +22,7 @@ import me.horyu.kkutuweb.block.BlockService
 import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
+import me.horyu.kkutuweb.ranking.NicknameCacheService
 import me.horyu.kkutuweb.ranking.RankingService
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.setting.KKuTuSetting
@@ -47,6 +48,7 @@ class MainController(
     @Autowired private val setupService: SetupService,
     @Autowired private val blockService: BlockService,
     @Autowired private val rankingService: RankingService,
+    @Autowired private val nicknameCacheService: NicknameCacheService,
     @Autowired private val sessionDao: SessionDao,
     @Autowired private val aeS256: AES256,
     @Autowired private val localePropertyLoader: LocalePropertyLoader
@@ -123,7 +125,7 @@ class MainController(
             if (isGuest) {
                 logger.info("[${request.getIp()}] 손님으로 게임에 접속했습니다.$mobileLogText - 서버: $server")
             } else {
-                rankingService.clearNicknameCache(sessionProfile!!.id)
+                nicknameCacheService.clearNicknameCache(sessionProfile!!.id)
 
                 logger.info("[${request.getIp()}] $nickname(${sessionProfile.id}) 님이 게임에 접속했습니다.$mobileLogText - 서버: $server")
             }

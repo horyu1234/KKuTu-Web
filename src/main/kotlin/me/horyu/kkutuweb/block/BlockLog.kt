@@ -20,16 +20,19 @@ package me.horyu.kkutuweb.block
 
 import me.horyu.kkutuiodiscordbot.domain.BlockType
 import me.horyu.kkutuiodiscordbot.domain.LogType
+import me.horyu.kkutuweb.extension.toTimestamp
 import java.sql.Timestamp
+import java.time.LocalDateTime
 
 data class BlockLog(
     val id: Int = 0,
-    val where: BlockType,
-    val type: LogType,
+    val logTime: Timestamp,
+    val logType: LogType,
+    val blockType: BlockType,
     val caseId: Int? = null,
     val userId: String? = null,
     val ipAddress: String? = null,
-    val time: Timestamp,
+    val blockTime: Timestamp,
     val pardonTime: Timestamp? = null,
     val reason: String,
     val punishFrom: PunishFrom,
@@ -39,8 +42,9 @@ data class BlockLog(
         fun fromAddOf(blockUser: BlockUser, logType: LogType = LogType.ADD): BlockLog {
             return BlockLog(
                 0,
-                BlockType.USER,
+                LocalDateTime.now().toTimestamp(),
                 logType,
+                BlockType.USER,
                 blockUser.id,
                 blockUser.userId,
                 null,
@@ -55,8 +59,9 @@ data class BlockLog(
         fun fromAddOf(blockIp: BlockIp, logType: LogType = LogType.ADD): BlockLog {
             return BlockLog(
                 0,
-                BlockType.IP,
+                LocalDateTime.now().toTimestamp(),
                 logType,
+                BlockType.IP,
                 blockIp.id,
                 null,
                 blockIp.ipAddress,
@@ -71,8 +76,9 @@ data class BlockLog(
         fun fromAddOf(blockChat: BlockChat, logType: LogType = LogType.ADD): BlockLog {
             return BlockLog(
                 0,
-                BlockType.CHAT,
+                LocalDateTime.now().toTimestamp(),
                 logType,
+                BlockType.CHAT,
                 blockChat.id,
                 blockChat.userId,
                 null,

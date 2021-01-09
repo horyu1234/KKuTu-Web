@@ -19,6 +19,7 @@
 package me.horyu.kkutuweb.setup
 
 import me.horyu.kkutuweb.extension.getIp
+import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.view.View
 import me.horyu.kkutuweb.view.Views.getView
@@ -45,8 +46,8 @@ class SetupController(
         request: HttpServletRequest,
         session: HttpSession
     ): String {
+        val isGuest = session.isGuest()
         val sessionProfile = loginService.getSessionProfile(session)
-        val isGuest = sessionProfile == null
 
         if (isGuest || !setupService.needSetup(sessionProfile!!)) {
             return "redirect:/"

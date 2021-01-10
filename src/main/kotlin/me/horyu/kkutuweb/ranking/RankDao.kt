@@ -24,6 +24,8 @@ import org.springframework.stereotype.Component
 import kotlin.math.max
 import kotlin.math.roundToInt
 
+private const val REDIS_KEY = "KKuTu_Score"
+
 @Component
 class RankDao(
     @Autowired val redisTemplate: RedisTemplate<String, Any>
@@ -35,9 +37,14 @@ class RankDao(
         return getRanks(start, end)
     }
 
+    fun remove(id: String) {
+        val opsForZSet = redisTemplate.opsForZSet()
+        opsForZSet.remove(REDIS_KEY, id)
+    }
+
     fun getSurround(id: String, dataCount: Int): List<Rank> {
         val opsForZSet = redisTemplate.opsForZSet()
-        val reverseRank = opsForZSet.reverseRank("KKuTu_Score", id)!!
+        val reverseRank = opsForZSet.reverseRank(REDIS_KEY, id)!!
 
         val start = max(0, reverseRank - (dataCount / 2.0 + 1.0).roundToInt())
         val end = start + dataCount - 1
@@ -47,7 +54,7 @@ class RankDao(
 
     private fun getRanks(start: Long, end: Long): List<Rank> {
         val opsForZSet = redisTemplate.opsForZSet()
-        val scores = opsForZSet.reverseRangeWithScores("KKuTu_Score", start, end)
+        val scores = opsForZSet.reverseRangeWithScores(REDIS_KEY, start, end)
 
         val ranks = ArrayList<Rank>()
         var curRank = start

@@ -1891,7 +1891,7 @@ iframe {
     overflow-y: scroll;
 }
 
-#MessageInput {
+#Talk {
     float: left;
     border-right: none;
     border-top-right-radius: 0;
@@ -1899,16 +1899,8 @@ iframe {
     margin-top: 5px;
     width: calc(100% - 82px);
     height: 20px;
-}
-
-#ChatBtn {
-    float: left;
-    border-left: none;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    margin-top: 5px;
-    width: 60px;
-    height: 20px;
+    display: none;
+    visibility: hidden;
 }
 
 #Chat hr, #chat-log-board hr {

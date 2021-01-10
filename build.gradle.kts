@@ -47,6 +47,7 @@ sourceSets {
             exclude("kkutu.json", "kkutu.default.json")
             exclude("oauth.json", "oauth.default.json")
             exclude("**/*.jsx", "**/in_game_kkutu_help.js", "**/in_login.js", "**/in_portal.js", "**/oauth-buttons.js")
+            exclude("in_game_kkutu.js")
         }
     }
 }

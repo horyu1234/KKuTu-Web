@@ -20,6 +20,7 @@ import React from "react";
 import {LogoArea, LogoImg, LogoText, MenuBar, MenuBarText, TopLeftPanelContainer} from "./TopLeftPanelStyle";
 import {BrowserView, MobileView} from 'react-device-detect';
 import JJoriping from "./JJoriping";
+import GameInfo from "../../components/gameinfo/GameInfo";
 
 const TopLeftPanel = ({onGameStart}) => {
     return (
@@ -29,6 +30,9 @@ const TopLeftPanel = ({onGameStart}) => {
                 <LogoImg src="/img/kkutu/short_logo.png" alt={Messages['portal.logo.alt']}/>
             </LogoArea>
             <BrowserView>
+                <div style={{float: 'left', marginLeft: '80px'}}>
+                    <GameInfo/>
+                </div>
                 <MenuBar>
                     <MenuBarText color="#7289DA" target="_blank" href="//discord.gg/hzZa2YsfZQ">공식 디스코드</MenuBarText>
                 </MenuBar>

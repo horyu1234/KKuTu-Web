@@ -43,6 +43,19 @@ equ {
     text-shadow: 0px 0px 3px #000000;
 }
 
+#intro {
+    position: relative;
+}
+
+.game-grade-badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 73px !important;
+    height: 91px !important;
+    padding: 10px;
+}
+
 #intro-text {
     position: absolute;
     top: 10%;

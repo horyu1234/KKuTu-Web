@@ -57,7 +57,7 @@ export const LogoImg = styled.img`
 export const MenuBar = styled.div`
   ${isBrowser && `
       float: right;
-      margin-top: 25px;
+      margin-top: 34px;
    `} ${isMobile && `
       float: left;
       width: 200px;

@@ -31,7 +31,45 @@
     <title th:text="#{title}"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script type="text/javascript">
+
+    <script
+            src="https://browser.sentry-cdn.com/6.0.0/bundle.min.js"
+            integrity="sha384-NgJoCNCq1mmUTPa0pdGvQap/A1iALF8fTOkhj269GOr6K4b/fIVG5K+aUNKD/aqP"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://browser.sentry-cdn.com/6.0.0/bundle.tracing.min.js"
+            integrity="sha384-qZ/lkPTGmlJ1yNA9wiF4jyKK/g9t3Dvbd8iJtape2uINHwWGhJuNCvidIQNOxKHU"
+            crossorigin="anonymous"
+    ></script>
+
+    <script type="text/javascript" th:inline="javascript">
+        var loginProfile = /*[[${profile}]]*/'';
+
+        if (window.hasOwnProperty('Sentry')) {
+            Sentry.init({
+                dsn: "https://40af3053aa4c4622a1af2d13c08a7fdf@o508489.ingest.sentry.io/5601078",
+                environment: "production", // production
+                release: "kkutu-io-frontend@1.0.5b",
+                integrations: [new Sentry.Integrations.BrowserTracing()],
+
+                // We recommend adjusting this value in production, or using tracesSampler
+                // for finer control
+                tracesSampleRate: 1.0,
+            });
+
+            if (loginProfile !== 'null') {
+                var loginProfileJson = JSON.parse(loginProfile);
+                Sentry.setUser({
+                    id: loginProfileJson.id,
+                    username: loginProfileJson.title,
+                    ip_address: '{{auto}}'
+                });
+            }
+        } else {
+            console.warn('AdBlock 등의 원인으로 오류 로그 수집기를 로드하지 못했습니다.');
+        }
+
         function getObject(v, i) {
             Object.defineProperty(v, i, {value: v[i], writable: false});
         }

@@ -78,6 +78,8 @@ dependencies {
     implementation("com.github.scribejava:scribejava-apis:7.1.1")
     implementation("org.postgresql:postgresql:42.2.16")
     implementation("com.googlecode.htmlcompressor:htmlcompressor:1.5.2")
+    implementation("io.sentry:sentry-spring-boot-starter:4.0.0-alpha.3")
+    implementation("io.sentry:sentry-logback:4.0.0-alpha.3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

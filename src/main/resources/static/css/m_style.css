@@ -381,6 +381,10 @@ span {
     width: 100%;
 }
 
+#Middle.has-notice {
+    margin-top: 100px;
+}
+
 #Bottom {
     float: left;
     width: 1000px;

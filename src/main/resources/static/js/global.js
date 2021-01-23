@@ -90,9 +90,13 @@ var L;
         } else {
             $.cookie('test', "");
         }
-        if (gn.length > 1) $gn.show();
-        $gn.on('click', function (e) {
+        if (gn.length > 1) {
+            $gn.show();
+            $('#Middle').addClass('has-notice');
+        }
+        $gn.on('click', function(e) {
             $gn.hide();
+            $('#Middle').removeClass('has-notice');
         });
 
         $(window).on('resize', function (e) {

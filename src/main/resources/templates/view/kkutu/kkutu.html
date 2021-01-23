@@ -640,8 +640,9 @@
     <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title=#{kkutu.product.chat.title})}">
         <th:block layout:fragment="content">
             <div id="Chat"></div>
-            <input id="Talk" maxlength="180" autocomplete="off" style="display:none;visibility:hidden;">
-            <input id="MessageInput" maxlength="180" autocomplete="off">
+            <input class="chat-input" id="Talk" maxlength="180" autocomplete="off"
+                   style="display:none;visibility:hidden;">
+            <input class="chat-input" id="MessageInput" maxlength="180" autocomplete="off">
             <button id="ChatBtn" th:text="#{kkutu.product.chat.sendBtn}"></button>
         </th:block>
     </th:block>

@@ -298,6 +298,10 @@ iframe {
     height: 18px;
 }
 
+td.ranking-name {
+    max-width: 115px;
+}
+
 .moremi {
     position: relative;
 }

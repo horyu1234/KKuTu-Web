@@ -313,6 +313,10 @@ iframe {
     background-color: chocolate;
 }
 
+td.ranking-name {
+    max-width: 115px;
+}
+
 .moremi {
     position: relative;
 }

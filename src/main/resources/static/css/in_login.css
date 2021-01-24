@@ -33,9 +33,17 @@ button {
     display: block;
 }
 
+.login-reason {
+    text-align: center;
+    padding-top: 30px;
+    margin: 30px 0;
+    font-size: 24px;
+    color: #2DBAFF;
+}
+
 .login-with {
     padding-top: 30px;
-    margin: 30px 0px;
+    margin: 30px 0;
     text-align: center;
 }
 

@@ -20,10 +20,11 @@ package me.horyu.kkutuweb
 
 import me.horyu.kkutuweb.block.BlockService
 import me.horyu.kkutuweb.extension.getIp
+import me.horyu.kkutuweb.geo.GeoService
+import me.horyu.kkutuweb.ip.IpCheckService
 import me.horyu.kkutuweb.locale.LocalePropertyLoader
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.ranking.NicknameCacheService
-import me.horyu.kkutuweb.ranking.RankingService
 import me.horyu.kkutuweb.session.SessionDao
 import me.horyu.kkutuweb.setting.KKuTuSetting
 import me.horyu.kkutuweb.setup.SetupService
@@ -47,7 +48,8 @@ class MainController(
     @Autowired private val loginService: LoginService,
     @Autowired private val setupService: SetupService,
     @Autowired private val blockService: BlockService,
-    @Autowired private val rankingService: RankingService,
+    @Autowired private val ipCheckService: IpCheckService,
+    @Autowired private val geoService: GeoService,
     @Autowired private val nicknameCacheService: NicknameCacheService,
     @Autowired private val sessionDao: SessionDao,
     @Autowired private val aeS256: AES256,
@@ -73,8 +75,28 @@ class MainController(
         if (server == null) {
             model.addAttribute("viewName", request.getView(View.REACT))
         } else {
+            val ip = request.getIp()
+            if (isGuest) {
+                val blacklistType = ipCheckService.getBlacklistType(ip)
+                if (blacklistType != null) {
+                    session.setAttribute("loginReason", "3G/LTE/5G 이용자는 로그인 후 게임 이용이 가능합니다.")
+                    return "redirect:/login"
+                }
+
+                try {
+                    val geoCountry = geoService.getGeoCountry(ip)
+                    if (geoCountry != null && geoCountry != "KR") {
+                        session.setAttribute("loginReason", "해외 이용자는 로그인 후 게임 이용이 가능합니다.")
+                        logger.info("[$ip] 해외에서 접속하여 로그인 페이지로 이동합니다. 국가: $geoCountry")
+                        return "redirect:/login"
+                    }
+                } catch (e: Exception) {
+                    logger.warn("[$ip] 국가 정보를 가져오는 중 문제가 발생했습니다.", e)
+                }
+            }
+
             if (blockService.getBlockStatus(request).blocked) {
-                logger.info("[${request.getIp()}] 정지된 상태로 서버 접속을 시도했습니다.$mobileLogText - 서버: $server")
+                logger.info("[$ip] 정지된 상태로 서버 접속을 시도했습니다.$mobileLogText - 서버: $server")
                 return "redirect:/"
             }
 
@@ -123,11 +145,11 @@ class MainController(
             model.addAttribute("viewName", request.getView(View.KKUTU))
 
             if (isGuest) {
-                logger.info("[${request.getIp()}] 손님으로 게임에 접속했습니다.$mobileLogText - 서버: $server")
+                logger.info("[$ip] 손님으로 게임에 접속했습니다.$mobileLogText - 서버: $server")
             } else {
                 nicknameCacheService.clearNicknameCache(sessionProfile!!.id)
 
-                logger.info("[${request.getIp()}] $nickname(${sessionProfile.id}) 님이 게임에 접속했습니다.$mobileLogText - 서버: $server")
+                logger.info("[$ip] $nickname(${sessionProfile.id}) 님이 게임에 접속했습니다.$mobileLogText - 서버: $server")
             }
         }
 

@@ -33,3 +33,6 @@ spring:
         min-idle: 2
     host: <Host>
     port: <Port>
+
+geo:
+  api-key: <Api Key>

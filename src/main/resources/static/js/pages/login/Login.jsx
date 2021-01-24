@@ -18,24 +18,28 @@
 
 import React, {useEffect, useState} from "react";
 import Axios from "axios";
+import Loading from "../../components/loading/Loading";
 
 import '../../oauth-buttons.min'
 
 import '../../../css/oauth-buttons.min.css';
 import '../../../css/in_login.css';
-import Loading from "../../components/loading/Loading";
 
 const Login = () => {
     const [vendors, setVendors] = useState([]);
+    const [loginReason, setLoginReason] = useState('');
 
     useEffect(() => {
-        getVendorList().then(res => {
-            setVendors(res.data);
-        })
+        getVendorList().then(res => setVendors(res.data))
+        getLoginReason().then(res => setLoginReason(res.data))
     }, [])
 
     const getVendorList = () => {
         return Axios.get('/api/login/vendor');
+    }
+
+    const getLoginReason = () => {
+        return Axios.get('/api/login/reason');
     }
 
     const handleClickLogin = (vendor) => {
@@ -45,6 +49,7 @@ const Login = () => {
     if (vendors.length === 0) return <Loading/>;
     return (
         <>
+            {loginReason && <div className="login-reason">{loginReason}</div>}
             <div className="login-with">{Messages['login.title']}</div>
 
             {

@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.servlet.http.HttpSession
 
 @RestController
 @RequestMapping("/api/login")
@@ -34,5 +35,13 @@ class LoginAPI(
         return oAuthSetting.getSetting().entries
             .sortedBy { it.value.order }
             .map { it.key.name.toLowerCase() }
+    }
+
+    @GetMapping("/reason")
+    fun getLoginReason(session: HttpSession): String {
+        val reason = session.getAttribute("loginReason")?.toString() ?: ""
+        session.removeAttribute("loginReason")
+
+        return reason
     }
 }

@@ -33,7 +33,15 @@ class GameClientManager(
     @PostConstruct
     fun init() {
         for (gameServer in kKuTuSetting.getGameServers()) {
-            gameClientList.add(GameClient(gameServer.isSecure, gameServer.host, gameServer.port, gameServer.cid))
+            gameClientList.add(
+                GameClient(
+                    gameServer.isSecure,
+                    gameServer.host,
+                    gameServer.port,
+                    gameServer.key,
+                    gameServer.cid
+                )
+            )
         }
     }
 

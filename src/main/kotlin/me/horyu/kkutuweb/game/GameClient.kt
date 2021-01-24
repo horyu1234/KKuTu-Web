@@ -26,6 +26,7 @@ class GameClient(
     private val isSecure: Boolean,
     private val host: String,
     private val port: Int,
+    private val key: String,
     private val id: Short
 ) : WebSocketAdapter() {
     private val logger = LoggerFactory.getLogger(GameClient::class.java)
@@ -39,7 +40,7 @@ class GameClient(
     private fun connectWebSocket() {
         try {
             val protocol = if (isSecure) "wss" else "ws"
-            val webSocketUrl = "$protocol://$host:$port/$id"
+            val webSocketUrl = "$protocol://$host:$port/$key:$id"
 
             webSocket = WebSocketFactory()
                 .setConnectionTimeout(5000)

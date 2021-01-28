@@ -46,7 +46,7 @@ const Portal = () => {
         })
 
         $("#Background").removeAttr('src').addClass("jt-image").css({
-            'background-image': "url('https://cdn.jsdelivr.net/npm/kkutuio@latest/img/kkutu/gamebg.png')",
+            'background-image': "url('/img/kkutu/gamebg.png')",
             'background-size': "200px 200px"
         });
     }, [])

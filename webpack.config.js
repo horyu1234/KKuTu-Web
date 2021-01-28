@@ -30,14 +30,11 @@ module.exports = (env, options) => {
     return {
         entry: {
             vendor: ['@babel/polyfill'],
-            in_game_kkutu_help: path.resolve(devPath, 'in_game_kkutu_help.js'),
             appEntry: path.resolve(devPath, 'AppEntry.jsx')
         },
         output: {
             path: deployPath,
-            filename: '[name].min.js',
-            library: ['KKuTu', '[name]'],
-            libraryTarget: "umd"
+            filename: '[name].min.js'
         },
         module: {
             rules: [

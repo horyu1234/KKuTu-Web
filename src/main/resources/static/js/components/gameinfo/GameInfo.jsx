@@ -31,7 +31,7 @@ const GameInfo = () => {
     return (
         <>
             <div style={{display: 'flex'}}>
-                <img src={GameGradeAllImg} alt="전체 이용가" width="53" height="71"/>
+                <img src={GameGradeAllImg} alt="전체이용가" width="53" height="71"/>
                 <table className="game-info-table" onClick={handleClick}>
                     <tbody>
                     <tr>
@@ -42,7 +42,7 @@ const GameInfo = () => {
                     </tr>
                     <tr>
                         <td>이용등급</td>
-                        <td>전체 이용가</td>
+                        <td>전체이용가</td>
                         <td>등급분류번호</td>
                         <td>제 CC-NP-210121-005 호</td>
                     </tr>

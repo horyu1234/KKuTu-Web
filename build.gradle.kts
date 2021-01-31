@@ -26,7 +26,7 @@ plugins {
 }
 
 group = "me.horyu"
-version = "1.0.5b"
+version = "1.0.6"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

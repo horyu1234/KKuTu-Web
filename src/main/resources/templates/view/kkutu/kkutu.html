@@ -637,15 +637,22 @@
             <div class="bar-text my-gauge-text"></div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/product::product(id='Chat',title=#{kkutu.product.chat.title})}">
-        <th:block layout:fragment="content">
+    <div class="ChatBox Product" style="display:none">
+        <h5 class="product-title">
+            <span th:utext="#{kkutu.product.chat.title}" style="display: block"></span>
+        </h5>
+        <div style="display: flex;float: right;margin-top: -22px">
+            <input type="checkbox" id="chat-auto-scroll-cbx" checked="checked" style="margin-top: 1px"/>
+            <label for="chat-auto-scroll-cbx" style="font-size: 12px;margin-right: 5px">채팅 자동 스크롤</label>
+        </div>
+        <div class="product-body">
             <div id="Chat"></div>
             <input class="chat-input" id="Talk" maxlength="180" autocomplete="off"
                    style="display:none;visibility:hidden;">
             <input class="chat-input" id="MessageInput" maxlength="180" autocomplete="off">
             <button id="ChatBtn" th:text="#{kkutu.product.chat.sendBtn}"></button>
-        </th:block>
-    </th:block>
+        </div>
+    </div>
     <th:block
             layout:replace="~{view/kkutu/product::product(id='TLXFQZ',title=#{portal.ad.title},createWithShown=true)}">
         <th:block layout:fragment="content">
@@ -659,5 +666,5 @@
 
     <script src="https://www.google.com/recaptcha/api.js" type="text/javascript"></script>
     <script src="/js/kawaiii.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/in_game_kkutu.js?v=2"></script>
+    <script type="text/javascript" src="/js/in_game_kkutu.min.js?v=3"></script>
 </div>

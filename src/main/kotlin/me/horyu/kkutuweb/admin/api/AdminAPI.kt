@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.admin
+package me.horyu.kkutuweb.admin.api
 
 import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.game.GameClientManager

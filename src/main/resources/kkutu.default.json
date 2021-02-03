@@ -11,6 +11,9 @@
       "cid": 1
     }
   ],
+  "admins": [
+    "<User ID>"
+  ],
   "api-key": "<API Key>",
   "crypto-key": "<32 Length Secret Key>",
   "moremi": {

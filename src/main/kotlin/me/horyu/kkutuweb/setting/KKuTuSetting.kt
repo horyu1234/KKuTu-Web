@@ -71,6 +71,8 @@ class KKuTuSetting(
         )
     }
 
+    fun getAdminIds() = settingNode["admins"].toList().map { it.textValue() }
+
     fun getApiKey() = settingNode["api-key"].textValue()!!
 
     fun getCryptoKey() = settingNode["crypto-key"].textValue()!!

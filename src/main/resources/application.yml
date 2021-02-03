@@ -33,6 +33,10 @@ spring:
         min-idle: 2
     host: <Host>
     port: <Port>
+  cors:
+    pattern: /api/admin/**
+    methods: GET
+    allowed-origins: <Origin>
 
 geo:
   api-key: <Api Key>

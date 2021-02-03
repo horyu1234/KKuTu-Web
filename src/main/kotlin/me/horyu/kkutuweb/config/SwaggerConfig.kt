@@ -22,7 +22,7 @@ import me.horyu.kkutuweb.setting.KKuTuSetting
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry
+import org.springframework.context.annotation.Profile
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
@@ -33,10 +33,10 @@ import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @Configuration
+@Profile("dev")
 @EnableSwagger2
 class SwaggerConfig(
-    @Autowired private val setting: KKuTuSetting,
-    @Autowired private val swaggerSecurityInterceptor: SwaggerSecurityInterceptor
+    @Autowired private val setting: KKuTuSetting
 ) : WebMvcConfigurer {
     @Bean
     fun api(): Docket {
@@ -54,10 +54,5 @@ class SwaggerConfig(
             .description("끄투리오 API 명세")
             .version(setting.getVersion())
             .build()
-    }
-
-    override fun addInterceptors(registry: InterceptorRegistry) {
-        registry.addInterceptor(swaggerSecurityInterceptor)
-            .addPathPatterns("/swagger-ui.html", "/swagger-resources/**", "/webjars/springfox-swagger-ui/**")
     }
 }

@@ -81,6 +81,9 @@ dependencies {
     implementation("io.sentry:sentry-spring-boot-starter:4.0.0-alpha.3")
     implementation("io.sentry:sentry-logback:4.0.0-alpha.3")
 
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }

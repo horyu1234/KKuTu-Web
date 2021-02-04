@@ -10,6 +10,8 @@ server:
       store-dir: <Your Session Dir>
 
 spring:
+  application:
+    name: kkutu-web
   thymeleaf:
     cache: true
   messages:
@@ -37,6 +39,30 @@ spring:
     pattern: /api/admin/**
     methods: GET
     allowed-origins: <Origin>
+  security:
+    user:
+      name: <Username>
+      password: <Password>
+  boot:
+    admin:
+      client:
+        url: <Monitoring Server>
+        username: <Username>
+        password: <Password>
+        instance:
+          service-url: <Service Url>
+          metadata:
+            user.name: ${spring.security.user.name}
+            user.password: ${spring.security.user.password}
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 geo:
   api-key: <Api Key>

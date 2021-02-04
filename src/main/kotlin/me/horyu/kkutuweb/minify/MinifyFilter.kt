@@ -29,12 +29,15 @@ class MinifyFilter : Filter {
     private var htmlCompressor = HtmlCompressor()
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-        val responseWrapper = CharResponseWrapper(response as HttpServletResponse)
-        chain.doFilter(request, responseWrapper)
+        try {
+            val responseWrapper = CharResponseWrapper(response as HttpServletResponse)
+            chain.doFilter(request, responseWrapper)
 
-        val servletResponse = responseWrapper.toString()
-        if (!response.isCommitted()) {
-            response.getWriter().write(htmlCompressor.compress(servletResponse))
+            val servletResponse = responseWrapper.toString()
+            if (!response.isCommitted()) {
+                response.getWriter().write(htmlCompressor.compress(servletResponse))
+            }
+        } catch (e: Exception) {
         }
     }
 

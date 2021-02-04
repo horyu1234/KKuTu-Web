@@ -68,11 +68,13 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
 
+    implementation("de.codecentric:spring-boot-admin-starter-client:2.3.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.neovisionaries:nv-websocket-client:2.10")
     implementation("com.github.scribejava:scribejava-apis:7.1.1")

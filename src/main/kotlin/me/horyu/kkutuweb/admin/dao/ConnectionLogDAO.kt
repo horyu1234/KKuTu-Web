@@ -32,10 +32,14 @@ class ConnectionLogDAO(
     @Autowired private val connectionLogMapper: ConnectionLogMapper,
     @Autowired private val singleNumberMapper: SingleNumberMapper
 ) {
-    fun getDataCount(): Int {
-        val sql = "SELECT COUNT(*) FROM connection_log"
+    fun getDataCount(
+        searchFilters: Map<String, String>
+    ): Int {
+        val whereQuery = whereQuery(searchFilters)
+        val whereValues = whereValues(searchFilters)
 
-        val list = jdbcTemplate.query(sql, singleNumberMapper)
+        val sql = countQuery(whereQuery)
+        val list = jdbcTemplate.query(sql, singleNumberMapper, *whereValues)
         return list[0]
     }
 
@@ -46,17 +50,37 @@ class ConnectionLogDAO(
         sortType: SortType,
         searchFilters: Map<String, String>
     ): List<ConnectionLog> {
+        val whereQuery = whereQuery(searchFilters)
+        val whereValues = whereValues(searchFilters)
+
+        val sql = selectQuery(whereQuery, sortField, sortType, pageSize, page)
+        return jdbcTemplate.query(sql, connectionLogMapper, *whereValues)
+    }
+
+    private fun whereQuery(searchFilters: Map<String, String>): String {
         val whereQueryParts = ArrayList<String>()
         for (key in searchFilters.keys) {
             whereQueryParts.add("CAST($key AS TEXT) ILIKE ?")
         }
 
-        val whereQuery = if (whereQueryParts.isEmpty()) "" else "WHERE " + whereQueryParts.joinToString(" AND ")
-        val whereValues = searchFilters.values.map { "%${it}%" }.toTypedArray()
+        return if (whereQueryParts.isEmpty()) "" else "WHERE " + whereQueryParts.joinToString(" AND ")
+    }
 
-        val sql =
-            "SELECT * FROM connection_log $whereQuery ORDER BY $sortField ${sortType.name} LIMIT $pageSize OFFSET ${page * pageSize}"
+    private fun whereValues(searchFilters: Map<String, String>): Array<String> {
+        return searchFilters.values.map { "%${it}%" }.toTypedArray()
+    }
 
-        return jdbcTemplate.query(sql, connectionLogMapper, *whereValues)
+    private fun countQuery(whereQuery: String): String {
+        return "SELECT COUNT(*) FROM connection_log $whereQuery"
+    }
+
+    private fun selectQuery(
+        whereQuery: String,
+        sortField: String,
+        sortType: SortType,
+        pageSize: Int,
+        page: Int
+    ): String {
+        return "SELECT * FROM connection_log $whereQuery ORDER BY $sortField ${sortType.name} LIMIT $pageSize OFFSET ${page * pageSize}"
     }
 }

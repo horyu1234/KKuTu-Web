@@ -41,7 +41,7 @@ class ConnectionLogService(
 
         val dbSearchFilters = searchFilters.filterValues { it.isNotEmpty() }
 
-        val dataCount = connectionLogDAO.getDataCount()
+        val dataCount = connectionLogDAO.getDataCount(dbSearchFilters)
         val pageData = connectionLogDAO.getPageData(page, pageSize, sortField, sortType, dbSearchFilters)
             .map { ConnectionLogVO.convertFrom(it) }
 

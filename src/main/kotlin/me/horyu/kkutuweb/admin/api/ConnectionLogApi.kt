@@ -44,12 +44,12 @@ class ConnectionLogApi(
         @RequestParam(required = true, name = "page") page: Int,
         @RequestParam(required = true, name = "size") pageSize: Int,
         @RequestParam(required = true, name = "sort") sortData: String,
-        @RequestParam(required = false, defaultValue = "") userId: String,
-        @RequestParam(required = false, defaultValue = "") userName: String,
-        @RequestParam(required = false, defaultValue = "") userIp: String,
-        @RequestParam(required = false, defaultValue = "") channel: String,
-        @RequestParam(required = false, defaultValue = "") userAgent: String,
-        @RequestParam(required = false, defaultValue = "") fingerPrint2: String,
+        @RequestParam(required = false, name = "user_id", defaultValue = "") userId: String,
+        @RequestParam(required = false, name = "user_name", defaultValue = "") userName: String,
+        @RequestParam(required = false, name = "user_ip", defaultValue = "") userIp: String,
+        @RequestParam(required = false, name = "channel", defaultValue = "") channel: String,
+        @RequestParam(required = false, name = "user_agent", defaultValue = "") userAgent: String,
+        @RequestParam(required = false, name = "finger_print_2", defaultValue = "") fingerPrint2: String,
         session: HttpSession
     ): ConnectionLogResponse {
         val sessionProfile = loginService.getSessionProfile(session)

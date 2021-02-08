@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb.dict
 
+import me.horyu.kkutuweb.word.WordDao
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -26,17 +27,14 @@ class DictService(
     @Autowired private val wordDao: WordDao
 ) {
     fun getWord(id: String, lang: String): String {
-        val word = when (lang) {
-            "ko" -> {
-                wordDao.getKoreanWord(id) ?: return "{\"error\":404}"
-            }
-            "en" -> {
-                wordDao.getEnglishWord(id) ?: return "{\"error\":404}"
-            }
-            else -> {
-                return "{\"error\":400}"
-            }
+        val tableName = when (lang) {
+            "ko" -> "kkutu_ko"
+            "en" -> "kkutu_en"
+            else -> ""
         }
+
+        if (tableName.isEmpty()) return "{\"error\":400}"
+        val word = wordDao.getWord(tableName, id) ?: return "{\"error\":404}"
 
         return "{\"word\":\"${word.id}\",\"mean\":\"${
             word.mean.replace(

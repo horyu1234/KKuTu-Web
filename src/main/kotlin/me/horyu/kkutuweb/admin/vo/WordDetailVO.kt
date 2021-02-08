@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.dict
+package me.horyu.kkutuweb.admin.vo
 
-data class Word(
-    val id: String,
-    val type: String,
+import me.horyu.kkutuweb.word.WordTheme
+import me.horyu.kkutuweb.word.WordType
+
+data class WordDetailVO(
+    val type: WordType,
     val mean: String,
-    val hit: Int,
-    val flag: Int,
-    val theme: String
+    val theme: WordTheme
 )

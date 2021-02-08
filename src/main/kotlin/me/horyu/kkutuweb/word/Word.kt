@@ -16,11 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.admin.api.response
+package me.horyu.kkutuweb.word
 
-import me.horyu.kkutuweb.admin.vo.ConnectionLogVO
-
-data class ConnectionLogResponse(
-    val totalElements: Int,
-    val content: List<ConnectionLogVO>
+data class Word(
+    val id: String,
+    val type: String,
+    val mean: String,
+    val hit: Int,
+    val flag: Int,
+    val theme: String
 )

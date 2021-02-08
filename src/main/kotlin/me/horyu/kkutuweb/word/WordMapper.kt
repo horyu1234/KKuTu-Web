@@ -16,28 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.dict
+package me.horyu.kkutuweb.word
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Component
+import java.sql.ResultSet
 
 @Component
-class WordDao(
-    @Autowired private val jdbcTemplate: JdbcTemplate,
-    @Autowired private val wordMapper: WordMapper
-) {
-    fun getKoreanWord(id: String): Word? {
-        val sql = "SELECT * FROM kkutu_ko WHERE _id = ?"
+class WordMapper : RowMapper<Word> {
+    override fun mapRow(rs: ResultSet, rowNum: Int): Word {
+        val id = rs.getString("_id")
+        val type = rs.getString("type")
+        val mean = rs.getString("mean")
+        val hit = rs.getInt("hit")
+        val flag = rs.getInt("flag")
+        val theme = rs.getString("theme")
 
-        val words = jdbcTemplate.query(sql, wordMapper, id)
-        return if (words.isEmpty()) null else words.first()
-    }
-
-    fun getEnglishWord(id: String): Word? {
-        val sql = "SELECT * FROM kkutu_en WHERE _id = ?"
-
-        val words = jdbcTemplate.query(sql, wordMapper, id)
-        return if (words.isEmpty()) null else words.first()
+        return Word(id, type, mean, hit, flag, theme)
     }
 }

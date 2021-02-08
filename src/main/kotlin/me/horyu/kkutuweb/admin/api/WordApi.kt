@@ -19,60 +19,48 @@
 package me.horyu.kkutuweb.admin.api
 
 import me.horyu.kkutuweb.admin.api.response.ListResponse
-import me.horyu.kkutuweb.admin.service.ConnectionLogService
-import me.horyu.kkutuweb.admin.vo.ConnectionLogVO
+import me.horyu.kkutuweb.admin.service.AdminWordService
+import me.horyu.kkutuweb.admin.vo.WordVO
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.setting.KKuTuSetting
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpSession
 
 @RestController
-@RequestMapping("/api/admin/connection-logs")
-class ConnectionLogApi(
+@RequestMapping("/api/admin/words")
+class WordApi(
     @Autowired private val setting: KKuTuSetting,
     @Autowired private val loginService: LoginService,
-    @Autowired private val connectionLogService: ConnectionLogService
+    @Autowired private val adminWordService: AdminWordService
 ) {
-    private val logger = LoggerFactory.getLogger(ConnectionLogApi::class.java)
+    private val logger = LoggerFactory.getLogger(WordApi::class.java)
 
-    @GetMapping
+    @GetMapping("/{lang}")
     fun getConnectionLog(
+        @PathVariable lang: String,
         @RequestParam(required = true, name = "page") page: Int,
         @RequestParam(required = true, name = "size") pageSize: Int,
         @RequestParam(required = true, name = "sort") sortData: String,
-        @RequestParam(required = false, name = "user_id", defaultValue = "") userId: String,
-        @RequestParam(required = false, name = "user_name", defaultValue = "") userName: String,
-        @RequestParam(required = false, name = "user_ip", defaultValue = "") userIp: String,
-        @RequestParam(required = false, name = "channel", defaultValue = "") channel: String,
-        @RequestParam(required = false, name = "user_agent", defaultValue = "") userAgent: String,
-        @RequestParam(required = false, name = "finger_print_2", defaultValue = "") fingerPrint2: String,
+        @RequestParam(required = false, defaultValue = "") word: String,
         session: HttpSession
-    ): ListResponse<ConnectionLogVO> {
+    ): ListResponse<WordVO> {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
-            logger.warn("인증되지 않은 사용자로 부터 접속 로그 조회 요청이 차단되었습니다.")
+            logger.warn("인증되지 않은 사용자로 부터 단어 목록 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
-            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 목록 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 
         val searchFilters = mapOf(
-            "user_id" to userId,
-            "user_name" to userName,
-            "user_ip" to userIp,
-            "channel" to channel,
-            "user_agent" to userAgent,
-            "finger_print_2" to fingerPrint2
+            "_id" to word
         )
 
-        return connectionLogService.getConnectionLogRes(page, pageSize, sortData, searchFilters)
+        return adminWordService.getWordListRes(lang, page, pageSize, sortData, searchFilters)
     }
 }

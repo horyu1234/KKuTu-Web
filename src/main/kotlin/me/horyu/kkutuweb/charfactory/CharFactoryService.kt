@@ -19,12 +19,12 @@
 package me.horyu.kkutuweb.charfactory
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import me.horyu.kkutuweb.dict.WordDao
 import me.horyu.kkutuweb.extension.getOAuthUser
 import me.horyu.kkutuweb.extension.isGuest
 import me.horyu.kkutuweb.extension.toJson
 import me.horyu.kkutuweb.shop.ShopService
 import me.horyu.kkutuweb.user.UserDao
+import me.horyu.kkutuweb.word.WordDao
 import org.postgresql.util.PGobject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -68,17 +68,14 @@ class CharFactoryService(
             ) return "{\"error\":434}"
         }
 
-        val word = when (findLanguage(wordString)) {
-            "ko" -> {
-                wordDao.getKoreanWord(wordString)
-            }
-            "en" -> {
-                wordDao.getEnglishWord(wordString)
-            }
-            else -> {
-                null
-            }
+        val tableName = when (findLanguage(wordString)) {
+            "ko" -> "kkutu_ko"
+            "en" -> "kkutu_en"
+            else -> ""
         }
+
+        if (tableName.isEmpty()) return "{\"error\":404}"
+        val word = wordDao.getWord(tableName, wordString)
 
         var blend = false
         if (word == null) {

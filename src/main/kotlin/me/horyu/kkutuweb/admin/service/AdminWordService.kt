@@ -20,30 +20,46 @@ package me.horyu.kkutuweb.admin.service
 
 import me.horyu.kkutuweb.admin.SortType
 import me.horyu.kkutuweb.admin.api.response.ListResponse
-import me.horyu.kkutuweb.admin.dao.ConnectionLogDAO
-import me.horyu.kkutuweb.admin.vo.ConnectionLogVO
+import me.horyu.kkutuweb.admin.vo.WordVO
+import me.horyu.kkutuweb.word.WordDao
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ConnectionLogService(
-    @Autowired private val connectionLogDAO: ConnectionLogDAO
+class AdminWordService(
+    @Autowired private val wordDao: WordDao
 ) {
-    fun getConnectionLogRes(
+    fun getWordListRes(
+        lang: String,
         page: Int,
         pageSize: Int,
         sortData: String,
         searchFilters: Map<String, String>
-    ): ListResponse<ConnectionLogVO> {
+    ): ListResponse<WordVO> {
+        val tableName = when (lang) {
+            "ko" -> "kkutu_ko"
+            "en" -> "kkutu_en"
+            else -> ""
+        }
+        if (tableName.isEmpty()) {
+            return ListResponse(0, emptyList())
+        }
+
         val split = sortData.split(",")
-        val sortField = split[0]
+        val sortField = when (split[0]) {
+            "word" -> "_id"
+            "hit" -> "hit"
+            "flag" -> "flag"
+            else -> ""
+        }
         val sortType = SortType.valueOf(split[1])
 
         val dbSearchFilters = searchFilters.filterValues { it.isNotEmpty() }
 
-        val dataCount = connectionLogDAO.getDataCount(dbSearchFilters)
-        val pageData = connectionLogDAO.getPageData(page, pageSize, sortField, sortType, dbSearchFilters)
-            .map { ConnectionLogVO.convertFrom(it) }
+        val dataCount = wordDao.getDataCount(tableName, dbSearchFilters)
+        val pageData = wordDao.getPageData(tableName, page, pageSize, sortField, sortType, dbSearchFilters).map {
+            WordVO.convertFrom(it)
+        }
 
         return ListResponse(dataCount, pageData)
     }

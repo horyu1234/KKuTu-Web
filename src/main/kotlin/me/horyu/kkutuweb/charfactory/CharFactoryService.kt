@@ -42,7 +42,7 @@ class CharFactoryService(
     @Autowired private val shopService: ShopService
 ) {
     fun previewCharFactory(word: String, l: Int, b: String, session: HttpSession): CFResult {
-        return getCfRewards(word, l, b == "1")
+        return getCfRewards(word, l, b == "1", session)
     }
 
     fun charFactory(tray: List<String>, session: HttpSession): String {
@@ -84,7 +84,7 @@ class CharFactoryService(
             } else return "{\"error\":404}"
         }
 
-        val cfRewards = getCfRewards(wordString, level, blend)
+        val cfRewards = getCfRewards(wordString, level, blend, session)
         if (user.money < cfRewards.cost) return "{\"error\":407}"
 
         for (entry in charCountMap.entries) {
@@ -154,7 +154,7 @@ class CharFactoryService(
         return if ("[a-zA-Z]".toRegex().containsMatchIn(word)) "en" else "ko"
     }
 
-    fun getCfRewards(word: String, level: Int, blend: Boolean): CFResult {
+    fun getCfRewards(word: String, level: Int, blend: Boolean, session: HttpSession): CFResult {
         val wordLength = word.length
 
         var cost = 20 * level
@@ -197,6 +197,34 @@ class CharFactoryService(
             }
             if (wur >= 0.5) {
                 rewards.add(Reward("\$WPA?", 1, wur / 3.0))
+            }
+        }
+
+        if (!session.isGuest()) {
+            val oAuthUser = session.getOAuthUser()
+
+            val userId = oAuthUser.getUserId()
+            val user = userDao.getUser(userId)
+            if (user != null) {
+                val equipClothes = if (user.equip.has("Mclothes")) user.equip["Mclothes"].textValue() else ""
+
+                val hasHanBokMen = user.box.has("hanbok_men") || equipClothes == "hanbok_men"
+                val hasHanBokWomen = user.box.has("hanbok_women") || equipClothes == "hanbok_women"
+
+                if (!hasHanBokMen) rewards.add(
+                    Reward(
+                        "hanbok_men",
+                        1,
+                        if (!hasHanBokMen && !hasHanBokWomen) 0.05 else 0.1
+                    )
+                )
+                if (!hasHanBokWomen) rewards.add(
+                    Reward(
+                        "hanbok_women",
+                        1,
+                        if (!hasHanBokMen && !hasHanBokWomen) 0.05 else 0.1
+                    )
+                )
             }
         }
 

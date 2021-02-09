@@ -27,9 +27,7 @@ export const JJoriping = styled.div`
 
 export const MiddlePanel = styled.div`
   float: left;
-  border: 2px solid rgb(204, 204, 204);
   margin-top: 10px;
-  background-color: rgb(238, 238, 238);
 
   ${isBrowser && `
        width: 100%;
@@ -39,7 +37,14 @@ export const MiddlePanel = styled.div`
     `}
 `
 
+export const EventNotice = styled.iframe`
+  margin-bottom: 10px;
+  border: 3px solid rgb(223, 171, 1);
+  background-color: rgb(238, 238, 238);
+`
+
 export const UpdateLog = styled.iframe`
-  border: 0;
   margin-bottom: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(238, 238, 238);
 `

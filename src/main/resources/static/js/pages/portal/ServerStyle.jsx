@@ -69,7 +69,7 @@ export const ServerPeople = styled.div`
 `
 
 export const GraphBar = styled.div`
-  background-image: url('/img/blue_gauge.png');
+  background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/blue_gauge.png');
   width: ${props => props.percent}%;
   height: 100%;
 `

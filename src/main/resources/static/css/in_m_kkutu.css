@@ -804,7 +804,7 @@ td.ranking-name {
 .GameBox {
     width: calc(100% - 10px);
     height: 410px;
-    background-image: url('/img/kkutu/gamebg.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/gamebg.png');
 }
 
 .GameBox .product-title {
@@ -1415,15 +1415,15 @@ td.ranking-name {
 }
 
 .result-me-before-bar {
-    background-image: url('/img/kkutu/scorebar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/scorebar.png');
 }
 
 .result-me-current-bar {
-    background-image: url('/img/kkutu/currentbar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/currentbar.png');
 }
 
 .result-me-bonus-bar {
-    background-image: url('/img/kkutu/bonusbar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/bonusbar.png');
 }
 
 .result-me-score-text {
@@ -1536,7 +1536,7 @@ td.ranking-name {
 }
 
 .my-gauge .graph-bar {
-    background-image: url('/img/kkutu/scorebar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/scorebar.png');
 }
 
 .my-gauge-text {

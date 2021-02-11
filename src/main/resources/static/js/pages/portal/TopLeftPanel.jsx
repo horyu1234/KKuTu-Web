@@ -27,7 +27,7 @@ const TopLeftPanel = ({onGameStart}) => {
         <TopLeftPanelContainer>
             <LogoArea>
                 <LogoText>{Messages['portal.logo.text']}</LogoText>
-                <LogoImg src="/img/kkutu/short_logo.png" alt={Messages['portal.logo.alt']}/>
+                <LogoImg src="https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/short_logo.png" alt={Messages['portal.logo.alt']}/>
             </LogoArea>
             <BrowserView>
                 <div style={{float: 'left', marginLeft: '80px'}}>

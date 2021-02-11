@@ -902,7 +902,7 @@ td.ranking-name {
 .GameBox {
     width: 1000px;
     height: 410px;
-    background-image: url('/img/kkutu/gamebg.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/gamebg.png');
 }
 
 .GameBox .product-title {
@@ -999,7 +999,7 @@ td.ranking-name {
     font-weight: bold;
     text-align: center;
     text-shadow: 0px 1px 5px #141414;
-    background-image: url('/img/kkutu/lefthand.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/lefthand.png');
 }
 
 .jjoriping {
@@ -1193,7 +1193,7 @@ td.ranking-name {
     font-weight: bold;
     text-align: center;
     text-shadow: 0px 1px 5px #141414;
-    background-image: url('/img/kkutu/righthand.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/righthand.png');
 }
 
 .rounds {
@@ -1540,15 +1540,15 @@ td.ranking-name {
 }
 
 .result-me-before-bar {
-    background-image: url('/img/kkutu/scorebar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/scorebar.png');
 }
 
 .result-me-current-bar {
-    background-image: url('/img/kkutu/currentbar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/currentbar.png');
 }
 
 .result-me-bonus-bar {
-    background-image: url('/img/kkutu/bonusbar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/bonusbar.png');
 }
 
 .result-me-score-text {
@@ -1685,7 +1685,7 @@ td.ranking-name {
 }
 
 .my-gauge .graph-bar {
-    background-image: url('/img/kkutu/scorebar.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/scorebar.png');
 }
 
 .my-gauge-text {
@@ -1894,14 +1894,14 @@ td.ranking-name {
     margin: -1px -12px 0px -7px;
     width: 20px;
     height: 20px;
-    background-image: url('/img/kkutu/balloontip.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/balloontip.png');
 }
 
 .chat-balloon-bot {
     margin: -1px -12px 0px 50px;
     width: 20px;
     height: 20px;
-    background-image: url('/img/kkutu/balloonbot.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/kkutu/balloonbot.png');
 }
 
 #Chat {

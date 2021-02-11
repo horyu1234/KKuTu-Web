@@ -28,13 +28,14 @@ import {
 } from "./JJoripingStyle";
 
 const JJoriping = ({onGameStart}) => {
+    const IMAGE_CDN_URL = 'https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img';
     return (
         <>
             <JJoripingGlobalStyle/>
             <JJoripingContainer>
-                <JJoEyeL src="/img/jjoeyeL.png" alt="캐릭터 왼쪽 눈"/>
-                <JJoNose src="/img/jjonose.png" alt="캐릭터 코"/>
-                <JJoEyeR src="/img/jjoeyeR.png" alt="캐릭터 오른쪽 눈"/>
+                <JJoEyeL src={`${IMAGE_CDN_URL}/jjoeyeL.png`} alt="캐릭터 왼쪽 눈"/>
+                <JJoNose src={`${IMAGE_CDN_URL}/jjonose.png`} alt="캐릭터 코"/>
+                <JJoEyeR src={`${IMAGE_CDN_URL}/jjoeyeR.png`} alt="캐릭터 오른쪽 눈"/>
                 <JJoDisplayBar>
                     <JJoDisplay onClick={onGameStart}>게임 시작</JJoDisplay>
                 </JJoDisplayBar>

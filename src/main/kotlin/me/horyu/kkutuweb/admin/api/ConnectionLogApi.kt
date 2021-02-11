@@ -51,6 +51,8 @@ class ConnectionLogApi(
         @RequestParam(required = false, name = "channel", defaultValue = "") channel: String,
         @RequestParam(required = false, name = "user_agent", defaultValue = "") userAgent: String,
         @RequestParam(required = false, name = "finger_print_2", defaultValue = "") fingerPrint2: String,
+        @RequestParam(required = false, name = "pcid_c", defaultValue = "") pcidFromCookie: String,
+        @RequestParam(required = false, name = "pcid_l", defaultValue = "") pcidFromLocalStorage: String,
         session: HttpSession
     ): ListResponse<ConnectionLogVO> {
         val sessionProfile = loginService.getSessionProfile(session)
@@ -70,7 +72,9 @@ class ConnectionLogApi(
             "user_ip" to userIp,
             "channel" to channel,
             "user_agent" to userAgent,
-            "finger_print_2" to fingerPrint2
+            "finger_print_2" to fingerPrint2,
+            "pcid_cookie" to pcidFromCookie,
+            "pcid_localstorage" to pcidFromLocalStorage
         )
 
         return connectionLogService.getConnectionLogRes(page, pageSize, sortData, searchFilters)

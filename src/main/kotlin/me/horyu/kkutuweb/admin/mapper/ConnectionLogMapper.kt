@@ -34,7 +34,20 @@ class ConnectionLogMapper : RowMapper<ConnectionLog> {
         val channel = rs.getInt("channel")
         val useragent = rs.getString("user_agent")
         val fingerprint2 = rs.getString("finger_print_2")
+        val pcidFromCookie = rs.getString("pcid_cookie")
+        val pcidFromLocalStorage = rs.getString("pcid_localstorage")
 
-        return ConnectionLog(id, time, userId, userName, userIp, channel, useragent, fingerprint2)
+        return ConnectionLog(
+            id,
+            time,
+            userId,
+            userName,
+            userIp,
+            channel,
+            useragent,
+            fingerprint2,
+            pcidFromCookie,
+            pcidFromLocalStorage
+        )
     }
 }

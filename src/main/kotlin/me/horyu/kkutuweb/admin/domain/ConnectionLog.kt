@@ -28,7 +28,7 @@ data class ConnectionLog(
     val userIp: String,
     val channel: Int,
     val userAgent: String,
-    val fingerPrint2: String,
-    val pcidFromCookie: String,
-    val pcidFromLocalStorage: String
+    val fingerPrint2: String?,
+    val pcidFromCookie: String?,
+    val pcidFromLocalStorage: String?
 )

@@ -30,9 +30,9 @@ data class ConnectionLogVO(
     @JsonProperty("user_ip") val userIp: String,
     @JsonProperty("channel") val channel: Int,
     @JsonProperty("user_agent") val userAgent: String,
-    @JsonProperty("finger_print_2") val fingerPrint2: String,
-    @JsonProperty("pcid_c") val pcidFromCookie: String,
-    @JsonProperty("pcid_l") val pcidFromLocalStorage: String
+    @JsonProperty("finger_print_2") val fingerPrint2: String?,
+    @JsonProperty("pcid_c") val pcidFromCookie: String?,
+    @JsonProperty("pcid_l") val pcidFromLocalStorage: String?
 ) {
     companion object {
         fun convertFrom(connectionLog: ConnectionLog): ConnectionLogVO {

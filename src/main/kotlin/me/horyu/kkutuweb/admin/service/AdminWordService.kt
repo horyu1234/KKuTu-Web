@@ -63,4 +63,20 @@ class AdminWordService(
 
         return ListResponse(dataCount, pageData)
     }
+
+    fun getWords(lang: String, wordName: String): ListResponse<WordVO> {
+        val tableName = when (lang) {
+            "ko" -> "kkutu_ko"
+            "en" -> "kkutu_en"
+            else -> ""
+        }
+        if (tableName.isEmpty()) {
+            return ListResponse(0, emptyList())
+        }
+
+        val words = wordDao.getWords(tableName, wordName).map {
+            WordVO.convertFrom(it)
+        }
+        return ListResponse(words.size, words)
+    }
 }

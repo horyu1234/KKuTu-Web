@@ -75,10 +75,10 @@ class CharFactoryService(
         }
 
         if (tableName.isEmpty()) return "{\"error\":404}"
-        val word = wordDao.getWord(tableName, wordString)
+        val words = wordDao.getWords(tableName, wordString)
 
         var blend = false
-        if (word == null) {
+        if (words.isEmpty()) {
             if (wordString.length == 3) {
                 blend = true
             } else return "{\"error\":404}"

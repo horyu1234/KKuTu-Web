@@ -38,7 +38,7 @@ class WordApi(
     private val logger = LoggerFactory.getLogger(WordApi::class.java)
 
     @GetMapping("/{lang}")
-    fun getConnectionLog(
+    fun getWordList(
         @PathVariable lang: String,
         @RequestParam(required = true, name = "page") page: Int,
         @RequestParam(required = true, name = "size") pageSize: Int,
@@ -62,5 +62,25 @@ class WordApi(
         )
 
         return adminWordService.getWordListRes(lang, page, pageSize, sortData, searchFilters)
+    }
+
+    @GetMapping("/{lang}/{word}")
+    fun getWordList(
+        @PathVariable lang: String,
+        @PathVariable word: String,
+        session: HttpSession
+    ): ListResponse<WordVO> {
+        val sessionProfile = loginService.getSessionProfile(session)
+        if (sessionProfile == null) {
+            logger.warn("인증되지 않은 사용자로 부터 단어 목록 조회 요청이 차단되었습니다.")
+            return ListResponse(0, emptyList())
+        }
+
+        if (!setting.getAdminIds().contains(sessionProfile.id)) {
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 목록 조회 요청이 차단되었습니다.")
+            return ListResponse(0, emptyList())
+        }
+
+        return adminWordService.getWords(lang, word)
     }
 }

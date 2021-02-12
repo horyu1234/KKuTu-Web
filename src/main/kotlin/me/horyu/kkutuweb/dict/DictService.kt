@@ -34,8 +34,10 @@ class DictService(
         }
 
         if (tableName.isEmpty()) return "{\"error\":400}"
-        val word = wordDao.getWord(tableName, id) ?: return "{\"error\":404}"
+        val words = wordDao.getWords(tableName, id)
+        if (words.isEmpty()) return "{\"error\":404}"
 
+        val word = words.first()
         return "{\"word\":\"${word.id}\",\"mean\":\"${
             word.mean.replace(
                 "\"",

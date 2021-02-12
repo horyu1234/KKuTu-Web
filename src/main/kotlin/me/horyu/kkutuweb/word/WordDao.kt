@@ -30,11 +30,9 @@ class WordDao(
     @Autowired private val singleNumberMapper: SingleNumberMapper,
     @Autowired private val wordMapper: WordMapper
 ) {
-    fun getWord(tableName: String, id: String): Word? {
+    fun getWords(tableName: String, id: String): List<Word> {
         val sql = "SELECT * FROM $tableName WHERE _id = ?"
-
-        val words = jdbcTemplate.query(sql, wordMapper, id)
-        return if (words.isEmpty()) null else words.first()
+        return jdbcTemplate.query(sql, wordMapper, id)
     }
 
     fun getDataCount(

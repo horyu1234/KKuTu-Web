@@ -57,7 +57,7 @@ data class WordVO(
                 }
 
                 val mean = if (means.size > i) means[i] else ""
-                details.add(WordDetailVO(type, mean, theme))
+                details.add(WordDetailVO(type, mean.trim(), theme))
             }
 
             val flag = word.flag

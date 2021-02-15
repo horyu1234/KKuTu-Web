@@ -65,22 +65,40 @@ class WordApi(
     }
 
     @GetMapping("/{lang}/{word}")
-    fun getWordList(
+    fun getWord(
         @PathVariable lang: String,
         @PathVariable word: String,
         session: HttpSession
     ): ListResponse<WordVO> {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
-            logger.warn("인증되지 않은 사용자로 부터 단어 목록 조회 요청이 차단되었습니다.")
+            logger.warn("인증되지 않은 사용자로 부터 단어 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
-            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 목록 조회 요청이 차단되었습니다.")
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 
         return adminWordService.getWords(lang, word)
+    }
+
+    @PatchMapping("/{lang}/{word}")
+    fun editWord(
+        @PathVariable lang: String,
+        @PathVariable word: String,
+        session: HttpSession
+    ) {
+        val sessionProfile = loginService.getSessionProfile(session)
+        if (sessionProfile == null) {
+            logger.warn("인증되지 않은 사용자로 부터 단어 수정 요청이 차단되었습니다.")
+            return
+        }
+
+        if (!setting.getAdminIds().contains(sessionProfile.id)) {
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 수정 요청이 차단되었습니다.")
+            return
+        }
     }
 }

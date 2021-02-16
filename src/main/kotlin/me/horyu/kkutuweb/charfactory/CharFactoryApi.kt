@@ -31,10 +31,9 @@ class CharFactoryApi(
     fun previewCharFactory(
         @PathVariable word: String,
         @RequestParam l: Int,
-        @RequestParam b: String,
-        session: HttpSession
+        @RequestParam b: String
     ): CFResult {
-        return charFactoryService.previewCharFactory(word, l, b, session)
+        return charFactoryService.previewCharFactory(word, l, b)
     }
 
     @PostMapping("/cf", produces = [MediaType.APPLICATION_JSON_VALUE])

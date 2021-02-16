@@ -20,7 +20,7 @@ import React, {useEffect, useState} from "react";
 import $ from 'jquery';
 import Separator from "../../components/Separator";
 import '../../../css/in_portal.css';
-import {EventNotice, MiddlePanel, UpdateLog} from "./PortalStyle";
+import {MiddlePanel, UpdateLog} from "./PortalStyle";
 import Product from "../../components/Product";
 import KakaoAd from "../../components/KakaoAd";
 import TopLeftPanel from "./TopLeftPanel";
@@ -91,7 +91,6 @@ const Portal = () => {
             <TopRightPanel joinServer={joinServer} onServerListUpdate={onServerListUpdate}/>
 
             <MiddlePanel>
-                <EventNotice width="100%" height="800px" src="/notion/2021-seol.html"/>
                 <UpdateLog width="100%" height="400px" src="/kkutu_bulletin.html"/>
             </MiddlePanel>
             <Separator height={5}/>

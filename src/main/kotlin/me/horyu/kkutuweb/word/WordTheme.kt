@@ -17,7 +17,10 @@
  */
 package me.horyu.kkutuweb.word
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.JsonNodeType
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 enum class WordTheme(val themeCode: String, val themeName: String) {
@@ -130,6 +133,33 @@ enum class WordTheme(val themeCode: String, val themeName: String) {
                 }
             }
             return null
+        }
+
+        /**
+         * 비직렬화를 지원하는 함수
+         * === 지원하는 JSON 형식 ===
+         * 1. {"key": "ID" }
+         * 2. {"key": {"flag": "ID"}}
+         */
+        @JvmStatic
+        @JsonCreator
+        fun fromObject(node: JsonNode): WordTheme? {
+            val identityField = "themeCode"
+            val id = if (node.nodeType == JsonNodeType.STRING) {
+                node.asText()
+            } else {
+                require(node.has(identityField))
+                node[identityField].asText()
+            }
+
+            return fromId(id)
+        }
+
+        private fun fromId(themeCode: String): WordTheme? {
+            val findFlags = values().filter { it.themeCode == themeCode }
+
+            return if (findFlags.isEmpty()) null
+            else findFlags[0]
         }
     }
 }

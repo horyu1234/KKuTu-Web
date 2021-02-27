@@ -18,6 +18,10 @@
 
 package me.horyu.kkutuweb.word
 
+import me.horyu.kkutuweb.admin.vo.WordVO
+import me.horyu.kkutuweb.utils.WordUtils
+import java.util.*
+
 data class Word(
     val id: String,
     val type: String,
@@ -25,4 +29,34 @@ data class Word(
     val hit: Int,
     val flag: Int,
     val theme: String
-)
+) {
+    companion object {
+        fun convertFrom(wordVO: WordVO): Word {
+            val types = ArrayList<String>()
+            val means = ArrayList<String>()
+            val themes = ArrayList<String>()
+
+            for (detail in wordVO.details) {
+                types.add(detail.type.typeCode)
+                means.add(detail.mean)
+                themes.add(detail.theme.themeCode)
+            }
+
+            var flag = 0b000000
+            val flags = wordVO.flags
+
+            for (f in flags) {
+                flag = f.flag.or(flag)
+            }
+
+            return Word(
+                id = wordVO.word,
+                type = types.joinToString(","),
+                mean = WordUtils.serializeMean(means),
+                hit = 0,
+                flag = flag,
+                theme = themes.joinToString(",")
+            )
+        }
+    }
+}

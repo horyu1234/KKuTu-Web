@@ -37,7 +37,7 @@ spring:
     port: <Port>
   cors:
     pattern: /api/admin/**
-    methods: GET
+    methods: GET,PATCH,DELETE
     allowed-origins: <Origin>
   security:
     user:

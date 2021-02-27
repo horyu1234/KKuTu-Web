@@ -18,8 +18,11 @@
 
 package me.horyu.kkutuweb.word
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.JsonNodeType
 import com.google.common.base.Strings
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
@@ -52,6 +55,33 @@ enum class WordFlag(val flag: Int, val flagName: String) {
                 }
             }
             return null
+        }
+
+        /**
+         * 비직렬화를 지원하는 함수
+         * === 지원하는 JSON 형식 ===
+         * 1. {"key": ID }
+         * 2. {"key": {"flag": ID}}
+         */
+        @JvmStatic
+        @JsonCreator
+        fun fromObject(node: JsonNode): WordFlag? {
+            val identityField = "flag"
+            val id = if (node.nodeType == JsonNodeType.NUMBER) {
+                node.asInt()
+            } else {
+                require(node.has(identityField))
+                node[identityField].asInt()
+            }
+
+            return fromId(id)
+        }
+
+        private fun fromId(flag: Int): WordFlag? {
+            val findFlags = values().filter { it.flag == flag }
+
+            return if (findFlags.isEmpty()) null
+            else findFlags[0]
         }
     }
 }

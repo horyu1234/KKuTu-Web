@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb.admin.api
 
+import me.horyu.kkutuweb.admin.api.request.WordEditRequest
 import me.horyu.kkutuweb.admin.api.response.ListResponse
 import me.horyu.kkutuweb.admin.service.AdminWordService
 import me.horyu.kkutuweb.admin.vo.WordVO
@@ -88,6 +89,7 @@ class WordApi(
     fun editWord(
         @PathVariable lang: String,
         @PathVariable word: String,
+        @RequestBody wordEditRequest: WordEditRequest,
         session: HttpSession
     ) {
         val sessionProfile = loginService.getSessionProfile(session)
@@ -100,5 +102,27 @@ class WordApi(
             logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 수정 요청이 차단되었습니다.")
             return
         }
+
+        adminWordService.editWord(sessionProfile.id, lang, word, wordEditRequest)
+    }
+
+    @DeleteMapping("/{lang}/{word}")
+    fun deleteWord(
+        @PathVariable lang: String,
+        @PathVariable word: String,
+        session: HttpSession
+    ) {
+        val sessionProfile = loginService.getSessionProfile(session)
+        if (sessionProfile == null) {
+            logger.warn("인증되지 않은 사용자로 부터 단어 삭제 요청이 차단되었습니다.")
+            return
+        }
+
+        if (!setting.getAdminIds().contains(sessionProfile.id)) {
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 삭제 요청이 차단되었습니다.")
+            return
+        }
+
+        adminWordService.deleteWord(sessionProfile.id, lang, word)
     }
 }

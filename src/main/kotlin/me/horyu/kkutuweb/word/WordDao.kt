@@ -55,12 +55,28 @@ class WordDao(
         sortType: SortType,
         searchFilters: Map<String, String>
     ): List<Word> {
-        println("tableName = [${tableName}], page = [${page}], pageSize = [${pageSize}], sortField = [${sortField}], sortType = [${sortType}], searchFilters = [${searchFilters}]")
         val whereQuery = whereQuery(searchFilters)
         val whereValues = whereValues(searchFilters)
 
         val sql = selectQuery(tableName, whereQuery, sortField, sortType, pageSize, page)
         return jdbcTemplate.query(sql, wordMapper, *whereValues)
+    }
+
+    fun update(tableName: String, wordName: String, values: Map<String, Any?>) {
+        val setString = values.entries.joinToString(",") {
+            "${it.key}=?"
+        }
+
+        val sql = "UPDATE $tableName SET $setString WHERE _id = ?"
+        val valueString = values.map { it.value }.toMutableList()
+        valueString.add(wordName)
+
+        jdbcTemplate.update(sql, *valueString.toTypedArray())
+    }
+
+    fun remove(tableName: String, wordName: String) {
+        val sql = "DELETE FROM $tableName WHERE _id = ?;"
+        jdbcTemplate.update(sql, wordName)
     }
 
     private fun whereQuery(searchFilters: Map<String, String>): String {

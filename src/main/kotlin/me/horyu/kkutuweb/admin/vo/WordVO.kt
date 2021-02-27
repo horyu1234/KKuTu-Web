@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb.admin.vo
 
+import me.horyu.kkutuweb.utils.WordUtils
 import me.horyu.kkutuweb.word.Word
 import me.horyu.kkutuweb.word.WordFlag
 import me.horyu.kkutuweb.word.WordTheme
@@ -37,7 +38,7 @@ data class WordVO(
         fun convertFrom(word: Word): WordVO {
             val types = word.type.split(",")
             val themes = word.theme.split(",")
-            val means = deserializeMean(word.mean)
+            val means = WordUtils.deserializeMean(word.mean)
 
             val details = ArrayList<WordDetailVO>()
             for (i in types.indices) {
@@ -74,26 +75,6 @@ data class WordVO(
                 flags = flags,
                 details = details
             )
-        }
-
-        fun serializeMean(means: List<String>): String {
-            val resultText = StringBuilder()
-
-            var count = 0
-            means.forEach { mean ->
-                count++
-                resultText.append("＂").append(count).append("＂ ").append(mean).append("  ")
-            }
-
-            return resultText.toString()
-        }
-
-        fun deserializeMean(mean: String): List<String> {
-            val dbMeans = ArrayList(listOf(*mean.split("＂[0-9]+＂".toRegex()).toTypedArray()))
-            if (dbMeans.isEmpty()) return emptyList()
-
-            dbMeans.removeAt(0)
-            return dbMeans.map { if (it.contains("［")) "" else it }
         }
     }
 }

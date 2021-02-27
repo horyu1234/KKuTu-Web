@@ -123,8 +123,6 @@ class AdminWordService(
                 admin = adminId
             )
         )
-
-        logger.info("$adminId 님이 $wordName 단어를 수정했습니다. 언어: $lang")
     }
 
     fun deleteWord(adminId: String, lang: String, wordName: String) {
@@ -149,8 +147,6 @@ class AdminWordService(
                 admin = adminId
             )
         )
-
-        logger.info("$adminId 님이 $wordName 단어를 삭제했습니다. 언어: $lang")
     }
 
     private fun getTableName(lang: String): String {

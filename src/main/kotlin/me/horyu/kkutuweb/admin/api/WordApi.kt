@@ -22,11 +22,13 @@ import me.horyu.kkutuweb.admin.api.request.WordEditRequest
 import me.horyu.kkutuweb.admin.api.response.ListResponse
 import me.horyu.kkutuweb.admin.service.AdminWordService
 import me.horyu.kkutuweb.admin.vo.WordVO
+import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.setting.KKuTuSetting
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession
 
 @RestController
@@ -45,7 +47,7 @@ class WordApi(
         @RequestParam(required = true, name = "size") pageSize: Int,
         @RequestParam(required = true, name = "sort") sortData: String,
         @RequestParam(required = false, defaultValue = "") word: String,
-        session: HttpSession
+        request: HttpServletRequest, session: HttpSession
     ): ListResponse<WordVO> {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
@@ -62,14 +64,17 @@ class WordApi(
             "_id" to word
         )
 
-        return adminWordService.getWordListRes(lang, page, pageSize, sortData, searchFilters)
+        val wordListRes = adminWordService.getWordListRes(lang, page, pageSize, sortData, searchFilters)
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어 목록을 요청했습니다. 언어: $lang / 검색어: $word / 총 개수: ${wordListRes.totalElements}")
+
+        return wordListRes
     }
 
     @GetMapping("/{lang}/{word}")
     fun getWord(
         @PathVariable lang: String,
         @PathVariable word: String,
-        session: HttpSession
+        request: HttpServletRequest, session: HttpSession
     ): ListResponse<WordVO> {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
@@ -82,6 +87,7 @@ class WordApi(
             return ListResponse(0, emptyList())
         }
 
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어 정보를 요청했습니다. 언어: $lang / 단어: $word")
         return adminWordService.getWords(lang, word)
     }
 
@@ -90,7 +96,7 @@ class WordApi(
         @PathVariable lang: String,
         @PathVariable word: String,
         @RequestBody wordEditRequest: WordEditRequest,
-        session: HttpSession
+        request: HttpServletRequest, session: HttpSession
     ) {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
@@ -104,13 +110,14 @@ class WordApi(
         }
 
         adminWordService.editWord(sessionProfile.id, lang, word, wordEditRequest)
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 수정했습니다. 언어: $lang / 단어: $word")
     }
 
     @DeleteMapping("/{lang}/{word}")
     fun deleteWord(
         @PathVariable lang: String,
         @PathVariable word: String,
-        session: HttpSession
+        request: HttpServletRequest, session: HttpSession
     ) {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
@@ -124,5 +131,6 @@ class WordApi(
         }
 
         adminWordService.deleteWord(sessionProfile.id, lang, word)
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 삭제했습니다. 언어: $lang / 단어: $word")
     }
 }

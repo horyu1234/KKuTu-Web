@@ -20,7 +20,10 @@ package me.horyu.kkutuweb.admin.service
 
 import me.horyu.kkutuweb.admin.SortType
 import me.horyu.kkutuweb.admin.api.request.WordEditRequest
+import me.horyu.kkutuweb.admin.api.response.ActionResponse
 import me.horyu.kkutuweb.admin.api.response.ListResponse
+import me.horyu.kkutuweb.admin.api.response.RestResult
+import me.horyu.kkutuweb.admin.api.response.WordResult
 import me.horyu.kkutuweb.admin.dao.WordAuditLogDAO
 import me.horyu.kkutuweb.admin.domain.WordAuditLog
 import me.horyu.kkutuweb.admin.vo.WordVO
@@ -81,16 +84,16 @@ class AdminWordService(
         return ListResponse(words.size, words)
     }
 
-    fun editWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest) {
+    fun editWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
         }
 
         val words = wordDao.getWords(tableName, wordName)
         if (words.size != 1) {
             logger.error("수정하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
-            return
+            return ActionResponse.word(success = false, wordResult = WordResult.NON_UNIQUE)
         }
 
         val oldWord = words[0]
@@ -127,18 +130,20 @@ class AdminWordService(
                 admin = adminId
             )
         )
+
+        return ActionResponse.success()
     }
 
-    fun deleteWord(adminId: String, lang: String, wordName: String) {
+    fun deleteWord(adminId: String, lang: String, wordName: String): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
         }
 
         val words = wordDao.getWords(tableName, wordName)
         if (words.size != 1) {
             logger.error("삭제하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
-            return
+            return ActionResponse.word(success = false, wordResult = WordResult.NON_UNIQUE)
         }
 
         val oldWord = words[0]
@@ -155,18 +160,20 @@ class AdminWordService(
                 admin = adminId
             )
         )
+
+        return ActionResponse.success()
     }
 
-    fun addWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest) {
+    fun addWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
         }
 
         val isDuplicate = wordDao.isDuplicate(tableName, wordName)
         if (isDuplicate) {
             logger.warn("중복된 단어를 추가하려 했습니다. 언어: $lang 단어: $wordName")
-            return
+            return ActionResponse.word(success = false, wordResult = WordResult.DUPLICATED)
         }
 
         val newWord = Word.convertFrom(
@@ -191,6 +198,8 @@ class AdminWordService(
                 admin = adminId
             )
         )
+
+        return ActionResponse.success()
     }
 
     private fun getTableName(lang: String): String {

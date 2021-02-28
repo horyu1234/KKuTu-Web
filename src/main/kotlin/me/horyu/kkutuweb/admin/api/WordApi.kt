@@ -19,7 +19,9 @@
 package me.horyu.kkutuweb.admin.api
 
 import me.horyu.kkutuweb.admin.api.request.WordEditRequest
+import me.horyu.kkutuweb.admin.api.response.ActionResponse
 import me.horyu.kkutuweb.admin.api.response.ListResponse
+import me.horyu.kkutuweb.admin.api.response.RestResult
 import me.horyu.kkutuweb.admin.service.AdminWordService
 import me.horyu.kkutuweb.admin.vo.WordVO
 import me.horyu.kkutuweb.extension.getIp
@@ -97,20 +99,22 @@ class WordApi(
         @PathVariable word: String,
         @RequestBody wordEditRequest: WordEditRequest,
         request: HttpServletRequest, session: HttpSession
-    ) {
+    ): ActionResponse {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
             logger.warn("인증되지 않은 사용자로 부터 단어 수정 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHENTICATED)
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
             logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 수정 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHORIZED)
         }
 
-        adminWordService.editWord(sessionProfile.id, lang, word, wordEditRequest)
+        val actionResponse = adminWordService.editWord(sessionProfile.id, lang, word, wordEditRequest)
         logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 수정했습니다. 언어: $lang / 단어: $word")
+
+        return actionResponse
     }
 
     @DeleteMapping("/{lang}/{word}")
@@ -118,20 +122,22 @@ class WordApi(
         @PathVariable lang: String,
         @PathVariable word: String,
         request: HttpServletRequest, session: HttpSession
-    ) {
+    ): ActionResponse {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
             logger.warn("인증되지 않은 사용자로 부터 단어 삭제 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHENTICATED)
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
             logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 삭제 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHORIZED)
         }
 
-        adminWordService.deleteWord(sessionProfile.id, lang, word)
+        val actionResponse = adminWordService.deleteWord(sessionProfile.id, lang, word)
         logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 삭제했습니다. 언어: $lang / 단어: $word")
+
+        return actionResponse
     }
 
     @PutMapping("/{lang}/{word}")
@@ -140,19 +146,21 @@ class WordApi(
         @PathVariable word: String,
         @RequestBody wordEditRequest: WordEditRequest,
         request: HttpServletRequest, session: HttpSession
-    ) {
+    ): ActionResponse {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
             logger.warn("인증되지 않은 사용자로 부터 단어 추가 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHENTICATED)
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
             logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 추가 요청이 차단되었습니다.")
-            return
+            return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHORIZED)
         }
 
-        adminWordService.addWord(sessionProfile.id, lang, word, wordEditRequest)
+        val actionResponse = adminWordService.addWord(sessionProfile.id, lang, word, wordEditRequest)
         logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 추가했습니다. 언어: $lang / 단어: $word")
+
+        return actionResponse
     }
 }

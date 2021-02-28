@@ -21,6 +21,7 @@ package me.horyu.kkutuweb.admin.api
 import me.horyu.kkutuweb.admin.api.response.ListResponse
 import me.horyu.kkutuweb.admin.service.ConnectionLogService
 import me.horyu.kkutuweb.admin.vo.ConnectionLogVO
+import me.horyu.kkutuweb.extension.getIp
 import me.horyu.kkutuweb.login.LoginService
 import me.horyu.kkutuweb.setting.AdminSetting
 import me.horyu.kkutuweb.setting.KKuTuSetting
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession
 
 @RestController
@@ -54,7 +56,7 @@ class ConnectionLogApi(
         @RequestParam(required = false, name = "finger_print_2", defaultValue = "") fingerPrint2: String,
         @RequestParam(required = false, name = "pcid_cookie", defaultValue = "") pcidFromCookie: String,
         @RequestParam(required = false, name = "pcid_localstorage", defaultValue = "") pcidFromLocalStorage: String,
-        session: HttpSession
+        request: HttpServletRequest, session: HttpSession
     ): ListResponse<ConnectionLogVO> {
         val sessionProfile = loginService.getSessionProfile(session)
         if (sessionProfile == null) {
@@ -84,6 +86,9 @@ class ConnectionLogApi(
             "pcid_localstorage" to pcidFromLocalStorage
         )
 
-        return connectionLogService.getConnectionLogRes(page, pageSize, sortData, searchFilters)
+        val connectionLogRes = connectionLogService.getConnectionLogRes(page, pageSize, sortData, searchFilters)
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 접속 로그 목록을 요청했습니다. 총 개수: ${connectionLogRes.totalElements}")
+
+        return connectionLogRes
     }
 }

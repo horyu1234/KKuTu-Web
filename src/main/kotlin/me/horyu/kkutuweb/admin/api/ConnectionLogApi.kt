@@ -62,7 +62,7 @@ class ConnectionLogApi(
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
-            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
+            logger.warn("권한이 없는 사용자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 

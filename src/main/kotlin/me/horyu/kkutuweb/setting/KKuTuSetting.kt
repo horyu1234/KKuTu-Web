@@ -71,7 +71,16 @@ class KKuTuSetting(
         )
     }
 
-    fun getAdminIds() = settingNode["admins"].toList().map { it.textValue() }
+    fun getAdminIds(): List<String> = getAdmins().map { it.id }
+
+    fun getAdmins(): List<AdminSetting> = settingNode["admins"].toList().map {
+        AdminSetting(
+            it["id"].textValue(),
+            it["name"].textValue(),
+            it["team"].textValue(),
+            it["privileges"].toList().map { privilege -> AdminSetting.Privilege.valueOf(privilege.textValue()) }
+        )
+    }
 
     fun getApiKey() = settingNode["api-key"].textValue()!!
 

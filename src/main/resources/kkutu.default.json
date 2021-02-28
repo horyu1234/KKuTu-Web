@@ -12,7 +12,15 @@
     }
   ],
   "admins": [
-    "<User ID>"
+    {
+      "id": "<User ID>",
+      "name": "<User Name>",
+      "team": "<Team Name>",
+      "privileges": [
+        "CONNECTION_LOG",
+        "WORD"
+      ]
+    }
   ],
   "api-key": "<API Key>",
   "crypto-key": "<32 Length Secret Key>",

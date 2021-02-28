@@ -18,6 +18,7 @@
 
 package me.horyu.kkutuweb.admin.api
 
+import me.horyu.kkutuweb.admin.api.request.UpdateLogRequest
 import me.horyu.kkutuweb.admin.api.request.WordEditRequest
 import me.horyu.kkutuweb.admin.api.response.ActionResponse
 import me.horyu.kkutuweb.admin.api.response.ListResponse
@@ -140,6 +141,8 @@ class WordApi(
     fun deleteWord(
         @PathVariable lang: String,
         @PathVariable word: String,
+        @RequestParam updateLogIgnore: Boolean,
+        @RequestParam updateLogIncludeDetail: Boolean,
         request: HttpServletRequest, session: HttpSession
     ): ActionResponse {
         val sessionProfile = loginService.getSessionProfile(session)
@@ -159,7 +162,12 @@ class WordApi(
             return ActionResponse.rest(success = false, restResult = RestResult.UNAUTHORIZED)
         }
 
-        val actionResponse = adminWordService.deleteWord(sessionProfile.id, lang, word)
+        val actionResponse = adminWordService.deleteWord(
+            sessionProfile.id,
+            lang,
+            word,
+            UpdateLogRequest(updateLogIgnore, updateLogIncludeDetail)
+        )
         logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 삭제했습니다. 언어: $lang / 단어: $word")
 
         return actionResponse

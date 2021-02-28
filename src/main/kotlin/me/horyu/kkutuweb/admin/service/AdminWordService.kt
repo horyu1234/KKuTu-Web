@@ -19,6 +19,7 @@
 package me.horyu.kkutuweb.admin.service
 
 import me.horyu.kkutuweb.admin.SortType
+import me.horyu.kkutuweb.admin.api.request.UpdateLogRequest
 import me.horyu.kkutuweb.admin.api.request.WordEditRequest
 import me.horyu.kkutuweb.admin.api.response.ActionResponse
 import me.horyu.kkutuweb.admin.api.response.ListResponse
@@ -84,7 +85,12 @@ class AdminWordService(
         return ListResponse(words.size, words)
     }
 
-    fun editWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest): ActionResponse {
+    fun editWord(
+        adminId: String,
+        lang: String,
+        wordName: String,
+        wordEditRequest: WordEditRequest
+    ): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
             return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
@@ -127,6 +133,8 @@ class AdminWordService(
                 newMean = newWord.mean,
                 newFlag = newWord.flag,
                 newTheme = newWord.theme,
+                updateLogIgnore = wordEditRequest.updateLogIgnore,
+                updateLogIncludeDetail = wordEditRequest.updateLogIncludeDetail,
                 admin = adminId
             )
         )
@@ -134,7 +142,12 @@ class AdminWordService(
         return ActionResponse.success()
     }
 
-    fun deleteWord(adminId: String, lang: String, wordName: String): ActionResponse {
+    fun deleteWord(
+        adminId: String,
+        lang: String,
+        wordName: String,
+        updateLogRequest: UpdateLogRequest
+    ): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
             return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
@@ -157,6 +170,8 @@ class AdminWordService(
                 oldMean = oldWord.mean,
                 oldFlag = oldWord.flag,
                 oldTheme = oldWord.theme,
+                updateLogIgnore = updateLogRequest.updateLogIgnore,
+                updateLogIncludeDetail = updateLogRequest.updateLogIncludeDetail,
                 admin = adminId
             )
         )
@@ -164,7 +179,12 @@ class AdminWordService(
         return ActionResponse.success()
     }
 
-    fun addWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest): ActionResponse {
+    fun addWord(
+        adminId: String,
+        lang: String,
+        wordName: String,
+        wordEditRequest: WordEditRequest
+    ): ActionResponse {
         val tableName = getTableName(lang)
         if (tableName.isEmpty()) {
             return ActionResponse.rest(success = false, restResult = RestResult.INTERNAL_ERROR)
@@ -195,6 +215,8 @@ class AdminWordService(
                 newMean = newWord.mean,
                 newFlag = newWord.flag,
                 newTheme = newWord.theme,
+                updateLogIgnore = wordEditRequest.updateLogIgnore,
+                updateLogIncludeDetail = wordEditRequest.updateLogIncludeDetail,
                 admin = adminId
             )
         )

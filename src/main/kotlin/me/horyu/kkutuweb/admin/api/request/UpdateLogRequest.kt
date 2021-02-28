@@ -16,30 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.horyu.kkutuweb.admin.domain
+package me.horyu.kkutuweb.admin.api.request
 
-import java.time.LocalDateTime
-
-data class WordAuditLog(
-    val id: Int? = null,
-    val time: LocalDateTime,
-    val type: WordAuditLogType,
-    val word: String,
-    val oldType: String? = null,
-    val oldMean: String? = null,
-    val oldFlag: Int? = null,
-    val oldTheme: String? = null,
-    val newType: String? = null,
-    val newMean: String? = null,
-    val newFlag: Int? = null,
-    val newTheme: String? = null,
+data class UpdateLogRequest(
     val updateLogIgnore: Boolean,
     val updateLogIncludeDetail: Boolean,
-    val admin: String
-) {
-    enum class WordAuditLogType {
-        CREATE,
-        UPDATE,
-        DELETE
-    }
-}
+)

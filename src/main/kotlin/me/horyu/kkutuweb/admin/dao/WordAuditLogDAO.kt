@@ -30,7 +30,7 @@ class WordAuditLogDAO(
 ) {
     fun insert(lang: String, wordAuditLog: WordAuditLog) {
         val sql =
-            "INSERT INTO kkutu_${lang}_audit_log (log_time, log_type, word, old_type, old_mean, old_flag, old_theme, new_type, new_mean, new_flag, new_theme, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO kkutu_${lang}_audit_log (log_time, log_type, word, old_type, old_mean, old_flag, old_theme, new_type, new_mean, new_flag, new_theme, update_log_ignore, update_log_include_detail, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         jdbcTemplate.update(
             sql,
@@ -45,6 +45,8 @@ class WordAuditLogDAO(
             wordAuditLog.newMean,
             wordAuditLog.newFlag,
             wordAuditLog.newTheme,
+            wordAuditLog.updateLogIgnore,
+            wordAuditLog.updateLogIncludeDetail,
             wordAuditLog.admin
         )
     }

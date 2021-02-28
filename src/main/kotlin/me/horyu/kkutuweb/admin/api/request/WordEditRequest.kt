@@ -23,5 +23,7 @@ import me.horyu.kkutuweb.word.WordFlag
 
 data class WordEditRequest(
     val flags: List<WordFlag>,
-    val details: List<WordDetailVO>
+    val details: List<WordDetailVO>,
+    val updateLogIgnore: Boolean,
+    val updateLogIncludeDetail: Boolean
 )

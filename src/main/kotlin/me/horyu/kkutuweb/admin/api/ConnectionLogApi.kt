@@ -22,6 +22,7 @@ import me.horyu.kkutuweb.admin.api.response.ListResponse
 import me.horyu.kkutuweb.admin.service.ConnectionLogService
 import me.horyu.kkutuweb.admin.vo.ConnectionLogVO
 import me.horyu.kkutuweb.login.LoginService
+import me.horyu.kkutuweb.setting.AdminSetting
 import me.horyu.kkutuweb.setting.KKuTuSetting
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -62,7 +63,13 @@ class ConnectionLogApi(
         }
 
         if (!setting.getAdminIds().contains(sessionProfile.id)) {
-            logger.warn("권한이 없는 사용자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
+            logger.warn("관리자가 아닌 사용자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
+            return ListResponse(0, emptyList())
+        }
+
+        val adminSetting = setting.getAdmins().find { it.id == sessionProfile.id }!!
+        if (!adminSetting.privileges.contains(AdminSetting.Privilege.CONNECTION_LOG)) {
+            logger.warn("기능 권한이 없는 관리자(${sessionProfile.id})로 부터 접속 로그 조회 요청이 차단되었습니다.")
             return ListResponse(0, emptyList())
         }
 

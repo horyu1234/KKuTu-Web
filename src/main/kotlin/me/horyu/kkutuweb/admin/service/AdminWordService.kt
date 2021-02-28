@@ -83,9 +83,13 @@ class AdminWordService(
 
     fun editWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest) {
         val tableName = getTableName(lang)
+        if (tableName.isEmpty()) {
+            return
+        }
+
         val words = wordDao.getWords(tableName, wordName)
         if (words.size != 1) {
-            logger.warn("수정하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
+            logger.error("수정하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
             return
         }
 
@@ -127,9 +131,13 @@ class AdminWordService(
 
     fun deleteWord(adminId: String, lang: String, wordName: String) {
         val tableName = getTableName(lang)
+        if (tableName.isEmpty()) {
+            return
+        }
+
         val words = wordDao.getWords(tableName, wordName)
         if (words.size != 1) {
-            logger.warn("삭제하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
+            logger.error("삭제하려는 단어 데이터가 1개가 아닙니다. 언어: $lang 단어: $wordName")
             return
         }
 
@@ -144,6 +152,42 @@ class AdminWordService(
                 oldMean = oldWord.mean,
                 oldFlag = oldWord.flag,
                 oldTheme = oldWord.theme,
+                admin = adminId
+            )
+        )
+    }
+
+    fun addWord(adminId: String, lang: String, wordName: String, wordEditRequest: WordEditRequest) {
+        val tableName = getTableName(lang)
+        if (tableName.isEmpty()) {
+            return
+        }
+
+        val isDuplicate = wordDao.isDuplicate(tableName, wordName)
+        if (isDuplicate) {
+            logger.warn("중복된 단어를 추가하려 했습니다. 언어: $lang 단어: $wordName")
+            return
+        }
+
+        val newWord = Word.convertFrom(
+            WordVO(
+                word = wordName,
+                hit = 0,
+                flags = wordEditRequest.flags,
+                details = wordEditRequest.details
+            )
+        )
+
+        wordDao.insert(tableName, newWord)
+        wordAuditLogDAO.insert(
+            lang, WordAuditLog(
+                time = LocalDateTime.now(),
+                word = wordName,
+                type = WordAuditLog.WordAuditLogType.CREATE,
+                newType = newWord.type,
+                newMean = newWord.mean,
+                newFlag = newWord.flag,
+                newTheme = newWord.theme,
                 admin = adminId
             )
         )

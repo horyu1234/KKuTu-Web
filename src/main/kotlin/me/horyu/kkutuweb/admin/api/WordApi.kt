@@ -133,4 +133,26 @@ class WordApi(
         adminWordService.deleteWord(sessionProfile.id, lang, word)
         logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 삭제했습니다. 언어: $lang / 단어: $word")
     }
+
+    @PutMapping("/{lang}/{word}")
+    fun addWord(
+        @PathVariable lang: String,
+        @PathVariable word: String,
+        @RequestBody wordEditRequest: WordEditRequest,
+        request: HttpServletRequest, session: HttpSession
+    ) {
+        val sessionProfile = loginService.getSessionProfile(session)
+        if (sessionProfile == null) {
+            logger.warn("인증되지 않은 사용자로 부터 단어 추가 요청이 차단되었습니다.")
+            return
+        }
+
+        if (!setting.getAdminIds().contains(sessionProfile.id)) {
+            logger.warn("인증되지 않은 사용자(${sessionProfile.id})로 부터 단어 추가 요청이 차단되었습니다.")
+            return
+        }
+
+        adminWordService.addWord(sessionProfile.id, lang, word, wordEditRequest)
+        logger.info("[${request.getIp()}] ${sessionProfile.id} 님이 단어를 추가했습니다. 언어: $lang / 단어: $word")
+    }
 }

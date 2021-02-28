@@ -62,6 +62,20 @@ class WordDao(
         return jdbcTemplate.query(sql, wordMapper, *whereValues)
     }
 
+    fun insert(tableName: String, word: Word) {
+        val sql = "INSERT INTO $tableName (_id, type, mean, hit, flag, theme) VALUES (?, ?, ?, ?, ?, ?)"
+
+        jdbcTemplate.update(
+            sql,
+            word.id,
+            word.type,
+            word.mean,
+            word.hit,
+            word.flag,
+            word.theme
+        )
+    }
+
     fun update(tableName: String, wordName: String, values: Map<String, Any?>) {
         val setString = values.entries.joinToString(",") {
             "${it.key}=?"
@@ -77,6 +91,12 @@ class WordDao(
     fun remove(tableName: String, wordName: String) {
         val sql = "DELETE FROM $tableName WHERE _id = ?;"
         jdbcTemplate.update(sql, wordName)
+    }
+
+    fun isDuplicate(tableName: String, wordName: String): Boolean {
+        val sql = "SELECT 1 FROM $tableName WHERE _id = ?"
+        val list = jdbcTemplate.query(sql, singleNumberMapper, wordName)
+        return list.isNotEmpty()
     }
 
     private fun whereQuery(searchFilters: Map<String, String>): String {

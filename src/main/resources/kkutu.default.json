@@ -173,7 +173,9 @@
           "HSS",
           "MOV",
           "HDC",
-          "HOS"
+          "HOS",
+          "BDM",
+          "KIO"
         ],
         "en": [
           "LOL"

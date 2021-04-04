@@ -26,7 +26,7 @@ plugins {
 }
 
 group = "me.horyu"
-version = "1.0.7"
+version = "1.0.8"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -80,8 +80,9 @@ dependencies {
     implementation("com.github.scribejava:scribejava-apis:7.1.1")
     implementation("org.postgresql:postgresql:42.2.16")
     implementation("com.googlecode.htmlcompressor:htmlcompressor:1.5.2")
-    implementation("io.sentry:sentry-spring-boot-starter:4.0.0-alpha.3")
-    implementation("io.sentry:sentry-logback:4.0.0-alpha.3")
+
+    implementation("io.sentry:sentry-spring-boot-starter:4.3.0")
+    implementation("io.sentry:sentry-logback:4.3.0")
 
     implementation("io.springfox:springfox-swagger2:2.9.2")
     implementation("io.springfox:springfox-swagger-ui:2.9.2")

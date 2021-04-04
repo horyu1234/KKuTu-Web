@@ -33,13 +33,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <script
-            src="https://browser.sentry-cdn.com/6.0.0/bundle.min.js"
-            integrity="sha384-NgJoCNCq1mmUTPa0pdGvQap/A1iALF8fTOkhj269GOr6K4b/fIVG5K+aUNKD/aqP"
+            src="https://browser.sentry-cdn.com/6.2.5/bundle.min.js"
+            integrity="sha384-+0tgGyP4idWu9/NA6Jbmnj3SApxIg65/GR1zo3qSieRNyzmmDQ/5a1Yu6mfmUw+v"
             crossorigin="anonymous"
     ></script>
     <script
-            src="https://browser.sentry-cdn.com/6.0.0/bundle.tracing.min.js"
-            integrity="sha384-qZ/lkPTGmlJ1yNA9wiF4jyKK/g9t3Dvbd8iJtape2uINHwWGhJuNCvidIQNOxKHU"
+            src="https://browser.sentry-cdn.com/6.2.5/bundle.tracing.min.js"
+            integrity="sha384-xd/W0P7puokZpoEqk4srLDzK5R0WV2B2IZVlA0T4MEU4Fojxk+o+5KF6u43wkTL6"
             crossorigin="anonymous"
     ></script>
 
@@ -48,9 +48,9 @@
 
         if (window.hasOwnProperty('Sentry')) {
             Sentry.init({
-                dsn: "https://40af3053aa4c4622a1af2d13c08a7fdf@o508489.ingest.sentry.io/5601078",
+                dsn: "https://a74b1ceb2626443b8f87cec61a176df4@sentry.horyu.me/3",
                 environment: "production", // production
-                release: "kkutu-io-frontend@1.0.5b",
+                release: "kkutu-web-frontend@1.0.8",
                 integrations: [new Sentry.Integrations.BrowserTracing()],
 
                 // We recommend adjusting this value in production, or using tracesSampler
@@ -121,7 +121,8 @@
 
 <div id="Jungle">
     <span id="mobile" th:text="${mobile}"></span>
-    <img id="Background" src="https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/bg/def.png">
+    <img id="Background"
+         src="https://cdn.jsdelivr.net/gh/horyu1234/KKuTu-Web@kkutuio/src/main/resources/static/img/bg/def.png">
 
     <th:block th:if="${viewName == 'view/kkutu/kkutu' || viewName == 'view/kkutu/m_kkutu'}">
         <div id="Yell"></div>

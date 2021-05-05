@@ -24,7 +24,8 @@ import {
     JJoEyeR,
     JJoNose,
     JJoripingContainer,
-    JJoripingGlobalStyle
+    JJoripingGlobalStyle,
+    Memorial0416
 } from "./JJoripingStyle";
 
 const JJoriping = ({onGameStart}) => {
@@ -33,6 +34,7 @@ const JJoriping = ({onGameStart}) => {
         <>
             <JJoripingGlobalStyle/>
             <JJoripingContainer>
+                {/*<Memorial0416 src={`${IMAGE_CDN_URL}/0416.png`} alt="0416"/>*/}
                 <JJoEyeL src={`${IMAGE_CDN_URL}/jjoeyeL.png`} alt="캐릭터 왼쪽 눈"/>
                 <JJoNose src={`${IMAGE_CDN_URL}/jjonose.png`} alt="캐릭터 코"/>
                 <JJoEyeR src={`${IMAGE_CDN_URL}/jjoeyeR.png`} alt="캐릭터 오른쪽 눈"/>

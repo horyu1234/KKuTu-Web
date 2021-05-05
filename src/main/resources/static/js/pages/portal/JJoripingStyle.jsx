@@ -38,6 +38,16 @@ export const JJoripingContainer = styled.div`
   border-bottom-right-radius: 10px;
 `
 
+export const Memorial0416 = styled.img`
+  position: absolute;
+  pointer-events: none;
+  top: -88px;
+  left: 251px;
+  width: 24px;
+  z-index: 10;
+  transform: rotate(-51deg);
+`
+
 export const JJoEyeL = styled.img`
   position: absolute;
   pointer-events: none;

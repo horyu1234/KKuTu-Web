@@ -61,6 +61,8 @@
                 <h4 th:text="#{kkutu.dialog.setting.game.title}"></h4>
                 <th:block
                         layout:replace="~{view/kkutu/option::settingOption(id='auto-ready',text=#{kkutu.dialog.setting.game.auto-ready})}"/>
+                <th:block
+                        layout:replace="~{view/kkutu/option::settingOption(id='allow-badword',text=#{kkutu.dialog.setting.game.allow-badword})}"/>
             </div>
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.setting.etc.title}"></h4>

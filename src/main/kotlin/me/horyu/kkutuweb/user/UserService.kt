@@ -131,4 +131,10 @@ class UserService(
         )
         return "{\"result\":200,\"box\":${user.box.toJson()},\"equip\":${user.equip.toJson()}}"
     }
+
+    fun getUserData(id: String, session: HttpSession): String {
+        val user = userDao.getUser(id) ?: return "{\"error\":400}"
+        return "{\"result\":200,\"id\":\"${user.id}\",\"nickname\":\"${user.nickname}\",\"kkutu\":${user.kkutu.toJson()},\"equip\":${user.equip.toJson()},\"exordial\":\"${user.exordial}\"}"
+        // NekoP - 안정성 검증 안됨, 바로 유저가 사용하게 하지 말고 업데이트 후, 문제가 없는지 살피며 한단계씩 적용 필요
+    }
 }

@@ -48,4 +48,12 @@ class UserApi(
     ): String {
         return userService.equip(id, isLeft, session)
     }
+
+    @GetMapping("/user/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getUserData(
+        @PathVariable id: String,
+        session: HttpSession
+    ): String {
+        return userService.getUserData(id, session)
+    }
 }

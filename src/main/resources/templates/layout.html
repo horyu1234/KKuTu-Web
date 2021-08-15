@@ -50,7 +50,7 @@
             Sentry.init({
                 dsn: "https://a74b1ceb2626443b8f87cec61a176df4@sentry.horyu.me/3",
                 environment: "production", // production
-                release: "kkutu-web-frontend@1.0.8",
+                release: "kkutu-web-frontend@1.0.9",
                 integrations: [new Sentry.Integrations.BrowserTracing()],
 
                 // We recommend adjusting this value in production, or using tracesSampler
@@ -108,6 +108,9 @@
 <noscript><iframe height="0"
                   src="https://www.googletagmanager.com/ns.html?id=GTM-PBFPQKD" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "27ac301e46384f48bac7503087e7544d"}'></script>
+<!-- End Cloudflare Web Analytics -->
 <!-- @formatter:on -->
 <div id="Top" th:unless="${#strings.startsWith(viewName, 'view/login')}">
     <div th:include="menu" th:remove="tag"></div>

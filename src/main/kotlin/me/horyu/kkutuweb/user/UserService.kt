@@ -133,13 +133,13 @@ class UserService(
         return "{\"result\":200,\"box\":${user.box.toJson()},\"equip\":${user.equip.toJson()}}"
     }
 
-    fun getUserData(id: String, session: HttpSession): String {
+    fun getUserData(id: String): String {
         val user = userDao.getUser(id) ?: return "{\"error\":405}"
         return "{\"result\":200,\"id\":\"${user.id}\",\"data\":${user.kkutu.toJson()},\"equip\":${user.equip.toJson()},\"exordial\":\"${user.exordial}\",\"profile\":{\"authtype\":\"offline\",\"id\":\"${user.id}\",\"title\":\"${user.nickname}\"}}"
         // NekoP - /user/{id}로 요청하여 유저의 정보를 받아 올 수 있게 함
     }
 
-    fun getIdFromNick(nick: String, session: HttpSession): String {
+    fun getIdFromNick(nick: String): String {
         val similarityNick = similarityRegex.replace(nick, "")
         val user = userDao.getUserFromNick(similarityNick) ?: return "{\"error\":405}"
         return "{\"result\":200,\"id\":\"${user.id}\"}"

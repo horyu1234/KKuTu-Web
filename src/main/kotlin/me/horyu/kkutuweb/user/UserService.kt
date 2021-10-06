@@ -44,6 +44,7 @@ class UserService(
     @Autowired private val shopService: ShopService
 ) {
     private val logger = LoggerFactory.getLogger(UserService::class.java)
+    private val similarityRegex = "[-_ ]*".toRegex()
 
     fun getBox(session: HttpSession): String {
         if (session.isGuest()) return "{\"error\":400}"
@@ -136,5 +137,11 @@ class UserService(
         val user = userDao.getUser(id) ?: return "{\"error\":405}"
         return "{\"result\":200,\"id\":\"${user.id}\",\"data\":${user.kkutu.toJson()},\"equip\":${user.equip.toJson()},\"exordial\":\"${user.exordial}\",\"profile\":{\"authtype\":\"offline\",\"id\":\"${user.id}\",\"title\":\"${user.nickname}\"}}"
         // NekoP - /user/{id}로 요청하여 유저의 정보를 받아 올 수 있게 함
+    }
+
+    fun getIdFromNick(nick: String, session: HttpSession): String {
+        val similarityNick = similarityRegex.replace(nick, "")
+        val user = userDao.getUserFromNick(similarityNick) ?: return "{\"error\":405}"
+        return "{\"result\":200,\"id\":\"${user.id}\"}"
     }
 }

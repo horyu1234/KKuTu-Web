@@ -36,6 +36,13 @@ class UserDao(
         return if (users.isEmpty()) null else users.first()
     }
 
+    fun getUserFromNick(nick: String): User? {
+        val sql = "SELECT * FROM users WHERE \"meanableNick\" = ?"
+
+        val users = jdbcTemplate.query(sql, userMapper, nick)
+        return if (users.isEmpty()) null else users.first()
+    }
+
     fun getSimilarityNicks(): List<String> {
         val sql = "SELECT \"meanableNick\" FROM users"
         return jdbcTemplate.query(sql, SingleColumnRowMapper())

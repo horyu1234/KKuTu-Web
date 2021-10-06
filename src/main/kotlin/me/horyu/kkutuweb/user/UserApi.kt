@@ -54,6 +54,14 @@ class UserApi(
         @PathVariable id: String,
         session: HttpSession
     ): String {
-        return userService.getUserData(id, session)
+        return userService.getUserData(id)
+    }
+
+    @GetMapping("/id/{nick}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getUserData(
+        @PathVariable nick: String,
+        session: HttpSession
+    ): String {
+        return userService.getIdFromNick(nick)
     }
 }

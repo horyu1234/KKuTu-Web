@@ -58,7 +58,7 @@ class UserApi(
     }
 
     @GetMapping("/id/{nick}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getUserData(
+    fun getIdFromNick(
         @PathVariable nick: String,
         session: HttpSession
     ): String {

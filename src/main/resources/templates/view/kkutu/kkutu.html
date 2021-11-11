@@ -118,7 +118,7 @@
         </th:block>
     </th:block>
     <th:block
-            layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=230,title=#{kkutu.dialog.quick.title})}">
+            layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=270,title=#{kkutu.dialog.quick.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.quick.gameMode}"></h4>
@@ -128,7 +128,7 @@
                 </select>
             </div>
 
-            <div class="dialog-bar" style="height: 59px;">
+            <div class="dialog-bar" style="height: 140px;">
                 <h4 style="height: 45px;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
                 <th:block th:each="entry : ${gameOptionMap}">
                     <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='quick')}"/>

@@ -57,7 +57,6 @@ export const LogoImg = styled.img`
 export const MenuBar = styled.div`
   ${isBrowser && `
       float: right;
-      margin-top: 34px;
    `} ${isMobile && `
       float: left;
       width: 200px;
@@ -70,7 +69,7 @@ export const MenuBarText = styled.a`
   float: left;
   padding: 10px 5px;
   border-radius: 5px;
-  margin: 0 3px;
+  margin: 0 3px 5px 3px;
   width: 120px;
   font-size: 15px;
   text-align: center;

@@ -132,3 +132,7 @@
 .x-media .users-name::before{ content: "[미디어팀]"; color: #8E24AA; text-shadow: 0 0 2px #AB47BC; }
 .chat-item>.x-media::before{ content: "[미디어팀]"; color: #8E24AA; text-shadow: 0 0 2px #AB47BC; }
 .room-user-title>.x-media::before{ content: "[미디어팀]"; color: #8E24AA; text-shadow: 0 0 2px #AB47BC; }
+
+.x-plan .users-name::before{ content: "[기획팀]"; color: #C43162; text-shadow: 0 0 2px #E91E63; }
+.chat-item>.x-plan::before{ content: "[기획팀]"; color: #C43162; text-shadow: 0 0 2px #E91E63; }
+.room-user-title>.x-plan::before{ content: "[기획팀]"; color: #C43162; text-shadow: 0 0 2px #E91E63; }

@@ -260,7 +260,8 @@
       "opts": [
         "ijp",
         "beg",
-        "nog"
+        "nog",
+        "nol"
       ],
       "time": 1,
       "ai": true,
@@ -428,6 +429,9 @@
     },
     "nog": {
       "name": "NoGuest"
+    },
+    "nol": {
+      "name": "NoLimit"
     }
   }
 }

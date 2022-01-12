@@ -367,17 +367,34 @@
     <th:block
             layout:replace="~{view/kkutu/dialog::dialog(id='ReportDialog',width=350,height=265,title='끄투리오 유저 신고하기')}">
         <th:block layout:fragment="content">
-            <b>1. 가장 적합한 신고 사유를 선택하여 주십시오.</b>
+            <b th:text="#{kkutu.dialog.report.category}"></b>
             <select id="rsl" style="width:100%;margin-top:5px;margin-bottom:5px;">
-                <option disabled>가장 적합한 신고 사유를 선택하여 주십시오.</option>
-                <option selected>[#100] 불건전한 채팅 (도배, 비방, 욕설, 정치적 발언 등)</option>
-                <option>[#101] 비 정상적인 플레이 (승부 조작, 핵 사용 등)</option>
-                <option>[#102] 부적절한 별명 또는 프로필 설명</option>
-                <option>[#102] 홍보성 채팅</option>
-                <option>[#103] 운영진 사칭</option>
-                <option>[#104] 기타 운영정책 위반 행위</option>
+                <option th:text="#{kkutu.dialog.report.category}" disabled selected></option>
+                <option th:text="#{kkutu.dialog.report.category.1}" disabled></option>
+                <option th:text="#{kkutu.dialog.report.category.10}" value="10"></option>
+                <option th:text="#{kkutu.dialog.report.category.11}" value="11"></option>
+                <option th:text="#{kkutu.dialog.report.category.12}" value="12"></option>
+                <option th:text="#{kkutu.dialog.report.category.13}" value="13"></option>
+                <option th:text="#{kkutu.dialog.report.category.14}" value="14"></option>
+                <option th:text="#{kkutu.dialog.report.category.15}" value="15"></option>
+                <option th:text="#{kkutu.dialog.report.category.2}" disabled></option>
+                <option th:text="#{kkutu.dialog.report.category.20}" value="20"></option>
+                <option th:text="#{kkutu.dialog.report.category.21}" value="21"></option>
+                <option th:text="#{kkutu.dialog.report.category.22}" value="22"></option>
+                <option th:text="#{kkutu.dialog.report.category.23}" value="23"></option>
+                <option th:text="#{kkutu.dialog.report.category.3}" disabled></option>
+                <option th:text="#{kkutu.dialog.report.category.30}" value="30" reqLength></option>
+                <option th:text="#{kkutu.dialog.report.category.31}" value="31"></option>
+                <option th:text="#{kkutu.dialog.report.category.32}" value="32"></option>
+                <option th:text="#{kkutu.dialog.report.category.33}" value="33"></option>
+                <option th:text="#{kkutu.dialog.report.category.4}" disabled></option>
+                <option th:text="#{kkutu.dialog.report.category.40}" value="40" reqLength></option>
+                <option th:text="#{kkutu.dialog.report.category.41}" value="41"></option>
+                <option th:text="#{kkutu.dialog.report.category.42}" value="42"></option>
+                <option th:text="#{kkutu.dialog.report.category.0}" disabled></option>
+                <option th:text="#{kkutu.dialog.report.category.00}" value="00" reqLength></option>
             </select>
-            <b>2. 신고 사유를 구체적으로 입력해 주십시오.</b>
+            <b>신고 사유를 구체적으로 입력해 주십시오.</b>
             <textarea id="rst"
                       maxlength="250"
                       placeholder="신고 사유를 250자 이내로 자세히 입력해주세요. 자세하게 입력하실수록 빠른 처리가 가능해집니다."

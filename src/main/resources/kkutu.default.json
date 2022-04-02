@@ -196,7 +196,8 @@
         "ext",
         "mis",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -210,7 +211,8 @@
         "ext",
         "mis",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -229,7 +231,8 @@
         "str",
         "k32",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -247,7 +250,8 @@
         "loa",
         "str",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -317,7 +321,8 @@
         "loa",
         "str",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -334,7 +339,8 @@
         "loa",
         "str",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -348,7 +354,8 @@
         "ijp",
         "mis",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,
@@ -362,7 +369,8 @@
         "ijp",
         "mis",
         "beg",
-        "nog"
+        "nog",
+        "rms"
       ],
       "time": 1,
       "ai": true,

@@ -432,6 +432,10 @@
     },
     "nol": {
       "name": "NoLimit"
+    },
+    "rms": {
+      "name": "RandMission",
+      "req": "mis"
     }
   }
 }

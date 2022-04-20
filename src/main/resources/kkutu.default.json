@@ -197,7 +197,8 @@
         "mis",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -212,7 +213,8 @@
         "mis",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -232,7 +234,8 @@
         "k32",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -251,7 +254,8 @@
         "str",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -265,7 +269,8 @@
         "ijp",
         "beg",
         "nog",
-        "nol"
+        "nol",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -277,7 +282,8 @@
       "rule": "Crossword",
       "opts": [
         "beg",
-        "nog"
+        "nog",
+        "rnk"
       ],
       "time": 2,
       "ai": false,
@@ -290,7 +296,8 @@
       "opts": [
         "prv",
         "beg",
-        "nog"
+        "nog",
+        "rnk"
       ],
       "time": 1,
       "ai": false,
@@ -303,7 +310,8 @@
       "opts": [
         "prv",
         "beg",
-        "nog"
+        "nog",
+        "rnk"
       ],
       "time": 1,
       "ai": false,
@@ -322,7 +330,8 @@
         "str",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -340,7 +349,8 @@
         "str",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -355,7 +365,8 @@
         "mis",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -370,7 +381,8 @@
         "mis",
         "beg",
         "nog",
-        "rms"
+        "rms",
+        "rnk"
       ],
       "time": 1,
       "ai": true,
@@ -383,7 +395,8 @@
       "opts": [
         "no2",
         "beg",
-        "nog"
+        "nog",
+        "rnk"
       ],
       "time": 1,
       "ai": false,
@@ -396,7 +409,8 @@
       "opts": [
         "no2",
         "beg",
-        "nog"
+        "nog",
+        "rnk"
       ],
       "time": 1,
       "ai": false,
@@ -444,6 +458,9 @@
     "rms": {
       "name": "RandMission",
       "req": "mis"
+    },
+    "rnk": {
+      "name": "RankMode"
     }
   }
 }

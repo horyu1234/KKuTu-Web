@@ -91,7 +91,7 @@ const Portal = () => {
             <TopRightPanel joinServer={joinServer} onServerListUpdate={onServerListUpdate}/>
 
             <MiddlePanel>
-                <UpdateLog width="100%" height="400px" src="/kkutu_bulletin.html"/>
+                <UpdateLog width="100%" height="400px" src="https://static.kkutu.io/kkutu_bulletin"/>
             </MiddlePanel>
             <Separator height={5}/>
 

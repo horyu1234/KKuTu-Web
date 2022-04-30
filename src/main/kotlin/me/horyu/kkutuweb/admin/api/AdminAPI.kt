@@ -84,7 +84,8 @@ class AdminAPI(
     @GetMapping("/yell/{value}")
     fun yell(
         @PathVariable value: String,
-        @RequestParam apiKey: String
+        @RequestParam apiKey: String,
+        request: HttpServletRequest
     ) {
         if (kKuTuSetting.getApiKey() != apiKey) {
             logger.warn("[${request.getIp()}] API 키가 불일치하여 yell 요청을 무시합니다.")

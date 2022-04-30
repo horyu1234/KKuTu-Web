@@ -63,4 +63,9 @@ class GameClientManager(
             if (it.isConnected()) it.players else null
         }
     }
+
+    fun yell(value: String)
+        for (gameClient in gameClientList) {
+            gameClient.send("{\"type\":\"yell\",\"value\":$value}")
+        }
 }

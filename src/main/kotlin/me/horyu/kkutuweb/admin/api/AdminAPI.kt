@@ -80,4 +80,18 @@ class AdminAPI(
         rankDao.remove(id)
         logger.info("$id 계정의 랭킹 데이터를 제거했습니다.")
     }
+
+    @PostMapping("/yell")
+    fun yell(
+        @RequestParam value: String,
+        @RequestParam apiKey: String
+    ) {
+        if (kKuTuSetting.getApiKey() != apiKey) {
+            logger.warn("[${request.getIp()}] API 키가 불일치하여 yell 요청을 무시합니다.")
+            return
+        }
+
+        gameClientManager.yell(value)
+        logger.info("공지가 전송되었습니다. 내용 : $value")
+    }
 }

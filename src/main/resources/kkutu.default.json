@@ -235,6 +235,7 @@
         "beg",
         "nog",
         "rms",
+        "tct",
         "rnk"
       ],
       "time": 1,
@@ -255,6 +256,7 @@
         "beg",
         "nog",
         "rms",
+        "tct",
         "rnk"
       ],
       "time": 1,
@@ -331,6 +333,7 @@
         "beg",
         "nog",
         "rms",
+        "tct",
         "rnk"
       ],
       "time": 1,
@@ -366,6 +369,7 @@
         "beg",
         "nog",
         "rms",
+        "tct",
         "rnk"
       ],
       "time": 1,
@@ -457,6 +461,10 @@
     },
     "rms": {
       "name": "RandMission",
+      "req": "mis"
+    },
+    "tct": {
+      "name": "Tactical",
       "req": "mis"
     },
     "rnk": {

@@ -81,9 +81,9 @@ class AdminAPI(
         logger.info("$id 계정의 랭킹 데이터를 제거했습니다.")
     }
 
-    @PostMapping("/yell")
+    @GetMapping("/yell/{value}")
     fun yell(
-        @RequestParam value: String,
+        @PathVariable value: String,
         @RequestParam apiKey: String
     ) {
         if (kKuTuSetting.getApiKey() != apiKey) {

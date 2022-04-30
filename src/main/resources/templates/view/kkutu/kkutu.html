@@ -118,7 +118,7 @@
         </th:block>
     </th:block>
     <th:block
-            layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=270,title=#{kkutu.dialog.quick.title})}">
+            layout:replace="~{view/kkutu/dialog::dialog(id='QuickDiag',width=300,height=320,title=#{kkutu.dialog.quick.title})}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.quick.gameMode}"></h4>
@@ -129,7 +129,7 @@
             </div>
 
             <div class="dialog-bar" style="height: 140px;">
-                <h4 style="height: 45px;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
+                <h4 style="height: 100%;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
                 <th:block th:each="entry : ${gameOptionMap}">
                     <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='quick')}"/>
                 </th:block>
@@ -141,7 +141,7 @@
             </div>
         </th:block>
     </th:block>
-    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomDiag',width=300,height=425)}">
+    <th:block layout:replace="~{view/kkutu/dialog::dialog(id='RoomDiag',width=300,height=475)}">
         <th:block layout:fragment="content">
             <div class="dialog-bar">
                 <h4 th:text="#{kkutu.dialog.room.room-title}"></h4>
@@ -197,8 +197,8 @@
                     <option value="120"></option>
                     <option value="150"></option>
                 </select></div>
-            <div class="dialog-bar" style="height: 110px;">
-                <h4 style="height: 100px;" th:text="#{kkutu.dialog.room.gameRule}"></h4>
+            <div class="dialog-bar" style="height: 160px;">
+                <h4 style="height: 100%;" th:text="#{kkutu.dialog.room.gameRule}"></h4>
                 <th:block th:each="entry : ${gameOptionMap}">
                     <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='room')}"/>
                 </th:block>

@@ -127,7 +127,7 @@
             </div>
 
             <div class="dialog-bar" style="height: 59px;">
-                <h4 style="height: 45px;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
+                <h4 style="height: 100%;" th:text="#{kkutu.dialog.quick.gameRule}"></h4>
                 <th:block th:each="entry : ${gameOptionMap}">
                     <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='quick')}"/>
                 </th:block>
@@ -196,7 +196,7 @@
                     <option value="150"></option>
                 </select></div>
             <div class="dialog-bar" style="height: 110px;">
-                <h4 style="height: 100px;" th:text="#{kkutu.dialog.room.gameRule}"></h4>
+                <h4 style="height: 100%;" th:text="#{kkutu.dialog.room.gameRule}"></h4>
                 <th:block th:each="entry : ${gameOptionMap}">
                     <th:block layout:replace="~{view/kkutu/option::gameOption(key=${entry.key},prefix='room')}"/>
                 </th:block>
